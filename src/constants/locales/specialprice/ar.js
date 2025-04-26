@@ -1,0 +1,36 @@
+export default {
+    specialprice: {
+        addTitle: " إضافة سعر خاص",
+        updateTitle: " تحديث السعر الخاص",
+        nameAr: " الاسم (عربي)",
+        nameEn: " الاسم (إنجليزي)",
+        descriptionAr: " الوصف (عربي)",
+        descriptionEn: " الوصف (إنجليزي)",
+        startDate: " تاريخ البدء",
+        endDate: "تاريخ الانتهاء",
+        price: "السعر",
+        addBtn: "إضافة",
+        updateButton: "تحديث",
+        saving: " جارٍ الحفظ...",
+        fetchError: " فشل في جلب الأسعار الخاصة.",
+        updateSuccess: " تم تحديث السعر الخاص بنجاح",
+        addSuccess: "تم إضافة السعر الخاص بنجاح",
+        saveError: " حدث خطأ أثناء حفظ البيانات",
+        invalidDates: " تأكد من أن تاريخ البدء والانتهاء هو اليوم أو لاحقًا",
+        name: " الاسم",
+        description: " الوصف",
+        date: " التاريخ",
+        Price: " السعر",
+        noData: " لا توجد أسعار خاصة متاحة",
+    },
+    validation: {
+        nameAr: " الاسم بالعربية مطلوب",
+        nameEn: " الاسم بالإنجليزية مطلوب",
+        descriptionAr: " الوصف بالعربية مطلوب",
+        descriptionEn: " الوصف بالإنجليزية مطلوب",
+        startDate: " تاريخ البداية مطلوب",
+        endDate: " تاريخ النهاية مطلوب",
+        priceRequired: " السعر مطلوب",
+        pricePositive: " يجب أن يكون السعر رقمًا موجبًا"
+    }
+};

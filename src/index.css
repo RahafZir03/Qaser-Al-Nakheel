@@ -1,0 +1,118 @@
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: "Cairo", sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+
+.my-shadow {
+  box-shadow: inset 0px 0px 54px 33px rgba(11, 71, 71, 1);
+}
+
+.active {
+  color: #f4a328;
+}
+
+.text-shadow {
+  text-shadow: -5px -5px 0 rgba(65, 65, 65, 0.247);
+}
+
+.active:hover {
+  color: #cb7b03 !important;
+}
+
+.section-overlay::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1;
+}
+
+.curved-edge {
+  --c: 150px;
+  mask: radial-gradient(60% var(--c) at bottom, #0000 calc(100% - 10px), #ffffff);
+
+}
+
+.main-div:hover .my-animation {
+  transform: translateY(20px) rotateX(calc(90deg - 10deg)) skewX(10deg);
+  opacity: 0.4;
+  transition: transform 0.5s ease, opacity 0.5s ease;
+
+}
+
+.main-div:hover .my-back-animation {
+  transform: translateY(0px) rotateX(0) skewX(0deg);
+  opacity: 1;
+  transition: transform 0.5s ease, opacity 0.5s ease;
+  z-index: 1;
+}
+
+.my-animation {
+  transition: transform 0.5s ease, opacity 0.5s ease;
+  transform-origin: bottom center;
+}
+
+.my-back-animation {
+  transform: translateY(20px) rotateX(calc(90deg - 10deg)) skewX(10deg);
+  transition: transform 0.5s ease, opacity 0.5s ease;
+  transform-origin: bottom center;
+  opacity: 0.4;
+}
+
+.card-animation {
+  position: relative;
+  width: 100%;
+  height: 200px;
+  transform-style: preserve-3d;
+  transition: transform 1.4s ease;
+}
+
+.card-animation:hover {
+  transform: rotateY(180deg);
+}
+
+.backface-hidden {
+  backface-visibility: hidden;
+}
+
+.clc-width-244 {
+  width: calc(100% - 244px);
+}
+
+.clc-width-70 {
+  width: calc(100% - 70px);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #c1c1c1 #f0f0f0;
+}
+
+*::-webkit-scrollbar {
+  width: 8px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #ccc, #999);
+  border-radius: 4px;
+}
+
+*::-webkit-scrollbar-track {
+  background: #f0f0f0;
+  border-radius: 4px;
+}

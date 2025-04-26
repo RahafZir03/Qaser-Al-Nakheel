@@ -1,0 +1,77 @@
+export default {
+    title: "Create your account",
+    firstName: "First Name",
+    lastName: "Last Name",
+    email: "Email",
+    phone: "Phone Number",
+    country: "Country",
+    city: "City",
+    password: "Password",
+    confirmPassword: "Confirm Password",
+    birthdate: "Birthdate",
+    postalCode: "Postal Code (Optional)",
+    signUp: "Sign Up",
+    loginWith: "Or login with",
+    alreadyHaveAccount: "Already have an account?",
+    signInNow: "Sign In Now",
+    goToHome: "Go to Home",
+    uploadImage: "Click to upload image",
+    enterImage: "Enter Image",
+
+    // Validation messages
+    validation: {
+        required: "Required",
+        invalidEmail: "Invalid email",
+        phoneFormat: "Phone number must be 10 digits and start with 05",
+        atLeastOnePhone: "At least one phone number is required",
+        minPassword: "At least 6 characters",
+        passwordsMustMatch: "Passwords must match",
+    },
+
+    verification: {
+        title: "Account Verification",
+        description: "The verification code has been sent to your email.",
+        email: "Email",
+        code: "Verification Code (6 digits)",
+        verify: "Verify",
+        sendAgain: "Send Again",
+        checkSpam: "Please check your Spam or Junk folder if you don't see the email.",
+        expiryWarning: "If you delay entering the code for more than 10 minutes, please request a new code to be sent to your email.",
+        validation: {
+            required: "This field is required",
+            invalidEmail: "Invalid email",
+            codeLength: "Code must be 6 digits",
+            failed: "Verification failed, please check your code"
+        }
+    },
+    "login": {
+        "title": "Login with your account",
+        "emailPlaceholder": "Email",
+        "passwordPlaceholder": "Password",
+        "emailRequired": "Invalid email address",
+        "passwordRequired": "Must be at least 6 characters",
+        "submit": "Login",
+        "rememberAsEmployee": "Login as an employee",
+        "forgotPassword": "Forgot Password?",
+        "welcome": "Welcome {{firstName}} {{lastName}}",
+        "alreadyHaveAccount": "Already have an account?",
+        "signupNow": "Sign Up Now",
+        "invalidEmail": "Invalid email address",
+        "resetLinkSent": "Password reset link sent successfully",
+        "errorSendingEmail": "An error occurred while sending the reset link",
+        "forgotPasswordTitle": "Forgot Your Password?",
+        "sendResetLink": "Send Reset Link",
+
+        "resetPasswordTitle": "Reset Your Password",
+        "newPasswordPlaceholder": "New Password",
+        "confirmPasswordPlaceholder": "Confirm New Password",
+        "newPasswordRequired": "New password is required",
+        "confirmPasswordRequired": "Please confirm your new password",
+        "passwordMin": "Password must be at least 8 characters",
+        "passwordsMustMatch": "Passwords must match",
+        "resetPasswordButton": "Reset Password",
+        "passwordResetSuccess": "Your password has been reset successfully",
+        "passwordResetFailed": "Failed to reset password",
+        "checkEmailInfo": "An email has been sent to your address. If you don't see it, please check your Spam or Junk folder."
+    }
+};

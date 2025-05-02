@@ -74,13 +74,13 @@ export default function EditJobModal({ isOpen, onClose, employee, onSave }) {
     <div className="fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center">
       <div className="bg-admin-color rounded-xl shadow-lg p-6 w-full max-w-lg animate-fade-in">
         <div className="flex justify-between items-center mb-4">
-          <h2 className="text-xl font-semibold">{t("editJobTitle")}</h2>
+          <h2 className="text-xl font-semibold text-white">{t("editJobTitle")}</h2>
           <button onClick={onClose} className="text-gray-500 hover:text-red-500 text-lg">×</button>
         </div>
 
         <div className="space-y-4">
           <div>
-            <label className="block mb-1 font-medium">{t("roleLabel")}</label>
+            <label className="block mb-1 font-medium text-white">{t("roleLabel")}</label>
             <select
               className="w-full border rounded px-3 py-2"
               value={role}
@@ -95,7 +95,7 @@ export default function EditJobModal({ isOpen, onClose, employee, onSave }) {
           {role !== "admin" && (
             <>
               <div>
-                <label className="block mb-1 font-medium">{t("jobTitleLabel")}</label>
+                <label className="block mb-1 font-medium text-white">{t("jobTitleLabel")}</label>
                 <input
                   type="text"
                   className="w-full border rounded px-3 py-2"
@@ -105,7 +105,7 @@ export default function EditJobModal({ isOpen, onClose, employee, onSave }) {
               </div>
 
               <div>
-                <label className="block mb-1 font-medium">{t("workplaceLabel")}</label>
+                <label className="block mb-1 font-medium text-white">{t("workplaceLabel")}</label>
                 <select
                   className="w-full border rounded px-3 py-2"
                   value={selectedPlace?.id || ""}

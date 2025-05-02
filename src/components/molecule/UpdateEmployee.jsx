@@ -3,9 +3,11 @@ import { useFormik } from "formik";
 import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import * as Yup from "yup";
-import { updateEmployee } from "../../api/endpoints/employee"; // Adjust the path as needed
+import { useTranslation } from "react-i18next";
+import { updateEmployee } from "../../api/endpoints/employee";
 
 const EditEmployeeModal = ({ isOpen, onClose, employee, onUpdate }) => {
+    const { t } = useTranslation("updateemployee");
     const [loading, setLoading] = useState(false);
     const [mobileInputs, setMobileInputs] = useState([""]);
 
@@ -23,13 +25,13 @@ const EditEmployeeModal = ({ isOpen, onClose, employee, onUpdate }) => {
     }, [employee]);
 
     const validationSchema = Yup.object({
-        first_name: Yup.string().required("First name is required"),
-        last_name: Yup.string().required("Last name is required"),
+        first_name: Yup.string().required(t("first_name") + " " + t("required")),
+        last_name: Yup.string().required(t("last_name") + " " + t("required")),
         address: Yup.string(),
         salary: Yup.number()
-            .typeError("Salary must be a number")
-            .required("Salary is required")
-            .positive("Salary must be positive"),
+            .typeError(t("salary") + " " + t("must_be_number"))
+            .required(t("salary") + " " + t("required"))
+            .positive(t("salary") + " " + t("must_be_positive")),
     });
 
     const formik = useFormik({
@@ -53,13 +55,13 @@ const EditEmployeeModal = ({ isOpen, onClose, employee, onUpdate }) => {
                     mobileNo: mobileInputs.filter(num => typeof num === 'string' && num.trim() !== "")
                 };
                 const response = await updateEmployee(employee.id, data);
-                toast.success(response.data.message || "Employee updated successfully.");
+                toast.success(response.data.message || t("update_employee_success"));
                 if (onUpdate) onUpdate(response.data.employee);
                 onClose();
                 window.location.reload();
             } catch (error) {
                 console.error("Update error:", error);
-                toast.error(error.response?.data?.message || error.message || "Failed to update employee.");
+                toast.error(error.response?.data?.message || error.message || t("update_employee_failed"));
             } finally {
                 setLoading(false);
             }
@@ -68,7 +70,7 @@ const EditEmployeeModal = ({ isOpen, onClose, employee, onUpdate }) => {
 
     const handleMobileChange = (index, value) => {
         const updated = [...mobileInputs];
-        updated[index] = value.replace(/[^0-9]/g, ''); // Only allow numbers
+        updated[index] = value.replace(/[^0-9]/g, '');
         setMobileInputs(updated);
     };
 
@@ -76,7 +78,7 @@ const EditEmployeeModal = ({ isOpen, onClose, employee, onUpdate }) => {
         if (mobileInputs.length < 3) {
             setMobileInputs([...mobileInputs, ""]);
         } else {
-            toast.warn("Maximum of 3 mobile numbers allowed");
+            toast.warn(t("max_mobile_numbers"));
         }
     };
 
@@ -92,9 +94,9 @@ const EditEmployeeModal = ({ isOpen, onClose, employee, onUpdate }) => {
 
     return (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-            <div className="bg-gray-800 p-6 rounded shadow-lg max-w-xl w-full">
+            <div className="bg-admin-color p-6 rounded shadow-lg max-w-xl w-full">
                 <div className="flex justify-between items-center mb-4">
-                    <h2 className="text-xl font-bold text-white">Edit Employee</h2>
+                    <h2 className="text-xl font-bold text-white">{t("edit_employee")}</h2>
                     <button
                         onClick={onClose}
                         className="text-red-500 font-bold text-xl hover:text-red-400"
@@ -105,14 +107,12 @@ const EditEmployeeModal = ({ isOpen, onClose, employee, onUpdate }) => {
                 </div>
 
                 <form onSubmit={formik.handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    {/* First Name */}
                     <div>
                         <input
                             name="first_name"
-                            placeholder="First Name *"
+                            placeholder={`${t("first_name")} *`}
                             {...formik.getFieldProps("first_name")}
-                            className={`p-2 rounded bg-gray-700 text-white w-full ${formik.touched.first_name && formik.errors.first_name ? "border border-red-500" : ""
-                                }`}
+                            className={`p-2 rounded bg-gray-700 text-white w-full ${formik.touched.first_name && formik.errors.first_name ? "border border-red-500" : ""}`}
                             disabled={loading}
                         />
                         {formik.touched.first_name && formik.errors.first_name && (
@@ -120,14 +120,12 @@ const EditEmployeeModal = ({ isOpen, onClose, employee, onUpdate }) => {
                         )}
                     </div>
 
-                    {/* Last Name */}
                     <div>
                         <input
                             name="last_name"
-                            placeholder="Last Name *"
+                            placeholder={`${t("last_name")} *`}
                             {...formik.getFieldProps("last_name")}
-                            className={`p-2 rounded bg-gray-700 text-white w-full ${formik.touched.last_name && formik.errors.last_name ? "border border-red-500" : ""
-                                }`}
+                            className={`p-2 rounded bg-gray-700 text-white w-full ${formik.touched.last_name && formik.errors.last_name ? "border border-red-500" : ""}`}
                             disabled={loading}
                         />
                         {formik.touched.last_name && formik.errors.last_name && (
@@ -135,26 +133,23 @@ const EditEmployeeModal = ({ isOpen, onClose, employee, onUpdate }) => {
                         )}
                     </div>
 
-                    {/* Address */}
                     <div>
                         <input
                             name="address"
-                            placeholder="Address"
+                            placeholder={t("address")}
                             {...formik.getFieldProps("address")}
                             className="p-2 rounded bg-gray-700 text-white w-full"
                             disabled={loading}
                         />
                     </div>
 
-                    {/* Salary */}
                     <div>
                         <input
                             name="salary"
-                            placeholder="Salary *"
+                            placeholder={`${t("salary")} *`}
                             type="number"
                             {...formik.getFieldProps("salary")}
-                            className={`p-2 rounded bg-gray-700 text-white w-full ${formik.touched.salary && formik.errors.salary ? "border border-red-500" : ""
-                                }`}
+                            className={`p-2 rounded bg-gray-700 text-white w-full ${formik.touched.salary && formik.errors.salary ? "border border-red-500" : ""}`}
                             disabled={loading}
                             min="0"
                             step="0.01"
@@ -164,16 +159,15 @@ const EditEmployeeModal = ({ isOpen, onClose, employee, onUpdate }) => {
                         )}
                     </div>
 
-                    {/* Mobile Numbers */}
                     <div className="md:col-span-2">
-                        <label className="text-white block mb-1">Mobile Numbers</label>
+                        <label className="text-white block mb-1">{t("mobile_numbers")}</label>
                         {mobileInputs.map((number, idx) => (
                             <div key={idx} className="flex items-center gap-2 mb-2">
                                 <input
                                     type="text"
                                     value={number}
                                     onChange={(e) => handleMobileChange(idx, e.target.value)}
-                                    placeholder={`Mobile #${idx + 1}`}
+                                    placeholder={`${t("mobile")} #${idx + 1}`}
                                     className="flex-1 p-2 rounded bg-gray-700 text-white"
                                     disabled={loading}
                                     maxLength="15"
@@ -185,7 +179,7 @@ const EditEmployeeModal = ({ isOpen, onClose, employee, onUpdate }) => {
                                         className="text-red-400 hover:text-red-300 text-sm p-2"
                                         disabled={loading}
                                     >
-                                        Remove
+                                        {t("remove")}
                                     </button>
                                 )}
                             </div>
@@ -196,7 +190,7 @@ const EditEmployeeModal = ({ isOpen, onClose, employee, onUpdate }) => {
                             className="text-blue-400 hover:text-blue-300 text-sm mt-1"
                             disabled={loading || mobileInputs.length >= 3}
                         >
-                            + Add another number
+                            + {t("add_number")}
                         </button>
                     </div>
 
@@ -207,7 +201,7 @@ const EditEmployeeModal = ({ isOpen, onClose, employee, onUpdate }) => {
                             className="bg-gray-600 hover:bg-gray-500 px-4 py-2 rounded text-white"
                             disabled={loading}
                         >
-                            Cancel
+                            {t("cancel")}
                         </button>
                         <button
                             type="submit"
@@ -220,10 +214,10 @@ const EditEmployeeModal = ({ isOpen, onClose, employee, onUpdate }) => {
                                         <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                                         <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                                     </svg>
-                                    Saving...
+                                    {t("saving")}
                                 </span>
                             ) : (
-                                "Update Employee"
+                                t("update_employee")
                             )}
                         </button>
                     </div>
@@ -232,4 +226,5 @@ const EditEmployeeModal = ({ isOpen, onClose, employee, onUpdate }) => {
         </div>
     );
 };
+
 export default EditEmployeeModal;

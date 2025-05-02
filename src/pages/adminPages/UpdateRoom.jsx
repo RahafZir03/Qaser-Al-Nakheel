@@ -150,7 +150,7 @@ const UpdateRoom = () => {
                         ))}
                     </select>
                 </div>
-                {Object.keys(formik.values).filter((key) => key !== 'isActive' && key !== 'id' && key !== "bed_type" && key !== 'type' && key !== 'RoomPricings' && key !== 'RoomImages' && key !== 'SpecialPricings' && key !== 'isBooked' && key !== 'pricing' && key !== 'RoomType' && key !== 'services' && key != 'Services' && key !== 'category').map((key) => (
+                {Object.keys(formik.values).filter((key) => key !== 'isActive' && key !== 'id' && key !== "bed_type" && key !== 'type' && key !== 'averageRating' && key !== 'ratingCount' && key !== 'RoomPricings' && key !== 'RoomImages' && key !== 'SpecialPricings' && key !== 'isBooked' && key !== 'pricing' && key !== 'RoomType' && key !== 'services' && key != 'Services' && key !== 'category').map((key) => (
                     <Input key={key} name={key} value={formik.values[key]} onChange={formik.handleChange} />
                 ))}
                 <div className="col-span-full my-4">

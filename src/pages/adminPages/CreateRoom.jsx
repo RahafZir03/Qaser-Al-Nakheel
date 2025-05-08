@@ -92,7 +92,6 @@ const AddRoom = () => {
     validationSchema,
     onSubmit: async (values) => {
       const capacity = parseInt(values.adult_guests) + parseInt(values.child_guests);
-      console.log(capacity)
       const formData = new FormData();
       formData.append('room_no', values.room_no);
       formData.append('type', values.type);

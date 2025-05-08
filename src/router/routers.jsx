@@ -36,6 +36,9 @@ import Settings from "../pages/profilePages/Settings";
 import UserProtect from "../components/HOC/userProtect";
 import Messages from "../pages/profilePages/Messages";
 import AllUserBooking from "../pages/profilePages/AllUserBooking";
+import Halls from "../pages/adminPages/Halls";
+import Pools from "../pages/adminPages/Pools";
+import Restaurants from "../pages/adminPages/Restaurants";
 const router = createBrowserRouter([
   {
     element: <PersistLogin />,
@@ -151,6 +154,19 @@ const router = createBrowserRouter([
         path: "employee",
         element: <Employee />,
       },
+      {
+        path: "halls",
+        element: <Halls />
+      },
+      {
+        path: "pools",
+        element: <Pools />
+      },
+      {
+        path: "restaurants",
+        element: <Restaurants />
+      },
+    
     ],
   },
   // {

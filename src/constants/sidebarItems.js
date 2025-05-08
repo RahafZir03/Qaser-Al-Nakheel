@@ -6,6 +6,12 @@ import { FaMoneyCheckDollar } from "react-icons/fa6";
 import { FaEye } from "react-icons/fa";
 import { MdRoomService } from "react-icons/md";
 import { MdPeopleAlt } from "react-icons/md";
+import { SlHome } from "react-icons/sl";
+import { LiaSwimmingPoolSolid } from "react-icons/lia";
+import { GrRestaurant } from "react-icons/gr";
+
+
+
 
 
 
@@ -64,6 +70,37 @@ const sidebarItems = [
     },
   },
 
+  {
+    linkType: "link",
+    Icon: SlHome,
+    data: {
+      to: "/admin/halls",
+      icon: SlHome,
+      label: "Halls",
+      iconColor: "text-purple-700",
+    }
+  },
+  {
+    linkType: "link",
+    Icon: LiaSwimmingPoolSolid,
+    data: {
+      to: "/admin/pools",
+      icon: LiaSwimmingPoolSolid,
+      label: "Pools",
+      iconColor: "text-purple-700",
+    }
+  },
+  {
+    linkType: "link",
+    Icon: GrRestaurant,
+    data: {
+      to: "/admin/restaurants",
+      icon: GrRestaurant,
+      label: "Restaurant",
+      iconColor: "text-purple-700",
+    }
+  },
+  
 ];
 
 export default sidebarItems;

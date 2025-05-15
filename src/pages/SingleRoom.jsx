@@ -10,9 +10,7 @@ export default function SingleRoom() {
   const [roomData, serRoomData] = useState();
   useEffect(() => {
     async function fetchRoomData() {
-      console.log(roomId);
       const response = await getRoomById(roomId);
-      console.log(response.data);
       if (response.status === 200) {
         serRoomData(response.data.room);
       }

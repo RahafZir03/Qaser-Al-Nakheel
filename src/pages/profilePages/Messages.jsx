@@ -61,7 +61,7 @@ export default function Messages() {
       {loading ? (
         <div className="text-center text-gray-500">{t("messages.loading")}</div>
       ) : (
-        <ContactTable contacts={contacts} />
+        <ContactTable contacts={contacts} setContacts={setContacts} />
       )}
 
       <PaginationRounded

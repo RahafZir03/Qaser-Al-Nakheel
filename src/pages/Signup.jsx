@@ -18,12 +18,10 @@ import noimage from "../assets/images/noimage.jpg";
 import { useTranslation } from "react-i18next";
 
 export default function SignUp() {
-  const { i18n, t } = useTranslation("signUp");
+  const { t } = useTranslation("signUp");
   const fileInputRef = useRef(null);
   const navigate = useNavigate();
-  const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
-  const { user } = useSelector((state) => state.authData);
   const [image, setImage] = useState(noimage);
 
   const handleImageClick = () => {
@@ -326,20 +324,18 @@ export default function SignUp() {
                 <FaArrowDown className="text-base text-green-400" />
               </span>
               <div className="flex justify-center gap-4 mt-2">
-                <button className="bg-red-600 py-2 px-4 rounded w-1/2 hover:bg-red-800">
-                  <img
-                    src={imageLogo}
-                    alt="Login with Facebook"
-                    className="w-6 h-6 mx-auto"
-                  />
-                </button>
-                <button className="bg-red-600 py-2 px-4 rounded w-1/2 hover:bg-red-800">
-                  <img
-                    src={imageIcon}
-                    alt="Login with Google"
-                    className="w-6 h-6 mx-auto"
-                  />
-                </button>
+                <a
+                  href="https://qasr-alnakheel.onrender.com/auth/facebook/callback"
+                  className="bg-blue-600 py-2 px-4 rounded w-1/2 hover:bg-blue-800 flex justify-center"
+                >
+                  <img src={imageLogo} alt="Facebook" className="w-6 h-6" />
+                </a>
+                <a
+                  href="https://qasr-alnakheel.onrender.com/auth/google/callback"
+                  className="bg-red-600 py-2 px-4 rounded w-1/2 hover:bg-red-800 flex justify-center"
+                >
+                  <img src={imageIcon} alt="Google" className="w-6 h-6" />
+                </a>
               </div>
             </div>
             <p className="text-center text-bg-gray-100 text-gray-100 mt-4">
@@ -348,12 +344,12 @@ export default function SignUp() {
                 {t("signInNow")}
               </Link>
             </p>
-            <button
-              onClick={() => navigate("/home")}
+            <Link
+              to={"/"}
               className="w-full p-3 mt-5 bg-gray-500 text-bg-gray-100 text-gray-100 rounded-lg hover:bg-gray-600 transition duration-300"
             >
               {t("goToHome")}
-            </button>
+            </Link>
           </div>
         </form>
       </div>

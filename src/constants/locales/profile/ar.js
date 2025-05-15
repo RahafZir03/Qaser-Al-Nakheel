@@ -84,5 +84,10 @@ export default {
     "time": "الوقت",
     "yes": "نعم",
     "no": "لا",
-    "invalidType": "نوع غير صالح"
+    "invalidType": "نوع غير صالح",
+    "actions": "الإجراء",
+    "cancel": "إلغاء",
+    "errorOccurred": "حدث خطأ. الرجاء المحاولة لاحقاً.",
+    "confirmTitle": "تأكيد الإلغاء",
+    "confirmCancel": "هل أنت متأكد من أنك تريد إلغاء هذا الحجز؟",
 }

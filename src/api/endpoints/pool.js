@@ -11,3 +11,7 @@ export const createPoolReservation = (data) => {
     const id = state.authData?.userId;
     return axiosInstance.post(`/pools/createPoolReservation/${id}`, data)
 }
+
+export const getPoolsName = () => {
+    return axiosInstance.get(`/pools/get/PoolsName`)
+}

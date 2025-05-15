@@ -1,10 +1,20 @@
 /* eslint-disable react/prop-types */
 
 import { useTranslation } from "react-i18next";
+import { deleteMessage } from "../../api/endpoints/customers";
+import { toast } from "react-toastify";
+import { FaTrash } from "react-icons/fa";
 
-const ContactTable = ({ contacts }) => {
+const ContactTable = ({ contacts, setContacts }) => {
   const { t, i18n } = useTranslation("profile");
   const lang = i18n.language;
+  const handleDeleteMessage = async (id) => {
+    const response = await deleteMessage(id);
+    setContacts((prevContacts) =>
+      prevContacts.filter((contact) => contact.id !== id)
+    );
+    toast.success(response.data.message);
+  };
   return (
     <div className="overflow-x-auto rounded-2xl shadow-lg w-full">
       <table className="min-w-full table-auto bg-white border border-gray-200">
@@ -19,6 +29,7 @@ const ContactTable = ({ contacts }) => {
             <th className={`px-6 py-4 ${lang === "ar" && "text-right"}`}>
               {t("messages.date")}
             </th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -41,6 +52,14 @@ const ContactTable = ({ contacts }) => {
                 </span>
               </td>
               <td className="px-6 py-4 text-gray-600">{contact.date}</td>
+              <td>
+                <button
+                  type="button"
+                  onClick={() => handleDeleteMessage(contact.id)}
+                >
+                  <FaTrash className="text-red-500 hover:scale-110 hover:text-red-600" />
+                </button>
+              </td>
             </tr>
           ))}
         </tbody>

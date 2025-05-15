@@ -37,7 +37,7 @@ export const HallTimeline = ({ reservations, selectedDate }) => {
             ${
               isHourReserved(hour)
                 ? "bg-red-400 text-white m-2 2md:m-3 p-2 2md:p-6"
-                : "bg-gray-800 text-sec-color-200 border-amber-300 p-3 xmobile:p-5 2md:p-8 m-1"
+                : "bg-zinc-900 text-sec-color-200 border-amber-300 p-3 xmobile:p-5 2md:p-8 m-1"
             }`}
         >
           {hour}:00

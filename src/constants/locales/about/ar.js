@@ -29,5 +29,6 @@ export default {
         requiredSubject: "أدخل عنوان للرسالة",
         requiredMessage: "أضف بعض التفاصيل",
         contactUs: "تواصل معنا",
+        subject:"العنوان"
     }
 }

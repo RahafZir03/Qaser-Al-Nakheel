@@ -1,8 +1,17 @@
 import { useTranslation } from "react-i18next";
+import { cancelWithType } from "../../api/endpoints/customers";
+import { toast } from "react-toastify";
+import { useState } from "react";
+import RatingModal from "../molecule/RatingModal";
+import ConfirmCancelModal from "../molecule/ConfirmCancelModal";
 
 /* eslint-disable react/prop-types */
 const BookingTables = ({ bookings, type }) => {
   const { t, i18n } = useTranslation("profile");
+  const [openRating, setOpenRating] = useState(false);
+  const [selectedBooking, setSelectedBooking] = useState(null);
+  const [showCancelModal, setShowCancelModal] = useState(false);
+  const [cancelId, setCancelId] = useState(null);
 
   const getHeaders = () => {
     switch (type) {
@@ -15,6 +24,7 @@ const BookingTables = ({ bookings, type }) => {
           t("status"),
           t("paid"),
           t("price"),
+          t("actions"),
         ];
       case "hall":
         return [
@@ -25,6 +35,7 @@ const BookingTables = ({ bookings, type }) => {
           t("status"),
           t("paid"),
           t("price"),
+          t("actions"),
         ];
       case "pool":
         return [
@@ -35,6 +46,7 @@ const BookingTables = ({ bookings, type }) => {
           t("status"),
           t("paid"),
           t("price"),
+          t("actions"),
         ];
       case "restaurant":
         return [
@@ -45,16 +57,36 @@ const BookingTables = ({ bookings, type }) => {
           t("status"),
           t("paid"),
           t("price"),
+          t("actions"),
         ];
       default:
         return [];
     }
   };
 
+  const handleCancelClick = (id) => {
+    setCancelId(id);
+    setShowCancelModal(true);
+  };
+
+  const cancelReservation = async (id) => {
+    try {
+      const response = await cancelWithType(type, id);
+      toast.success(response.data.message);
+    } catch (error) {
+      toast.error(error.response?.data?.message || "حدث خطأ");
+    } finally {
+      setShowCancelModal(false);
+      setCancelId(null);
+    }
+  };
+
   const StatusBadge = ({ status }) => (
     <span
       className={`px-3 py-1 rounded-full text-xs font-semibold ${
-        status === "confirmed"
+        status === "confirmed" ||
+        status === "Confirmed" ||
+        status === "reserved"
           ? "bg-green-100 text-green-600"
           : "bg-yellow-100 text-yellow-600"
       }`}
@@ -62,6 +94,30 @@ const BookingTables = ({ bookings, type }) => {
       {status}
     </span>
   );
+
+  const CancelButton = ({ id }) => (
+    <button
+      onClick={() => handleCancelClick(id)}
+      className="px-4 py-2 bg-red-100 text-red-600 rounded-full text-xs font-semibold hover:bg-red-200 transition-all duration-200"
+    >
+      {t("cancel")}
+    </button>
+  );
+
+  const RateButton = ({ id }) => {
+    console.log(id);
+    return (
+      <button
+        onClick={() => {
+          setSelectedBooking(id);
+          setOpenRating(true);
+        }}
+        className="px-4 py-2 bg-yellow-100 text-yellow-600 rounded-full text-xs font-semibold hover:bg-yellow-200 transition-all duration-200 ml-2"
+      >
+        {t("rate")}
+      </button>
+    );
+  };
 
   const renderRow = (item) => {
     const yes = t("yes");
@@ -80,6 +136,10 @@ const BookingTables = ({ bookings, type }) => {
             </td>
             <td className="px-6 py-4">{item.payed ? yes : no}</td>
             <td className="px-6 py-4">${item.total_price}</td>
+            <td className="px-6 py-4 flex gap-2">
+              <CancelButton id={item.id} />
+              <RateButton id={item.Room?.id} />
+            </td>
           </>
         );
       case "hall":
@@ -100,6 +160,10 @@ const BookingTables = ({ bookings, type }) => {
             </td>
             <td className="px-6 py-4">{item.payed ? yes : no}</td>
             <td className="px-6 py-4">${item.total_price}</td>
+            <td className="px-6 py-4 flex gap-2">
+              <CancelButton id={item.id} />
+              <RateButton id={item.hall_id} />
+            </td>
           </>
         );
       case "pool":
@@ -124,6 +188,10 @@ const BookingTables = ({ bookings, type }) => {
             </td>
             <td className="px-6 py-4">{item.payed ? yes : no}</td>
             <td className="px-6 py-4">${item.total_price}</td>
+            <td className="px-6 py-4 flex gap-2">
+              <CancelButton id={item.id} />
+              <RateButton id={item.pool_id} />
+            </td>
           </>
         );
       case "restaurant":
@@ -146,6 +214,10 @@ const BookingTables = ({ bookings, type }) => {
             </td>
             <td className="px-6 py-4">{item.payed ? yes : no}</td>
             <td className="px-6 py-4">${item.total_price}</td>
+            <td className="px-6 py-4 flex gap-2">
+              <CancelButton id={item.id} />
+              <RateButton id={item.rest_id} />
+            </td>
           </>
         );
       default:
@@ -185,6 +257,18 @@ const BookingTables = ({ bookings, type }) => {
             </tbody>
           </table>
         )}
+        <RatingModal
+          open={openRating}
+          onClose={() => setOpenRating(false)}
+          type={type}
+          id={selectedBooking}
+          setSelectedBooking={setSelectedBooking}
+        />
+        <ConfirmCancelModal
+          open={showCancelModal}
+          onClose={() => setShowCancelModal(false)}
+          onConfirm={() => cancelReservation(cancelId)}
+        />
       </div>
     </div>
   );

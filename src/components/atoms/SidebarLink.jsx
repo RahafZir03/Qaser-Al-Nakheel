@@ -31,7 +31,7 @@ const SidebarItem = ({
           className={({ isActive }) => `
             flex items-center py-1.5 w-full
             group-hover:bg-[#0F1015] transition-all duration-300
-            ${isActive ? "bg-[#0F1015]" : ""}
+            ${isActive && data.to !== "/admin/" ? "bg-[#0F1015]" : ""}
             ${
               sidebarSize === "big"
                 ? "ps-5 pe-4"

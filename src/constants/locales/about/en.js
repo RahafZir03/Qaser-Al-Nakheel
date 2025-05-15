@@ -29,5 +29,6 @@ export default {
         requiredSubject: "Please enter a subject",
         requiredMessage: "Please add some details",
         contactUs: "Contact Us",
+        subject: "Subject"
     }
 }

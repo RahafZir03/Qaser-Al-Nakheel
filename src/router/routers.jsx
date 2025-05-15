@@ -36,6 +36,14 @@ import Settings from "../pages/profilePages/Settings";
 import UserProtect from "../components/HOC/userProtect";
 import Messages from "../pages/profilePages/Messages";
 import AllUserBooking from "../pages/profilePages/AllUserBooking";
+import RoomBookings from "../pages/adminPages/RoomBookings";
+import HallBookings from "../pages/adminPages/HallBookings";
+import PoolBookings from "../pages/adminPages/PoolBookings";
+import RestaurantBookings from "../pages/adminPages/RestaurantBookings";
+import UserMessages from "../pages/adminPages/UserMessages";
+import HallsTable from "../pages/adminPages/HallsTable";
+import AdminCustomersPage from "../pages/adminPages/AdminCustomersPage";
+import UserProfilePage from "../pages/adminPages/UserProfilePage";
 const router = createBrowserRouter([
   {
     element: <PersistLogin />,
@@ -150,6 +158,30 @@ const router = createBrowserRouter([
       {
         path: "employee",
         element: <Employee />,
+      },
+      {
+        path: "roomBooking",
+        element: <RoomBookings />,
+      },
+      {
+        path: "hallBooking",
+        element: <HallBookings />,
+      },
+      {
+        path: "poolBooking",
+        element: <PoolBookings />,
+      },
+      {
+        path: "restaurantBooking",
+        element: <RestaurantBookings />,
+      },
+      {
+        path: "usersMessages",
+        element: <UserMessages />,
+      },
+      {
+        path: "hallsTable",
+        element: <HallsTable />,
       },
     ],
   },

@@ -28,10 +28,12 @@ import restaurant_en from './locales/restaurant/en';
 import restaurant_ar from './locales/restaurant/ar';
 import profile_en from './locales/profile/en';
 import profile_ar from './locales/profile/ar';
-
+import adminBooking_en from './locales/adminBooking/en';
+import adminBooking_ar from './locales/adminBooking/ar';
 
 const resources = {
   en: {
+    adminBooking: adminBooking_en,
     restaurant: restaurant_en,
     about: about_en,
     profile: profile_en,
@@ -45,7 +47,6 @@ const resources = {
     singleUpdateroom: updateroom_en,
     updatemainimage: updatemainimage_en,
     translation: {
-
       "companyHallMainTexts": {
         "upperSection": {
           "title": "Where work and relaxation come together",
@@ -345,6 +346,7 @@ const resources = {
     }
   },
   ar: {
+    adminBooking: adminBooking_ar,
     restaurant: restaurant_ar,
     about: about_ar,
     profile: profile_ar,

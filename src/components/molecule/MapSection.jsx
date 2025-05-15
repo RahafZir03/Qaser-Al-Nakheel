@@ -16,7 +16,7 @@ export default function MapSection() {
   return (
     <div className="h-[700px] w-full py-20">
       <MapContainer
-        center={[31.8667, 35.45]} // Jericho coordinates
+        center={[31.8667, 35.45]}
         zoom={13}
         scrollWheelZoom={false}
         className="h-full w-full z-0"

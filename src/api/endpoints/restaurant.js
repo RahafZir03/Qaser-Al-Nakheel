@@ -12,5 +12,5 @@ export const createRestaurantReservation = (data) => {
 };
 
 export const getRestaurantById = () => {
-    return axiosInstance.get(`/restaurants/2c9e4636-0c09-401a-afc4-093a7b6287ff`)
+    return axiosInstance.get(`/restaurants/${"963627b6-63e5-498c-997d-6a1301efa2e3"}`)
 }

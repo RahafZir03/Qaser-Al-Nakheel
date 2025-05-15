@@ -25,7 +25,6 @@ export default function LoginForm() {
     initialValues: {
       email: "",
       password: "",
-      rememberMe: false,
     },
     validationSchema: Yup.object({
       email: Yup.string().email("Invalid email address").required("Required"),
@@ -38,7 +37,7 @@ export default function LoginForm() {
       const response = isEmployee
         ? await logInForEmployee(values)
         : await logIn(values);
-
+      console.log(response);
       toast.success(
         t("login.welcome", {
           firstName: response.data.user.first_name,

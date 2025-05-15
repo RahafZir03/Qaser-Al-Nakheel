@@ -42,8 +42,6 @@ import PoolBookings from "../pages/adminPages/PoolBookings";
 import RestaurantBookings from "../pages/adminPages/RestaurantBookings";
 import UserMessages from "../pages/adminPages/UserMessages";
 import HallsTable from "../pages/adminPages/HallsTable";
-import AdminCustomersPage from "../pages/adminPages/AdminCustomersPage";
-import UserProfilePage from "../pages/adminPages/UserProfilePage";
 const router = createBrowserRouter([
   {
     element: <PersistLogin />,

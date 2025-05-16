@@ -93,36 +93,6 @@ export default function Profile() {
                 </Link>
               </div>
             </div>
-            <div className="pt-4">
-              <h1 className="text-lg font-semibold">
-                {t("profile.adminLinks")}
-              </h1>
-              <div className="flex flex-col mt-3 space-y-3 pl-1">
-                <Link
-                  to="adminAllCourses"
-                  className={`flex items-center gap-2 ${
-                    location.pathname === "/profile/adminAllCourses" ||
-                    location.pathname === "/profile/adminAllCourses/editCourse"
-                      ? "hover:text-gray-500 text-sec-color-100"
-                      : "text-gray-500 hover:text-sec-color-100"
-                  } `}
-                >
-                  <RiGraduationCapFill />
-                  {t("profile.allCourses")}
-                </Link>
-                <Link
-                  to="addCourse"
-                  className={`flex items-center gap-2 ${
-                    location.pathname === "/profile/addCourse"
-                      ? "hover:text-gray-500 text-sec-color-100"
-                      : "text-gray-500 hover:text-sec-color-100"
-                  } `}
-                >
-                  <MdOutlineAddToPhotos />
-                  {t("profile.addCourse")}
-                </Link>
-              </div>
-            </div>
           </div>
         </div>
         <Outlet />

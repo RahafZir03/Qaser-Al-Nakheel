@@ -114,9 +114,7 @@ const sidebarItems = [
       label: "sidebar.usersMessages",
       iconColor: "text-red-700",
     },
-  }, 
   },
-
   {
     linkType: "link",
     Icon: SlHome,

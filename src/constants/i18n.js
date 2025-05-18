@@ -15,6 +15,14 @@ import updateroom_en from './locales/updateroom/en';
 import updateroom_ar from './locales/updateroom/ar';
 import updatemainimage_en from './locales/updatemainimage/en';
 import updatemainimage_ar from './locales/updatemainimage/ar';
+import Employee_en from './locales/Employee/en';
+import Employee_ar from './locales/Employee/ar';
+import addemployee_en from './locales/addemployee/en';
+import addemployee_ar from './locales/addemployee/ar';
+import updateemployee_en from './locales/updateemployee/en';
+import updateemployee_ar from './locales/updateemployee/ar';
+import EditJobModal_en from './locales/EditJobModal/en';
+import EditJobModal_ar from './locales/EditJobModal/ar';
 
 import home_en from './locales/home/en';
 import home_ar from './locales/home/ar';
@@ -28,7 +36,8 @@ import restaurant_en from './locales/restaurant/en';
 import restaurant_ar from './locales/restaurant/ar';
 import profile_en from './locales/profile/en';
 import profile_ar from './locales/profile/ar';
-
+import halls_en from './locales/halls/en';
+import halls_ar from './locales/halls/ar';
 
 const resources = {
   en: {
@@ -44,6 +53,11 @@ const resources = {
     roomoverview: roomoverview_en,
     singleUpdateroom: updateroom_en,
     updatemainimage: updatemainimage_en,
+    Employee: Employee_en,
+    addemployee: addemployee_en,
+    updateemployee: updateemployee_en,
+    EditJobModal: EditJobModal_en,
+    halls: halls_en,
     translation: {
 
       "companyHallMainTexts": {
@@ -357,6 +371,12 @@ const resources = {
     roomoverview: roomoverview_ar,
     singleUpdateroom: updateroom_ar,
     updatemainimage: updatemainimage_ar,
+    Employee: Employee_ar,
+    addemployee: addemployee_ar,
+    updateemployee: updateemployee_ar,
+    EditJobModal: EditJobModal_ar,
+    halls_en: halls_ar,
+
     translation: {
       "companyHallMainTexts": {
         "upperSection": {

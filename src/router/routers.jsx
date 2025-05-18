@@ -43,6 +43,12 @@ import UserMessages from "../pages/adminPages/UserMessages";
 import HallsTable from "../pages/adminPages/HallsTable";
 import NotProtectedRoute from "../components/HOC/withNotProtect";
 import PersistLogin2 from "../components/HOC/PersistLogin2";
+import Halls from "../pages/adminPages/Halls";
+import Pools from "../pages/adminPages/Pools";
+import Restaurants from "../pages/adminPages/Restaurants";
+import AdminCustomersPage from "../pages/adminPages/AdminCustomersPage";
+import UserProfilePage from "../components/molecule/UserProfilePage";
+import Payment from "../components/molecule/Payment"
 const router = createBrowserRouter([
   {
     element: <PersistLogin />,
@@ -181,6 +187,29 @@ const router = createBrowserRouter([
         path: "hallsTable",
         element: <HallsTable />,
       },
+        path: "halls",
+        element: <Halls />
+      },
+      {
+        path: "pools",
+        element: <Pools />
+      },
+      {
+        path: "restaurants",
+        element: <Restaurants />
+      },
+      {
+        path:"adminCustumer",
+        element:<AdminCustomersPage/>
+      },
+      {
+        path:"allUserData/:id",
+        element:<UserProfilePage/>
+      },
+      {
+        path: "payment/:id",
+        element:<Payment/>
+      }
     ],
   },
   {

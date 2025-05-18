@@ -11,14 +11,14 @@ export const addEmployee = (data) => {
 }
 
 
-export const changeStatus = (id,data) => {
+export const changeStatus = (id, data) => {
   console.log(data)
-  axiosInstance.patch(`/employee/status/${id}`,data);
+  axiosInstance.patch(`/employee/status/${id}`, data);
 }
-export const changeRole = (id, data) => {
-  
-  axiosInstance.patch(`/employee/jop/${id}`, data);
-}
+
+export const changeEmployeeJob = (id, data) => {
+  return axiosInstance.patch(`/employee/jop/${id}`, data);
+};
 export const changeShift = (id, data) => {
   axiosInstance.patch(`/employee/shift/${id}`, data);
 }
@@ -35,4 +35,7 @@ export const updateEmployee = (id, data) => {
 //export const getEmployeeById = (id) => {
 // return axiosInstance.get(`/employee/getById/${id}`);
 //}
-
+//getAllworkPlaces
+export const getAllworkPlaces = () => {
+  return axiosInstance.get('/general/getAllworkPlaces');
+}

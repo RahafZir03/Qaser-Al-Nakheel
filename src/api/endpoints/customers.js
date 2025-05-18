@@ -140,8 +140,6 @@ export const rateWithType = (type, data) => {
   }
 }
 
-
-} 
 export const getAllCustomers = (params = {}) => {
   return axiosInstance.get('/customers', {
     params,

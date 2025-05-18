@@ -187,6 +187,7 @@ const router = createBrowserRouter([
         path: "hallsTable",
         element: <HallsTable />,
       },
+      {
         path: "halls",
         element: <Halls />
       },

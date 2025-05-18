@@ -129,7 +129,8 @@ const router = createBrowserRouter([
   },
   {
     path: "/admin",
-    element: <ProtectedRoute element={<AdminLayout />} />,
+    //element: <ProtectedRoute element={<AdminLayout />} />,
+    element: <AdminLayout />,
     children: [
       {
         index: true,
@@ -200,16 +201,16 @@ const router = createBrowserRouter([
         element: <Restaurants />
       },
       {
-        path:"adminCustumer",
-        element:<AdminCustomersPage/>
+        path: "adminCustumer",
+        element: <AdminCustomersPage />
       },
       {
-        path:"allUserData/:id",
-        element:<UserProfilePage/>
+        path: "allUserData/:id",
+        element: <UserProfilePage />
       },
       {
         path: "payment/:id",
-        element:<Payment/>
+        element: <Payment />
       }
     ],
   },

@@ -20,7 +20,7 @@ export default function Sidebar({ sidebarSize, isHalfScreen, setSidebarSize }) {
   return (
     <div
       dir="rtl"
-      className={`flex flex-col h-[100vh] bg-[#191c24] z-10 fixed bottom-0 top-0 rtl:right-0 ltr:left-0 text-white
+      className={`flex flex-col h-[100vh] bg-[#191c24] z-[100] fixed bottom-0 top-0 rtl:right-0 ltr:left-0 text-white
         ${
           !isHalfScreen && sidebarSize === "big"
             ? "w-[244px] ltr:right-[-244px] left-[-244px]"

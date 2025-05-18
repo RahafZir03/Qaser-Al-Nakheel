@@ -31,7 +31,7 @@ export default function AdminNavbar({
 
   return (
     <nav
-      className={`bg-[#191c24] z-10 h-[70px] w-full flex items-center justify-between fixed shadow-lg shadow-[#22222277] px-4 pr-4 ${
+      className={`bg-[#191c24] z-[120] h-[70px] w-full flex items-center justify-between fixed shadow-lg shadow-[#22222277] px-4 pr-4 ${
         sidebarSize === "big"
           ? isHalfScreen
             ? ""

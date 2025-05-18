@@ -5,7 +5,7 @@ import {
   getAllCustomers,
 } from "../../api/endpoints/customers";
 import { motion } from "framer-motion";
-import { FaEye, FaBan, FaTrashAlt, FaUnlock } from "react-icons/fa";
+import { FaEye, FaBan, FaTrashAlt, FaUnlock, FaFileInvoiceDollar } from "react-icons/fa";
 import userImage from "../../assets/images/user.jpg";
 import PaginationRounded from "../../components/molecule/PaginationRounded";
 import { toast } from "react-toastify";
@@ -190,6 +190,12 @@ export default function AdminCustomersPage() {
                     >
                       <FaEye className="text-white " />
                       عرض التفاصيل
+                    </Link>
+                    <Link
+                      to={`/admin/payment/${cust.id}`} // تأكد من أن هذا المسار يتماشى مع إعدادات Route لديك
+                      className="flex items-center gap-2 w-full text-left px-4 py-2 hover:bg-sec-color-100 hover:text-black transition duration-150">
+                      <FaFileInvoiceDollar className="text-white " />
+                      عرض الفواتير
                     </Link>
                     <button
                       type="button"

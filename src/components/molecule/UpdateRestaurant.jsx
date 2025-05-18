@@ -12,6 +12,7 @@ export default function UpdateRestaurantModal({ restaurantId, onClose, onUpdated
     const fetchData = async () => {
       try {
         const { data } = await getRestaurantbyid(restaurantId);
+        console.log(data)
         const restaurant = data;
 
         setInitialValues({
@@ -19,8 +20,8 @@ export default function UpdateRestaurantModal({ restaurantId, onClose, onUpdated
           name_en: restaurant.name.en,
           description_ar: restaurant.description.ar,
           description_en: restaurant.description.en,
-          cuisine_ar: restaurant.Cuisine_type.ar,
-          cuisine_en: restaurant.Cuisine_type.en,
+          cuisine_type_ar: restaurant.Cuisine_type.ar,
+          cuisine_type_en: restaurant.Cuisine_type.en,
           capacity: restaurant.capacity,
           opening_hours: restaurant.Opening_hours,
         });
@@ -38,23 +39,16 @@ export default function UpdateRestaurantModal({ restaurantId, onClose, onUpdated
     name_en: Yup.string().required("Required"),
     description_ar: Yup.string().required("مطلوب"),
     description_en: Yup.string().required("Required"),
-    cuisine_ar: Yup.string().required("مطلوب"),
-    cuisine_en: Yup.string().required("Required"),
+    cuisine_type_ar: Yup.string().required("مطلوب"),
+    cuisine_type_en: Yup.string().required("Required"),
     capacity: Yup.number().typeError("يجب أن يكون رقمًا").required("مطلوب"),
     opening_hours: Yup.string().required("مطلوب"),
   });
 
   const handleSubmit = async (values, { setSubmitting }) => {
     try {
-      const updatedData = {
-        name: { ar: values.name_ar, en: values.name_en },
-        description: { ar: values.description_ar, en: values.description_en },
-        Cuisine_type: { ar: values.cuisine_ar, en: values.cuisine_en },
-        capacity: values.capacity,
-        Opening_hours: values.opening_hours,
-      };
 
-      const { data } = await updateRestaurant(restaurantId, updatedData);
+      const { data } = await updateRestaurant(restaurantId, values);
       toast.success("تم تحديث المطعم بنجاح");
       onUpdated(data.restaurant);
       onClose();
@@ -86,8 +80,8 @@ export default function UpdateRestaurantModal({ restaurantId, onClose, onUpdated
               <Field name="name_en" placeholder="Restaurant Name in English" className="p-2 border rounded" />
               <Field name="description_ar" placeholder="الوصف بالعربية" className="p-2 border rounded" />
               <Field name="description_en" placeholder="Description in English" className="p-2 border rounded" />
-              <Field name="cuisine_ar" placeholder="نوع المطبخ بالعربية" className="p-2 border rounded" />
-              <Field name="cuisine_en" placeholder="Cuisine Type in English" className="p-2 border rounded" />
+              <Field name="cuisine_type_ar" placeholder="نوع المطبخ بالعربية" className="p-2 border rounded" />
+              <Field name="cuisine_type_en" placeholder="Cuisine Type in English" className="p-2 border rounded" />
               <Field name="capacity" type="number" placeholder="السعة" className="p-2 border rounded" />
               <Field name="opening_hours" placeholder="ساعات العمل" className="p-2 border rounded" />
 

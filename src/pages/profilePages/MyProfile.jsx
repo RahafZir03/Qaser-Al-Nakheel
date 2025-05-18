@@ -3,6 +3,7 @@ import DashboardCard from "../../components/atoms/DashboardCard";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { getSomeDataForUser } from "../../api/endpoints/customers";
+import { Link } from "react-router-dom";
 
 export default function MyProfile() {
   const { t, i18n } = useTranslation("profile");
@@ -95,13 +96,23 @@ export default function MyProfile() {
                 : t("my_profile.not_verified")}
             </p>
             {!userData?.is_verified && (
-              <p className="text-sm text-red-600 mt-1">
-                {t("my_profile.verification_required")}{" "}
-                <span className="font-semibold">
-                  {t("my_profile.verified")}
-                </span>{" "}
-                {t("my_profile.booking_restriction")}
-              </p>
+              <>
+                <p className="text-sm text-red-600 mt-1">
+                  {t("my_profile.verification_required")}{" "}
+                  <span className="font-semibold">
+                    {t("my_profile.verified")}
+                  </span>{" "}
+                  {t("my_profile.booking_restriction")}
+                </p>
+                <div className="mb-4">
+                  <Link
+                    to={`/verificationPage/${userData?.email}`}
+                    className="text-sm text-blue-600 hover:underline"
+                  >
+                    {t("verifyAccount")}
+                  </Link>
+                </div>
+              </>
             )}
           </div>
         </div>

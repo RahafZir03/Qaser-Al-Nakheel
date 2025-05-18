@@ -18,7 +18,6 @@ import MainHalls from "../pages/MainHalls";
 import Hall from "../pages/Hall";
 import VerificationPage from "../pages/VerificationPage";
 import PersistLogin from "../components/HOC/PersistLogin";
-import NotProtectdRoute from "../components/HOC/withNotProtect";
 import SpecialPrice from "../components/molecule/SpecialPrice";
 import Employee from "../pages/adminPages/Employee";
 import { HallBooking } from "../pages/HallBooking";
@@ -42,6 +41,8 @@ import PoolBookings from "../pages/adminPages/PoolBookings";
 import RestaurantBookings from "../pages/adminPages/RestaurantBookings";
 import UserMessages from "../pages/adminPages/UserMessages";
 import HallsTable from "../pages/adminPages/HallsTable";
+import NotProtectedRoute from "../components/HOC/withNotProtect";
+import PersistLogin2 from "../components/HOC/PersistLogin2";
 const router = createBrowserRouter([
   {
     element: <PersistLogin />,
@@ -122,8 +123,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/admin",
-    //element: <ProtectedRoute element={<AdminLayout />} />,
-    element: <AdminLayout />,
+    element: <ProtectedRoute element={<AdminLayout />} />,
     children: [
       {
         index: true,
@@ -183,12 +183,12 @@ const router = createBrowserRouter([
       },
     ],
   },
-  // {
-  //element: <PersistLogin />,
-  //children: [
   {
+    //element: <PersistLogin2 />,
+    //children: [
+    //{
     path: "logIn",
-    element: <NotProtectdRoute element={<Login />} />,
+    element: <NotProtectedRoute element={<Login />} />,
     children: [
       {
         index: true,
@@ -206,11 +206,11 @@ const router = createBrowserRouter([
   },
   {
     path: "/signup",
-    element: <NotProtectdRoute element={<Signup />} />,
+    element: <NotProtectedRoute element={<Signup />} />,
   },
   {
     path: "/verificationPage/:email",
-    element: <NotProtectdRoute element={<VerificationPage />} />,
+    element: <VerificationPage />,
   },
   {
     path: "*",

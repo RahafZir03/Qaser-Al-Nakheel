@@ -29,7 +29,6 @@ export default function AllBookings() {
     const fetchRooms = async () => {
       try {
         const response = await getAllRoomsNotAllData();
-        console.log(response.data);
 
         if (response && response.data && Array.isArray(response.data.rooms)) {
           setRooms(response.data.rooms);

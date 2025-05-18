@@ -105,7 +105,6 @@ const BookingTables = ({ bookings, type }) => {
   );
 
   const RateButton = ({ id }) => {
-    console.log(id);
     return (
       <button
         onClick={() => {

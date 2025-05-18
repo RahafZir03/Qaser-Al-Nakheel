@@ -2,9 +2,8 @@
 import { Navigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
-export default function NotProtectdRoute({ element }) {
+export default function NotProtectedRoute({ element }) {
   const authData = useSelector((state) => state.authData);
   const userId = authData.userId;
-
   return !userId ? element : <Navigate to="/" />;
 }

@@ -1,10 +1,9 @@
 import { Link, Outlet, useLocation } from "react-router-dom";
-import { MdOutlineAddToPhotos, MdOutlineFavorite } from "react-icons/md";
+import { MdOutlineFavorite } from "react-icons/md";
 import { BiSolidMessageSquareDetail } from "react-icons/bi";
-
+import userImage from "../../assets/images/icon-7797704_640.png";
 import { IoSettingsSharp } from "react-icons/io5";
 import { GoPersonFill } from "react-icons/go";
-import { RiGraduationCapFill } from "react-icons/ri";
 import UpperTitle from "../../components/molecule/UpperTitle";
 import upperImage from "../../assets/images/profile-background-b5vedq7mz8mjvslu.jpg";
 import { useSelector } from "react-redux";
@@ -27,9 +26,13 @@ export default function Profile() {
             <div className="h-28 bg-sec-text-sec-color-100 bg-opacity-90 rounded-t-md flex justify-center items-end"></div>
             <div className="flex flex-col items-center -mt-16 gap-1">
               <img
-                src={userData.profile_picture}
+                src={
+                  userData.profile_picture
+                    ? userData.profile_picture
+                    : userImage
+                }
                 alt={t("profile.userImage")}
-                className="size-32 rounded-full border-4 object-cover border-white"
+                className="size-32 rounded-full border-4 object-cover border-sec-color-100"
               />
               <h1 className="font-semibold text-xl mt-3">
                 {userData.first_name} {userData.last_name}

@@ -28,12 +28,14 @@ export default function AllUserBooking() {
     const fetchBookings = async () => {
       try {
         setLoading(true);
+        setBookings([]);
         const response = await bookingTypes[type](page, 8);
         setBookings(response.data.bookings || response.data.reservations);
         setTotalPages(response.data.countBooking || response.data.count);
       // eslint-disable-next-line no-unused-vars
       } catch (err) {
-        // Handle error
+        setBookings([]);
+        setTotalPages(0);
       } finally {
         setLoading(false);
       }

@@ -9,6 +9,8 @@ import { MdPeopleAlt } from "react-icons/md";
 import { SlHome } from "react-icons/sl";
 import { LiaSwimmingPoolSolid } from "react-icons/lia";
 import { GrRestaurant } from "react-icons/gr";
+import { CiUser } from "react-icons/ci";
+
 
 
 
@@ -100,7 +102,18 @@ const sidebarItems = [
       iconColor: "text-purple-700",
     }
   },
-  
+  {
+    linkType: "link",
+    Icon: CiUser,
+    data: {
+      to: "/admin/adminCustumer",
+      icon: CiUser,
+      label: "Customers",
+      iconColor: "text-purple-700",
+
+    }
+  }
+
 ];
 
 export default sidebarItems;

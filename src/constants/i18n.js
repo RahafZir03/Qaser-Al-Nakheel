@@ -36,7 +36,8 @@ import restaurant_en from './locales/restaurant/en';
 import restaurant_ar from './locales/restaurant/ar';
 import profile_en from './locales/profile/en';
 import profile_ar from './locales/profile/ar';
-
+import halls_en from './locales/halls/en';
+import halls_ar from './locales/halls/ar';
 
 const resources = {
   en: {
@@ -56,6 +57,7 @@ const resources = {
     addemployee: addemployee_en,
     updateemployee: updateemployee_en,
     EditJobModal: EditJobModal_en,
+    halls: halls_en,
     translation: {
 
       "companyHallMainTexts": {
@@ -373,6 +375,8 @@ const resources = {
     addemployee: addemployee_ar,
     updateemployee: updateemployee_ar,
     EditJobModal: EditJobModal_ar,
+    halls_en: halls_ar,
+
     translation: {
       "companyHallMainTexts": {
         "upperSection": {

@@ -10,8 +10,6 @@ import { deleteFacilityFromHall } from "../../api/endpoints/halls";
 import HallImage from "../../components/molecule/Hallimage";
 import UpdateHallModal from "../../components/molecule/Updatehall";
 import { CiCircleRemove } from "react-icons/ci";
-
-
 import { PlusIcon } from "lucide-react";
 
 
@@ -25,6 +23,7 @@ export default function HallsTable() {
   const [showFacilityModal, setShowFacilityModal] = useState(false);
   const [showImageModal, setShowImageModal] = useState(false);
   const [showUpdateHallModal, setShowUpdateHallModal] = useState(false);
+
 
 
 

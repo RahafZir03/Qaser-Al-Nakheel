@@ -14,7 +14,7 @@ export const createPoolReservation = (data) => {
 
 export const getPoolsName = () => {
     return axiosInstance.get(`/pools/get/PoolsName`)
-
+}
 //add pool
 export const addPool = (data) => {
     return axiosInstance.post('/pools', data);

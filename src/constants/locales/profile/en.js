@@ -84,5 +84,9 @@ export default {
     "time": "Time",
     "yes": "Yes",
     "no": "No",
-    "invalidType": "Invalid type"
+    "invalidType": "Invalid type",
+    "actions": "Action",
+    "cancel": "Cancel",
+    "confirmCancel": "Are you sure you want to cancel this booking?",
+    "errorOccurred": "An error occurred. Please try again."
 }

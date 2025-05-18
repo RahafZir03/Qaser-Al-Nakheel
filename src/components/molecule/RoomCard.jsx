@@ -5,32 +5,28 @@ import { IoPeopleOutline } from "react-icons/io5";
 import { useTranslation } from "react-i18next";
 import { MdOutlineBedroomChild } from "react-icons/md";
 import { Link } from "react-router-dom";
+import RenderStars from "../atoms/RenderStars";
 
 export default function RoomCard({ room, roomType }) {
   const { t, i18n } = useTranslation("roomAndBooking");
-
   const tomorrow = new Date();
   tomorrow.setDate(tomorrow.getDate() + 1);
 
-  // نضبط التاريخ بدون وقت (00:00:00)
   const cleanDate = (date) => {
     return new Date(date.getFullYear(), date.getMonth(), date.getDate());
   };
 
   const tomorrowOnly = cleanDate(tomorrow);
 
-  // نجد العرض الذي يبدأ في يوم الغد فقط
- const specialPrice = room.SpecialPricings?.find((sp) => {
-   const start = cleanDate(new Date(sp.start_date));
-   const end = cleanDate(new Date(sp.end_date));
-   return tomorrowOnly >= start && tomorrowOnly <= end;
- });
-  // اسم يوم الغد
+  const specialPrice = room.SpecialPricings?.find((sp) => {
+    const start = cleanDate(new Date(sp.start_date));
+    const end = cleanDate(new Date(sp.end_date));
+    return tomorrowOnly >= start && tomorrowOnly <= end;
+  });
   const tomorrowName = tomorrow
     .toLocaleDateString("en-US", { weekday: "long" })
     .toLowerCase();
 
-  // السعر الثابت
   const normalPrice = room.RoomPricings?.find(
     (rp) => rp.day_of_week.toLowerCase() === tomorrowName
   );
@@ -76,10 +72,21 @@ export default function RoomCard({ room, roomType }) {
           </span>
         </div>
         <div className="text-left p-5">
-          <h3 className="text-lg font-semibold flex gap-1 items-center mb-2 text-gray-700">
-            <MdOutlineBedroomChild />
-            {roomType.name[i18n.language] || roomType.name.en} - {room.room_no}
-          </h3>
+          <div className="flex justify-between items-center">
+            <h3 className="text-lg font-semibold flex gap-1 items-center mb-2 text-gray-700">
+              <MdOutlineBedroomChild />
+              {roomType.name[i18n.language] || roomType.name.en} -{" "}
+              {room.room_no}
+            </h3>
+            <div
+              className="flex items-center gap-1 justify-center"
+              title={`${
+                i18n.language === "en" ? "Number of reviews" : "عدد التقييمات"
+              } : ${room.ratingCount}`}
+            >
+              <RenderStars ratingNumber={room.averageRating} />
+            </div>
+          </div>
           <div className="flex items-center text-gray-600 text-xs gap-4 mb-4">
             <span className="flex items-center gap-1">
               <FaVectorSquare className="w-4 h-4" /> {room.room_length}{" "}

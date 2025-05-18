@@ -25,7 +25,6 @@ export default function LoginForm() {
     initialValues: {
       email: "",
       password: "",
-      rememberMe: false,
     },
     validationSchema: Yup.object({
       email: Yup.string().email("Invalid email address").required("Required"),
@@ -35,25 +34,30 @@ export default function LoginForm() {
     }),
     onSubmit: async (values) => {
       setLoading(true);
-      const response = isEmployee
-        ? await logInForEmployee(values)
-        : await logIn(values);
-
-      toast.success(
-        t("login.welcome", {
-          firstName: response.data.user.first_name,
-          lastName: response.data.user.last_name,
-        })
-      );
-      dispatch(
-        saveAuthData({
-          userId: response.data.user.id,
-          userData: response.data.user,
-          userRole: response.data.user.role,
-        })
-      );
-      navigate("/");
-      setLoading(false);
+      try {
+        const response = isEmployee
+          ? await logInForEmployee(values)
+          : await logIn(values);
+        toast.success(
+          t("login.welcome", {
+            firstName: response.data.user.first_name,
+            lastName: response.data.user.last_name,
+          })
+        );
+        dispatch(
+          saveAuthData({
+            userId: response.data.user.id,
+            allUserData: response.data.user,
+            userRole: response.data.user.role,
+          })
+        );
+        navigate("/");
+      // eslint-disable-next-line no-unused-vars
+      } catch (error) {
+        // Handle error
+      } finally {
+        setLoading(false);
+      }
     },
   });
   return (

@@ -17,7 +17,9 @@ export const HallBooking = () => {
   const [reservations, setReservations] = useState([]);
   const [loading, setLoading] = useState(false);
   const [hallData, setHallData] = useState("");
+
   const [isLoading, setIsLoading] = useState(true);
+
   useEffect(() => {
     const fetchReservations = async () => {
       setLoading(true);
@@ -25,9 +27,9 @@ export const HallBooking = () => {
         const dateStr = selectedDate.toISOString().split("T")[0];
         const res2 = await getHallById(hallId);
         setHallData(res2.data.hall);
-        setIsLoading(false);
         const res = await getReservationsByHallAndDate(hallId, dateStr);
         setReservations(res.data.reservations);
+        setIsLoading(false);
       } catch (error) {
         console.error("Error fetching reservations:", error);
       } finally {

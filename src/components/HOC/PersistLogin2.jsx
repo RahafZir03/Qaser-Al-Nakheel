@@ -15,7 +15,7 @@ function ScrollToTop() {
   return null;
 }
 
-export default function PersistLogin() {
+export default function PersistLogin2() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -24,7 +24,7 @@ export default function PersistLogin() {
     async function refreshUserData() {
       try {
         const response = await getUserData();
-        
+
         dispatch(
           saveAuthData({
             userId: response.data.user.id,
@@ -34,7 +34,7 @@ export default function PersistLogin() {
         );
         // eslint-disable-next-line no-unused-vars
       } catch (error) {
-        navigate("/");
+        //gg
       } finally {
         setLoading(false);
       }

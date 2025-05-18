@@ -38,7 +38,7 @@ const MyForm = () => {
             htmlFor="subject"
             className="block font-semibold text-my-color"
           >
-            <button type="submit">{t("contact.send")}</button>
+            <button type="submit">{t("contact.subject")}</button>
           </label>
           <input
             id="subject"

@@ -31,12 +31,12 @@ export default function PoolBookingForm({ pool }) {
     <div className="">
       <button
         onClick={() => setIsOpen((prev) => !prev)}
-        className=" underline hover:underline-0 flex items-center group text-white mb-4 px-6"
+        className="flex items-center group mx-4 font-semibold bg-sec-color-100 py-3 text-white mb-4 px-4 rounded hover:bg-sec-color-200 transition-all"
       >
         {isOpen
           ? t("pool.poolsSection.isOpenRes.close")
           : t("pool.poolsSection.isOpenRes.open")}
-        <MdBookmarkAdd className="text-2xl group-hover:text-green-600" />
+        <MdBookmarkAdd className="text-2xl group-hover:text-green-600 transition-all" />
       </button>
 
       <AnimatePresence initial={false}>

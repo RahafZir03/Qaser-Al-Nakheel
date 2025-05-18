@@ -37,8 +37,8 @@ function RestaurantReservationForm({ restId }) {
         number_of_guests: values.number_of_guests,
         is_walk_in: false,
       };
-      console.log(payload);
       const response = await createRestaurantReservation(payload);
+      
       toast.success(response.data.message);
       formik.resetForm();
     },

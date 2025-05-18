@@ -8,6 +8,7 @@ export default {
         m: "م",
         facilities: "المرافق",
         gallery: "معرض الصور",
+        pricePerHour:"سعر القاعة في الساعة"
     },
     hallbooking: {
         title: "حجز القاعة",
@@ -17,6 +18,8 @@ export default {
         fromHour: "من الساعة",
         toHour: "إلى الساعة",
         confirm: "تأكيد الحجز",
-        formTitle:"أدخل تفاصيل الحجز"
+        formTitle:"أدخل تفاصيل الحجز",
+        details:"التفاصيل",
+        detailsPlaceholder:"أدخل تفاصيل الحجز مثل شكل المقاعد وتوزيعها او اي خدمات اخرى تريدها"
     }
 }

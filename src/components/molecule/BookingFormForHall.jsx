@@ -11,14 +11,12 @@ export const BookingFormForHall = ({ hallId, selectedDate }) => {
 
   const formik = useFormik({
     initialValues: {
-      customer_name: "",
+      details: "",
       start_hour: "",
       end_hour: "",
-      phone: "",
     },
     validationSchema: Yup.object({
-      customer_name: Yup.string().required("مطلوب"),
-      phone: Yup.string().required("مطلوب"),
+      details: Yup.string().required("مطلوب"),
       start_hour: Yup.number().min(0).max(23).required("مطلوب"),
       end_hour: Yup.number()
         .min(Yup.ref("start_hour"), "يجب أن يكون بعد وقت البدء")
@@ -28,8 +26,7 @@ export const BookingFormForHall = ({ hallId, selectedDate }) => {
     onSubmit: async (values) => {
       const data = {
         hall_id: hallId,
-        customer_name: values.customer_name,
-        phone: values.phone,
+        details: values.details,
         start_time: `${selectedDate.toISOString().split("T")[0]}T${String(
           values.start_hour
         ).padStart(2, "0")}:00:00Z`,
@@ -37,8 +34,6 @@ export const BookingFormForHall = ({ hallId, selectedDate }) => {
           values.end_hour
         ).padStart(2, "0")}:00:00Z`,
       };
-
-      console.log("Booking Data:", data);
       const response = await createHallReservation(data);
       toast.success(response.data.message);
     },
@@ -50,49 +45,34 @@ export const BookingFormForHall = ({ hallId, selectedDate }) => {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
-      className="bg-gray-800 via-sec-color-100 to-my-color text-white p-8 rounded-lg max-w-[1300px] mx-auto shadow-2xl border border-sec-color-100"
+      className="bg-zinc-900 p-8 rounded-2xl shadow-2xl max-w-3xl mx-auto border border-sec-color-100"
     >
-      <h2 className="text-3xl font-bold text-center mb-8">
+      <h2 className="text-3xl font-extrabold text-center text-gray-100 mb-10">
         {t("hallbooking.formTitle")}
       </h2>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div>
-          <label className="block font-medium mb-1">
-            {t("hallbooking.customerName")}
+        {/* Details Field */}
+        <div className="md:col-span-2">
+          <label className="block text-gray-100 font-semibold mb-2">
+            {t("hallbooking.details")}
           </label>
           <input
             type="text"
-            name="customer_name"
-            className="w-full text-gray-900 px-4 py-2 border rounded-xl focus:ring-2 focus:ring-blue-400 focus:outline-none transition"
+            name="details"
+            placeholder={t("hallbooking.detailsPlaceholder")}
+            className="w-full px-5 py-3 border border-gray-300 rounded-2xl focus:ring-2 focus:ring-sec-color-100 focus:outline-none text-gray-900 transition"
             onChange={formik.handleChange}
-            value={formik.values.customer_name}
+            value={formik.values.details}
           />
-          {formik.touched.customer_name && formik.errors.customer_name && (
-            <p className="text-red-500 text-sm mt-1">
-              {formik.errors.customer_name}
-            </p>
+          {formik.touched.details && formik.errors.details && (
+            <p className="text-red-500 text-sm mt-1">{formik.errors.details}</p>
           )}
         </div>
 
+        {/* Start Hour */}
         <div>
-          <label className="block font-medium mb-1">
-            {t("hallbooking.phoneNumber")}
-          </label>
-          <input
-            type="text"
-            name="phone"
-            className="w-full px-4 py-2 border text-gray-900  rounded-xl focus:ring-2 focus:ring-blue-400 focus:outline-none transition"
-            onChange={formik.handleChange}
-            value={formik.values.phone}
-          />
-          {formik.touched.phone && formik.errors.phone && (
-            <p className="text-red-500 text-sm mt-1">{formik.errors.phone}</p>
-          )}
-        </div>
-
-        <div>
-          <label className="block font-medium mb-1">
+          <label className="block text-gray-100 font-semibold mb-2">
             {t("hallbooking.fromHour")}
           </label>
           <input
@@ -100,7 +80,8 @@ export const BookingFormForHall = ({ hallId, selectedDate }) => {
             name="start_hour"
             min="0"
             max="23"
-            className="w-full px-4 py-2 border text-gray-900  rounded-xl focus:ring-2 focus:ring-blue-400 focus:outline-none transition"
+            placeholder="16"
+            className="w-full px-5 py-3 border border-gray-300 rounded-2xl focus:ring-2 focus:ring-sec-color-100 focus:outline-none text-gray-900 transition"
             onChange={formik.handleChange}
             value={formik.values.start_hour}
           />
@@ -111,8 +92,9 @@ export const BookingFormForHall = ({ hallId, selectedDate }) => {
           )}
         </div>
 
+        {/* End Hour */}
         <div>
-          <label className="block font-medium mb-1">
+          <label className="block text-gray-100 font-semibold mb-2">
             {t("hallbooking.toHour")}
           </label>
           <input
@@ -120,7 +102,8 @@ export const BookingFormForHall = ({ hallId, selectedDate }) => {
             name="end_hour"
             min="1"
             max="24"
-            className="w-full px-4 py-2 border text-gray-900  rounded-xl focus:ring-2 focus:ring-blue-400 focus:outline-none transition"
+            placeholder="20"
+            className="w-full px-5 py-3 border border-gray-300 rounded-2xl focus:ring-2 focus:ring-sec-color-100 focus:outline-none text-gray-900 transition"
             onChange={formik.handleChange}
             value={formik.values.end_hour}
           />
@@ -132,10 +115,10 @@ export const BookingFormForHall = ({ hallId, selectedDate }) => {
         </div>
       </div>
 
-      <div className="mt-8 text-center">
+      <div className="mt-10 text-center">
         <button
           type="submit"
-          className="bg-sec-color-100 hover:bg-sec-color-200 text-white font-semibold py-3 px-8 rounded-xl shadow-lg transition duration-300"
+          className="bg-sec-color-100 hover:bg-sec-color-200 transition text-white font-bold py-3 px-10 rounded shadow-lg text-lg"
         >
           {t("hallbooking.confirm")}
         </button>

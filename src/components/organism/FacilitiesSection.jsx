@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import background from "../../assets/images/bestImage.jpg";
+import background from "../../assets/images/newbg.jpg";
 import hallImg from "../../assets/images/Outdoor seating.jpeg";
 import poolImg from "../../assets/images/de1.jpeg";
 import restaurantImg from "../../assets/images/de3.jpeg";

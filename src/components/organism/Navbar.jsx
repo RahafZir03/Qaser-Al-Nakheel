@@ -18,6 +18,7 @@ function Navbar() {
   const { i18n } = useTranslation();
   const dispatch = useDispatch();
   const id = useSelector((state) => state.authData.userId);
+  const role = useSelector((state) => state.authData.userRole);
   const language = useSelector((state) => state.language.lang);
 
   const profileImage = useSelector(
@@ -107,18 +108,20 @@ function Navbar() {
                               : "Profile"}
                           </Link>
                         </li>
-                        <li>
-                          <Link
-                            to="/admin"
-                            onClick={() => setOpenNav(false)}
-                            className="flex items-center gap-2 px-4 py-3 text-sm text-gray-800 font-bold hover:bg-gray-50 transition-colors duration-200"
-                          >
-                            <MdAdminPanelSettings className="text-xl text-my-color" />
-                            {i18n.language === "ar"
-                              ? "لوحة التحكم"
-                              : "Admin Panel"}
-                          </Link>
-                        </li>
+                        {role !== "user" && (
+                          <li>
+                            <Link
+                              to="/admin"
+                              onClick={() => setOpenNav(false)}
+                              className="flex items-center gap-2 px-4 py-3 text-sm text-gray-800 font-bold hover:bg-gray-50 transition-colors duration-200"
+                            >
+                              <MdAdminPanelSettings className="text-xl text-my-color" />
+                              {i18n.language === "ar"
+                                ? "لوحة التحكم"
+                                : "Admin Panel"}
+                            </Link>
+                          </li>
+                        )}
                       </>
                     )}
                     <li>
@@ -246,23 +249,24 @@ function Navbar() {
                             </Link>
                           )}
                         </Menu.Item>
-
-                        <Menu.Item>
-                          {({ active }) => (
-                            <Link
-                              to="/admin"
-                              onClick={() => setOpenNav(false)}
-                              className={`${
-                                active ? "bg-gray-100" : ""
-                              } flex items-center gap-3 px-5 py-2 text-sm text-gray-800 font-bold transition`}
-                            >
-                              <MdAdminPanelSettings className="text-xl text-my-color" />
-                              {i18n.language === "ar"
-                                ? "لوحة التحكم"
-                                : "Admin Panel"}
-                            </Link>
-                          )}
-                        </Menu.Item>
+                        {role !== "user" && (
+                          <Menu.Item>
+                            {({ active }) => (
+                              <Link
+                                to="/admin"
+                                onClick={() => setOpenNav(false)}
+                                className={`${
+                                  active ? "bg-gray-100" : ""
+                                } flex items-center gap-3 px-5 py-2 text-sm text-gray-800 font-bold transition`}
+                              >
+                                <MdAdminPanelSettings className="text-xl text-my-color" />
+                                {i18n.language === "ar"
+                                  ? "لوحة التحكم"
+                                  : "Admin Panel"}
+                              </Link>
+                            )}
+                          </Menu.Item>
+                        )}
                       </>
                     )}
 

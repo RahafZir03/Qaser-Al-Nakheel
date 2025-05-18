@@ -3,6 +3,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { getAllPools } from "../../api/endpoints/pool";
 import { useTranslation } from "react-i18next";
 import PoolBookingForm from "../molecule/PoolBookingForm";
+import RenderStars from "../atoms/RenderStars";
 
 export default function PoolShowcase() {
   const { t, i18n } = useTranslation("restaurant");
@@ -11,7 +12,8 @@ export default function PoolShowcase() {
   useEffect(() => {
     async function fetchPoolsData() {
       const response = await getAllPools();
-      setPools(response.data);
+      console.log(response.data);
+      setPools(response.data.pools);
     }
     fetchPoolsData();
   }, []);
@@ -80,7 +82,23 @@ export default function PoolShowcase() {
                       ? t("pool.poolsSection.type.indoor")
                       : t("pool.poolsSection.type.outdoor")}
                   </p>
-                  <div className="flex md:flex-row flex-col items-center relative">
+                  <div
+                    className="flex my-1 items-center gap-1"
+                    title={`${
+                      i18n.language === "en"
+                        ? "Number of reviews"
+                        : "عدد التقييمات"
+                    } : ${pool?.ratingCount}`}
+                  >
+                    <p className="">
+                      {i18n.language === "en"
+                        ? "Users Rating"
+                        : "تقييم المستخدمين"}{" "}
+                      :
+                    </p>
+                    <RenderStars ratingNumber={pool?.averageRating} />
+                  </div>
+                  <div className="md:flex items-center relative">
                     <h3 className="text-3xl font-bold mb-2">
                       {pool.name[i18n.language || "en"]}
                     </h3>
@@ -124,11 +142,9 @@ export default function PoolShowcase() {
                     <motion.div
                       key={idx}
                       whileHover={hoverEffect.whileHover}
-                      className="bg-zinc-400 p-3 rounded-lg text-center"
+                      className="bg-zinc-600 p-3 rounded-lg text-center"
                     >
-                      <span className="block text-white/80">
-                        {t(item.label)}
-                      </span>
+                      <span className="block text-white">{t(item.label)}</span>
                       {item.value}
                     </motion.div>
                   ))}

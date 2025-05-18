@@ -4,6 +4,7 @@ import SidebarLink from "../atoms/SidebarLink";
 import sidebarItems from "../../constants/sidebarItems";
 import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
+import i18next from "i18next";
 
 export default function Sidebar({ sidebarSize, isHalfScreen, setSidebarSize }) {
   const { t } = useTranslation();
@@ -76,7 +77,7 @@ export default function Sidebar({ sidebarSize, isHalfScreen, setSidebarSize }) {
         </div>
         {sidebarSize === "big" && (
           <h1 className="rtl:mr-6 ltr:ml-6 my-5 w-full text-lg font-semibold text-gray-300">
-            التنقل
+            {i18next.language === "en" ? "Mobility" : "التنقل"}
           </h1>
         )}
         <ul className={`${sidebarSize === "small" ? "mt-5" : ""}`}>

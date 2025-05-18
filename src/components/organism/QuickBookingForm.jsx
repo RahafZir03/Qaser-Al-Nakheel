@@ -88,7 +88,7 @@ function QuickBookingForm() {
     <form
       ref={formRef}
       onSubmit={formik.handleSubmit}
-      className="grid grid-cols-1 2xmobile:grid-cols-2 max-h-[290px] overflow-y-auto lg:grid-cols-6 gap-4 rounded px-8 py-4 shadow-md items-center flex-wrap text-black bg-my-color"
+      className="grid grid-cols-1 2xmobile:grid-cols-2 max-h-[290px] border border-sec-color-100 overflow-y-auto lg:grid-cols-6 gap-4 rounded px-8 py-4 shadow-md items-center flex-wrap text-black bg-my-color"
     >
       <select
         name="type"
@@ -141,7 +141,7 @@ function QuickBookingForm() {
       </div>
       <button
         type="submit"
-        className="bg-gray-800 hover:bg-gray-700 transition text-white py-2 px-4 rounded lg:col-span-1 2xmobile:col-span-2"
+        className="bg-gray-800 border border-sec-color-100 hover:bg-gray-700 transition text-white py-2 px-4 rounded lg:col-span-1 2xmobile:col-span-2"
       >
         {t("booking.form.submit")}
       </button>

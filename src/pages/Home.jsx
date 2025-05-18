@@ -6,6 +6,7 @@ import RoomAndSuitesSection from "../components/organism/RoomAndSuitesSection";
 
 import FacilitiesSection from "../components/organism/FacilitiesSection";
 import VideoSection from "../components/organism/VideoSection";
+
 export default function Home() {
   const { t } = useTranslation("home");
   return (

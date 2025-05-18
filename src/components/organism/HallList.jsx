@@ -11,6 +11,7 @@ import geneva from "../../assets/images/geneva.png";
 import banquet from "../../assets/images/banquet.png";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
+import RenderStars from "../atoms/RenderStars";
 
 const imageMap = {
   cinema,
@@ -20,7 +21,7 @@ const imageMap = {
   geneva,
   banquet,
 };
-const HallList = ({ myRef,hallType }) => {
+const HallList = ({ myRef, hallType }) => {
   const { t, i18n } = useTranslation("hall");
   const [halls, setHalls] = useState([]);
   const [expandedHallId, setExpandedHallId] = useState(null);
@@ -29,7 +30,6 @@ const HallList = ({ myRef,hallType }) => {
     async function fetchHalls() {
       const response = await getAllHalls(hallType);
       setHalls(response.data.halls);
-      console.log(response.data.halls);
     }
     fetchHalls();
   }, []);
@@ -39,41 +39,60 @@ const HallList = ({ myRef,hallType }) => {
   };
 
   const formatCapacity = (capacityArray) => {
-    if (!Array.isArray(capacityArray)) return null;
-
-    return capacityArray.map((item, i) => {
+    if (!Array.isArray(capacityArray)) {
       try {
-        let parsed = item;
-
-        if (typeof item === "string") {
-          const fixedItem = item
-            .replace(/([{,]\s*)(\w+)\s*:/g, '$1"$2":')
-            .replace(/'/g, '"');
-
-          parsed = JSON.parse(fixedItem);
-        }
-
-        if (!parsed || !parsed.type || !parsed.capacity) {
-          throw new Error("Invalid format");
-        }
-
-        return (
-          <div key={i}>
-            <img
-              src={imageMap[parsed.type]}
-              alt={parsed.type}
-              className="w-16 h-16 object-contain mb-2 mx-auto"
-            />
-            <span className="bg-sec-color-200 text-black px-3 py-1 rounded-full text-sm font-medium shadow-md">
-              {parsed.type.replace("_", " ")}: {parsed.capacity}
-            </span>
-          </div>
-        );
-      } catch (error) {
-        console.error("Error parsing capacity item:", item, error.message);
+        // محاولة تحويل السلسلة إلى JSON
+        const fixedString = capacityArray
+          .replace(/([{,]\s*)(\w+)\s*:/g, '$1"$2":')
+          .replace(/'/g, '"');
+        capacityArray = JSON.parse(fixedString);
+      } catch (e) {
+        console.error("Error parsing capacity array:", e.message);
         return null;
       }
-    });
+    }
+
+    return capacityArray
+      .map((item, i) => {
+        try {
+          let parsed = item;
+
+          // إذا العنصر String، نحاول نحوله
+          if (typeof item === "string") {
+            const fixedItem = item
+              .replace(/([{,]\s*)(\w+)\s*:/g, '$1"$2":')
+              .replace(/'/g, '"');
+            parsed = JSON.parse(fixedItem);
+          }
+
+          // نتأكد أن العنصر كائن يحتوي على type و capacity
+          if (
+            typeof parsed !== "object" ||
+            parsed === null ||
+            !parsed.type ||
+            !parsed.capacity
+          ) {
+            throw new Error("Invalid capacity item");
+          }
+
+          return (
+            <div key={i}>
+              <img
+                src={imageMap[parsed.type]}
+                alt={parsed.type}
+                className="w-16 h-16 object-contain mb-2 mx-auto"
+              />
+              <span className="bg-sec-color-200 text-black px-3 py-1 rounded-full text-sm font-medium shadow-md">
+                {parsed.type.replace("_", " ")}: {parsed.capacity}
+              </span>
+            </div>
+          );
+        // eslint-disable-next-line no-unused-vars
+        } catch (error) {
+          return null;
+        }
+      })
+      .filter(Boolean); // إزالة العناصر null
   };
 
   const getMinMaxCapacity = (capacityArray) => {
@@ -129,9 +148,30 @@ const HallList = ({ myRef,hallType }) => {
               onClick={() => toggleExpand(hall.id)}
             >
               <div className="flex flex-wrap items-center justify-between w-full md:pr-4 gap-4">
-                <h2 className="text-2xl font-bold text-sec-color-200">
-                  {hall.name[i18n.language] || hall.name.en}
-                </h2>
+                <div className="flex items-center gap-4 flex-wrap">
+                  <h2 className="text-2xl font-bold text-sec-color-200">
+                    {hall.name[i18n.language] || hall.name.en}
+                  </h2>
+                  <span className="text-sm font-semibold text-white bg-sec-color-100 px-3 py-1 rounded-full shadow">
+                    {t("hall.pricePerHour")}: {hall.price_per_hour} NIS
+                  </span>
+                </div>
+                <div
+                  className="flex items-center gap-1"
+                  title={`${
+                    i18n.language === "en"
+                      ? "Number of reviews"
+                      : "عدد التقييمات"
+                  } : ${hall.ratingCount}`}
+                >
+                  <p className="">
+                    {i18n.language === "en"
+                      ? "Users Rating"
+                      : "تقييم المستخدمين"}{" "}
+                    :
+                  </p>
+                  <RenderStars ratingNumber={hall.averageRating} />
+                </div>
                 <p className="text-gray-200 max-w-xl flex gap-2">
                   <span className="text-base font-medium text-gray-400 ml-3">
                     ({min}–{max} {t("hall.person")})
@@ -232,7 +272,7 @@ const HallList = ({ myRef,hallType }) => {
                   <div className="flex w-full justify-center items-center">
                     <Link
                       to={`/hall/bookings/${hall.id}`}
-                      className="px-4 py-2 bg-sec-color-100 hover:bg-sec-color-200"
+                      className="px-8 py-5 text-xl font-bold rounded-md bg-sec-color-100 hover:bg-sec-color-200"
                     >
                       {" "}
                       {i18n.language === "en" ? "Book Hall" : "احجز القاعة"}

@@ -11,6 +11,10 @@ export const createPoolReservation = (data) => {
     const id = state.authData?.userId;
     return axiosInstance.post(`/pools/createPoolReservation/${id}`, data)
 }
+
+export const getPoolsName = () => {
+    return axiosInstance.get(`/pools/get/PoolsName`)
+
 //add pool
 export const addPool = (data) => {
     return axiosInstance.post('/pools', data);
@@ -54,4 +58,5 @@ export const updatePool = (poolId, data) => {
 //get pool by id
 export const getPoolById = (poolId) => {
     return axiosInstance.get(`/pools/${poolId}`);
+
 }

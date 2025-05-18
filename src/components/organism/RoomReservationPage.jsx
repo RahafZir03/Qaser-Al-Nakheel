@@ -1,5 +1,6 @@
 import { useTranslation } from "react-i18next";
 import ReservationForm from "./ReservationForm";
+import RenderStars from "../atoms/RenderStars";
 
 /* eslint-disable react/prop-types */
 export default function RoomReservationPage({ roomData }) {
@@ -16,9 +17,17 @@ export default function RoomReservationPage({ roomData }) {
       <div className="flex flex-col lg:flex-row gap-10">
         {/* Left Section */}
         <div className="flex-1 space-y-6">
-          <h1 className="text-3xl font-semibold">
-            {roomData.RoomType.name[lang]} - {roomData.room_no}
-          </h1>
+          <div
+            className="flex items-center gap-5"
+            title={`${
+              i18n.language === "en" ? "Number of reviews" : "عدد التقييمات"
+            } : ${roomData.ratingCount}`}
+          >
+            <h1 className="text-3xl font-semibold">
+              {roomData.RoomType.name[lang]} - {roomData.room_no}
+            </h1>
+            <RenderStars ratingNumber={roomData.averageRating} size={"big"} />
+          </div>
           <p>{t("roomAndBooking.singleRoom.description")}</p>
 
           <p className="text-gray-700">{roomData.RoomType.description[lang]}</p>

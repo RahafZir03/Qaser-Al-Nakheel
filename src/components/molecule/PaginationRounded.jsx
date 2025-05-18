@@ -10,7 +10,7 @@ export default function PaginationRounded({
 }) {
   const handlePageChange = (event, value) => {
     if (onChange) {
-      onChange(event, value); // تمرير الـ event أيضاً ليتماشى مع التوقيع المتوقع
+      onChange(event, value);
     }
   };
 
@@ -21,29 +21,29 @@ export default function PaginationRounded({
       <Stack spacing={2}>
         <Pagination
           count={count}
-          page={page} // تأكد من تمرير الصفحة الحالية
+          page={page}
           variant="outlined"
           shape="rounded"
           onChange={handlePageChange}
           size="large"
           sx={{
             ".MuiPaginationItem-root": {
-              color: isDark ? "#FFFFFF" : "#555555",
+              color: isDark ? "#F3F4F6" : "#1F2937", 
             },
             ".MuiPaginationItem-outlined": {
-              borderColor: isDark ? "#AAAAAA" : "#7b1ffe",
-              backgroundColor: isDark ? "#1591b7" : "#FFFFFF",
+              borderColor: isDark ? "#FFD700" : "#FFD700",
+              backgroundColor: isDark ? "#1F2937" : "#FFFFFF",
               "&:hover": {
-                backgroundColor: isDark ? "#1bb5e4" : "#1CBEEF",
-                color: "#FFFFFF",
+                backgroundColor: "#FFD700",
+                color: "#000000",
               },
             },
             ".MuiPaginationItem-page.Mui-selected": {
-              backgroundColor: isDark ? "#FFFFFF" : "#7b1ffe",
-              color: isDark ? "#000000" : "#FFFFFF",
-              borderColor: isDark ? "#FFFFFF" : "",
+              backgroundColor: "#FFD700",
+              color: "#000000",
+              borderColor: "#FFD700",
               "&:hover": {
-                backgroundColor: isDark ? "#e6e6e6" : "#2490c2",
+                backgroundColor: "#FACC15",
               },
             },
           }}

@@ -3,8 +3,8 @@ import { useTranslation } from "react-i18next";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import { Link } from "react-router-dom";
+import RenderStars from "../atoms/RenderStars";
 const ImageCarousel = ({ images }) => {
-  console.log(images);
   const { t, i18n } = useTranslation("home");
   const responsive = {
     superLargeDesktop: {
@@ -77,6 +77,22 @@ const ImageCarousel = ({ images }) => {
                     <p className="mt-2 text-center h-28 overflow-y-auto text-sm font-medium">
                       {src.description[i18n.language] || src.description.en}
                     </p>
+                    <div
+                      className="flex items-center gap-1 justify-center"
+                      title={`${
+                        i18n.language === "en"
+                          ? "Number of reviews"
+                          : "عدد التقييمات"
+                      } : ${src.room.ratingCount}`}
+                    >
+                      <p className="">
+                        {i18n.language === "en"
+                          ? "Users Rating"
+                          : "تقييم المستخدمين"}{" "}
+                        :
+                      </p>
+                      <RenderStars ratingNumber={src.room.averageRating} />
+                    </div>
                     <p className="mt-4 bg-green-800 p-2 rounded-md text-center">
                       {price} NIS{" "}
                       {isSpecial && (

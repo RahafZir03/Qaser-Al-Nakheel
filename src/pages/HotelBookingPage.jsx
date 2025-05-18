@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import { useParams } from "react-router-dom";
 import UpperTitle from "../components/molecule/UpperTitle";
 import { useEffect, useState } from "react";
@@ -34,10 +33,8 @@ export default function HotelBookingPage() {
     async function fetchRoomTypeWithoutDates() {
       if (typeId === "allRooms") {
         const response = await getAllRoomTypeRoomsNoDates();
-        console.log(response.data);
         const roomTypes = response.data;
 
-        // ندمج جميع البيانات تحت mainData وهمي ونجمع كل الغرف في مصفوفة واحدة
         const allRooms = roomTypes.flatMap((rt) => rt.Rooms);
         const name = {
           en: "All Rooms",
@@ -64,7 +61,6 @@ export default function HotelBookingPage() {
   async function fetchRoomType(inDate, outDate) {
     if (typeId === "allRooms") {
       const response = await getAllAvailableRoomsByDate(inDate, outDate);
-      console.log(response.data);
       const roomTypes = response.data;
 
       const allRooms = roomTypes.flatMap((rt) => rt.Rooms);

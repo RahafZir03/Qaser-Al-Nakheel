@@ -8,7 +8,12 @@ export default {
         allRoom: "جميع الغرف",
         createroom: "إنشاء غرفة",
         employee: "الموظف",
-
+        allbookings: "كل الحجوزات",
+        room_booking:"حجوزات الغرف",
+        hallBooking:"حجوزات القاعات",
+        poolBooking:"حجوزات المسابح",
+        restaurantBooking:"حجوزات المطعم",
+        usersMessages:"رسائل الزبائن"
     },
     navbar: {
         home: "الرئيسية",

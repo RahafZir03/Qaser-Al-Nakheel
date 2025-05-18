@@ -11,8 +11,8 @@ export const authDataSlice = createSlice({
   initialState,
   reducers: {
     saveAuthData: (state, action) => {
-      state.userId = action.payload.userData.id || null;
-      state.allUserData = action.payload.userData || null;
+      state.userId = action.payload.userId || null;
+      state.allUserData = action.payload.allUserData || null;
       state.userRole = action.payload.userRole || '';
     },
     deleteAuthData: (state) => {

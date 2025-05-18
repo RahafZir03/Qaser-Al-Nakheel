@@ -8,6 +8,12 @@ export default {
         allRoom: "All Rooms",
         createroom: "Create Room",
         employee: "Employee",
+        allbookings: "All Bookings",
+        room_booking: "Rooms Bookings",
+        hallBooking: "Halls Bookings",
+        poolBooking: "Pools Bookings",
+        restaurantBooking: "Restaurant Bookings",
+        usersMessages: "Users Messages"
     },
     navbar: {
         home: "Home",

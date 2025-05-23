@@ -5,6 +5,11 @@ import AddEmployeeModal from "../../components/molecule/AddEmployee";
 import UpdateEmployee from "../../components/molecule/UpdateEmployee";
 import EditJobModal from "../../components/molecule/EditJobModal";
 import { useTranslation } from 'react-i18next';
+import { MdDelete } from "react-icons/md";
+import { FaEdit } from "react-icons/fa";
+import { RiExchange2Line } from "react-icons/ri";
+import PaginationRounded from "../../components/molecule/PaginationRounded";
+
 
 export default function Employee() {
   const [employees, setEmployees] = useState([]);
@@ -13,13 +18,19 @@ export default function Employee() {
   const [selectedEmployee, setSelectedEmployee] = useState(null);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [isEditJobModalOpen, setIsEditJobModalOpen] = useState(false);
-  const { t } = useTranslation("Employee");
+  
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
 
+  const { t,i18n } = useTranslation("Employee");
+
+  const isArabic = i18n.language === "ar";
   const fetchEmployees = async () => {
     try {
       const response = await employeeData();
       if (response?.data?.employees && Array.isArray(response.data.employees)) {
         setEmployees(response.data.employees);
+        setTotalPages(Math.ceil(response.data.count / 10));
       } else {
         toast.error(t('toasts.noEmployeeData'));
         setEmployees([]);
@@ -81,23 +92,24 @@ export default function Employee() {
     text?.length > length ? `${text.slice(0, length)}...` : text;
 
   return (
-    <div className="p-4 md:p-8 bg-admin-color min-h-screen">
+    <div className="p-4 md:p-8 bg-admin-color ">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
         <h1 className="text-2xl font-bold text-white">{t('general.allEmployees')}</h1>
         <button
           onClick={() => setIsModalOpen(true)}
-          className="bg-green-500 hover:bg-green-600 text-white px-5 py-2 rounded transition"
+          className="bg-blue-500 hover:bg-blue-600 text-white px-5 py-2 rounded transition"
         >
           {t('buttons.addEmployee')}
         </button>
       </div>
 
-      <div className="overflow-x-auto bg-gray-900 p-4 rounded shadow">
+      <div  className="overflow-x-auto bg-white/5 rounded-xl shadow">
         <table className="min-w-full text-white text-sm">
           <thead>
-            <tr className="bg-gray-800 text-left">
-              <th className="p-3">{t('table.firstName')}</th>
-              <th className="p-3">{t('table.lastName')}</th>
+            <tr className={`text-sm bg-white/10 ${
+                isArabic ? "text-right" : "text-left"
+              }`}>
+              <th className="p-3">{t('table.name')}</th>
               <th className="p-3">{t('table.email')}</th>
               <th className="p-3">{t('table.address')}</th>
               <th className="p-3">{t('table.jobDescription')}</th>
@@ -124,8 +136,7 @@ export default function Employee() {
             ) : (
               employees.map(emp => (
                 <tr key={emp.id} className="border-b border-gray-700 hover:bg-gray-800">
-                  <td className="p-3">{emp.first_name}</td>
-                  <td className="p-3">{emp.last_name}</td>
+                  <td className="p-3">{emp.first_name} {emp.last_name}</td>
                   <td className="p-3">{truncateText(emp.email, 25)}</td>
                   <td className="p-3">{truncateText(emp.address, 25)}</td>
                   <td className="p-3">{truncateText(emp.jop_description, 30)}</td>
@@ -157,27 +168,24 @@ export default function Employee() {
                   <td className="p-3 flex flex-col md:flex-row gap-2">
                     <button
                       onClick={() => handleDelete(emp.id)}
-                      className="bg-red-600 hover:bg-red-700 text-white px-2 py-1 rounded text-xs"
-                    >
-                      {t('buttons.delete')}
+                      title={t('buttons.delete')}>
+                      <MdDelete className=" text-red-600 hover:text-red-400 " size={20} />
                     </button>
                     <button
                       onClick={() => {
                         setSelectedEmployee(emp);
                         setIsEditModalOpen(true);
                       }}
-                      className="bg-yellow-500 hover:bg-yellow-600 text-white px-2 py-1 rounded text-xs"
-                    >
-                      {t('buttons.edit')}
+                       title={t('buttons.edit')}>
+                      <FaEdit className=" text-white" size={20} />
                     </button>
                     <button
                       onClick={() => {
                         setSelectedEmployee(emp);
                         setIsEditJobModalOpen(true);
                       }}
-                      className="bg-blue-500 hover:bg-blue-600 text-white px-2 py-1 rounded text-xs"
-                    >
-                      {t('buttons.editJob')}
+                      title={t('buttons.editJob')}>
+                      <RiExchange2Line size={20} />
                     </button>
                   </td>
                 </tr>
@@ -185,6 +193,16 @@ export default function Employee() {
             )}
           </tbody>
         </table>
+        {totalPages > 1 && (
+                  <PaginationRounded
+                    count={totalPages}
+                    page={page}
+                    onChange={(e, value) => {
+                      setPage(value);
+                    }}
+                    theme="dark"
+                  />
+                )}
       </div>
 
       <AddEmployeeModal

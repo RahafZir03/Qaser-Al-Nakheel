@@ -5,6 +5,8 @@ import { toast } from "react-toastify";
 import * as Yup from "yup";
 import { useTranslation } from "react-i18next";
 import { updateEmployee } from "../../api/endpoints/employee";
+import { IoMdCloseCircleOutline } from "react-icons/io";
+
 
 const EditEmployeeModal = ({ isOpen, onClose, employee, onUpdate }) => {
     const { t } = useTranslation("updateemployee");
@@ -93,8 +95,8 @@ const EditEmployeeModal = ({ isOpen, onClose, employee, onUpdate }) => {
     if (!isOpen) return null;
 
     return (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-            <div className="bg-admin-color p-6 rounded shadow-lg max-w-xl w-full">
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50 ">
+            <div className="bg-admin-color p-6 rounded shadow-lg max-w-xl w-full border-2 border-sec-color-100">
                 <div className="flex justify-between items-center mb-4">
                     <h2 className="text-xl font-bold text-white">{t("edit_employee")}</h2>
                     <button
@@ -102,7 +104,7 @@ const EditEmployeeModal = ({ isOpen, onClose, employee, onUpdate }) => {
                         className="text-red-500 font-bold text-xl hover:text-red-400"
                         disabled={loading}
                     >
-                        &times;
+                        <IoMdCloseCircleOutline size={35} />
                     </button>
                 </div>
 
@@ -112,7 +114,7 @@ const EditEmployeeModal = ({ isOpen, onClose, employee, onUpdate }) => {
                             name="first_name"
                             placeholder={`${t("first_name")} *`}
                             {...formik.getFieldProps("first_name")}
-                            className={`p-2 rounded bg-gray-700 text-white w-full ${formik.touched.first_name && formik.errors.first_name ? "border border-red-500" : ""}`}
+                            className={`p-2 rounded bg-gray-700 text-white w-full ${formik.touched.first_name && formik.errors.first_name ? "border border-red-500" : ""} border border-sec-color-100`}
                             disabled={loading}
                         />
                         {formik.touched.first_name && formik.errors.first_name && (
@@ -125,7 +127,7 @@ const EditEmployeeModal = ({ isOpen, onClose, employee, onUpdate }) => {
                             name="last_name"
                             placeholder={`${t("last_name")} *`}
                             {...formik.getFieldProps("last_name")}
-                            className={`p-2 rounded bg-gray-700 text-white w-full ${formik.touched.last_name && formik.errors.last_name ? "border border-red-500" : ""}`}
+                            className={`p-2 rounded bg-gray-700 text-white w-full ${formik.touched.last_name && formik.errors.last_name ? "border border-red-500" : ""} border border-sec-color-100`}
                             disabled={loading}
                         />
                         {formik.touched.last_name && formik.errors.last_name && (
@@ -138,7 +140,7 @@ const EditEmployeeModal = ({ isOpen, onClose, employee, onUpdate }) => {
                             name="address"
                             placeholder={t("address")}
                             {...formik.getFieldProps("address")}
-                            className="p-2 rounded bg-gray-700 text-white w-full"
+                            className="p-2 rounded bg-gray-700 text-white w-full border border-sec-color-100"
                             disabled={loading}
                         />
                     </div>
@@ -149,7 +151,7 @@ const EditEmployeeModal = ({ isOpen, onClose, employee, onUpdate }) => {
                             placeholder={`${t("salary")} *`}
                             type="number"
                             {...formik.getFieldProps("salary")}
-                            className={`p-2 rounded bg-gray-700 text-white w-full ${formik.touched.salary && formik.errors.salary ? "border border-red-500" : ""}`}
+                            className={`p-2 rounded bg-gray-700 text-white w-full ${formik.touched.salary && formik.errors.salary ? "border border-red-500" : ""} border border-sec-color-100`}
                             disabled={loading}
                             min="0"
                             step="0.01"
@@ -168,7 +170,7 @@ const EditEmployeeModal = ({ isOpen, onClose, employee, onUpdate }) => {
                                     value={number}
                                     onChange={(e) => handleMobileChange(idx, e.target.value)}
                                     placeholder={`${t("mobile")} #${idx + 1}`}
-                                    className="flex-1 p-2 rounded bg-gray-700 text-white"
+                                    className="flex-1 p-2 rounded bg-gray-700 text-white border border-sec-color-100"
                                     disabled={loading}
                                     maxLength="15"
                                 />
@@ -187,7 +189,7 @@ const EditEmployeeModal = ({ isOpen, onClose, employee, onUpdate }) => {
                         <button
                             type="button"
                             onClick={addMobileField}
-                            className="text-blue-400 hover:text-blue-300 text-sm mt-1"
+                            className="text-blue-400 hover:text-blue-300 text-sm mt-1 "
                             disabled={loading || mobileInputs.length >= 3}
                         >
                             + {t("add_number")}
@@ -198,7 +200,7 @@ const EditEmployeeModal = ({ isOpen, onClose, employee, onUpdate }) => {
                         <button
                             type="button"
                             onClick={onClose}
-                            className="bg-gray-600 hover:bg-gray-500 px-4 py-2 rounded text-white"
+                            className="bg-gray-600 hover:bg-gray-500 px-4 py-2 rounded text-white "
                             disabled={loading}
                         >
                             {t("cancel")}

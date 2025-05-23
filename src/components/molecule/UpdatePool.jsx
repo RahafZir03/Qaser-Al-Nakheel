@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 import { getPoolById, updatePool } from "../../api/endpoints/pool";
+import { IoMdCloseCircleOutline } from "react-icons/io";
 
 export default function UpdatePoolModal({ poolId, onClose, onUpdated }) {
     const [initialValues, setInitialValues] = useState(null);
@@ -72,30 +73,30 @@ export default function UpdatePoolModal({ poolId, onClose, onUpdated }) {
 
     return (
         <div className="fixed inset-0 z-50 bg-black bg-opacity-60 flex items-center justify-center p-4">
-            <div className="bg-admin-color rounded-2xl w-full max-w-3xl p-6 shadow-xl overflow-y-auto max-h-[90vh] relative">
-                <button onClick={onClose} className="absolute top-2 left-3 text-2xl text-gray-400 hover:text-red-500">×</button>
-                <h2 className="text-2xl font-bold text-white mb-6 text-center">تعديل بيانات المسبح</h2>
+            <div className="bg-admin-color rounded-2xl w-full max-w-3xl p-6 shadow-xl overflow-y-auto max-h-[90vh] relative border border-sec-color-100">
+                <button onClick={onClose} className="absolute top-2 left-3 text-2x text-red-500"><IoMdCloseCircleOutline size={35}/></button>
+                <h2 className="text-2xl font-bold text-white mb-6 text-center">Updating Pool</h2>
 
                 <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={handleSubmit} enableReinitialize>
                     {({ isSubmitting }) => (
                         <Form className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
-                            <Field name="name_ar" placeholder="الاسم بالعربية" className="p-2 border rounded" />
-                            <Field name="name_en" placeholder="Name in English" className="p-2 border rounded" />
-                            <Field name="description_ar" as="textarea" placeholder="الوصف بالعربية" className="p-2 border rounded h-32 resize-y" />
-                            <Field name="description_en" as="textarea" placeholder="Description in English" className="p-2 border rounded h-32 resize-y" />
-                            <Field name="size" placeholder="الحجم (مثال: 30m x 15m)" className="p-2 border rounded" />
-                            <Field name="depth" placeholder="العمق (مثال: 1m - 3m)" className="p-2 border rounded" />
-                            <Field name="opening_hours" placeholder="ساعات العمل (مثال: 06:00 AM - 10:00 PM)" className="p-2 border rounded" />
-                            <Field name="max_capacity" type="number" placeholder="الحد الأقصى للسعة" className="p-2 border rounded" />
-                            <Field name="pool_type" as="select" className="p-2 border rounded bg-white">
-                                <option value="" disabled>اختر نوع المسبح</option>
-                                <option value="indoor">داخلي</option>
-                                <option value="outdoor">خارجي</option>
+                            <Field name="name_ar" placeholder="Name in Arabic" className="p-2 border rounded border-sec-color-100 bg-gray-700" />
+                            <Field name="name_en" placeholder="Name in English" className="p-2 border rounded border-sec-color-100 bg-gray-700" />
+                            <Field name="description_ar" as="textarea" placeholder=" Description in Arabic" className="p-2 border rounded h-32 resize-y border-sec-color-100 bg-gray-700" />
+                            <Field name="description_en" as="textarea" placeholder="Description in English" className="p-2 border rounded h-32 resize-y border-sec-color-100 bg-gray-700" />
+                            <Field name="size" placeholder="Size (m x m)" className="p-2 border rounded  border-sec-color-100 bg-gray-700" />
+                            <Field name="depth" placeholder="Depth (m - m)" className="p-2 border rounded border-sec-color-100 bg-gray-700" />
+                            <Field name="opening_hours" placeholder="Working hours  (AM - PM)" className="p-2 border rounded  border-sec-color-100 bg-gray-700" />
+                            <Field name="max_capacity" type="number" placeholder="Maximum capacity" className="p-2 border rounded  border-sec-color-100 bg-gray-700" />
+                            <Field name="pool_type" as="select" className="p-2 border rounded  border-sec-color-100 bg-gray-700">
+                                <option value="" disabled>Choose the type of pool</option>
+                                <option value="indoor">Internal</option>
+                                <option value="outdoor">External</option>
                             </Field>
-                            <Field name="hourly_rate" type="number" placeholder="السعر لكل ساعة" className="p-2 border rounded" />
+                            <Field name="hourly_rate" type="number" placeholder="السعر لكل ساعة" className="p-2 border rounded  border-sec-color-100 bg-gray-700" />
 
                             <button type="submit" disabled={isSubmitting} className="md:col-span-2 mt-6 px-6 py-2 rounded-xl w-full text-white bg-sec-color-100 max-w-52 hover:bg-opacity-90">
-                                {isSubmitting ? "جاري التحديث..." : "تحديث المسبح"}
+                                {isSubmitting ? " Updating..." : " Update Pool"}
                             </button>
                         </Form>
                     )}

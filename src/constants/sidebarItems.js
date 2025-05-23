@@ -121,8 +121,8 @@ const sidebarItems = [
     data: {
       to: "/admin/halls",
       icon: SlHome,
-      label: "Halls",
-      iconColor: "text-purple-700",
+      label: "sidebar.hall",
+      iconColor: "text-orange-700",
     }
   },
   {
@@ -131,8 +131,8 @@ const sidebarItems = [
     data: {
       to: "/admin/pools",
       icon: LiaSwimmingPoolSolid,
-      label: "Pools",
-      iconColor: "text-purple-700",
+      label: "sidebar.pool",
+      iconColor: "text-blue-700",
     }
   },
   {
@@ -141,8 +141,8 @@ const sidebarItems = [
     data: {
       to: "/admin/restaurants",
       icon: GrRestaurant,
-      label: "Restaurant",
-      iconColor: "text-purple-700",
+      label: "sidebar.restaurant",
+      iconColor: "text-green-700",
     }
   },
   {
@@ -151,8 +151,8 @@ const sidebarItems = [
     data: {
       to: "/admin/adminCustumer",
       icon: CiUser,
-      label: "Customers",
-      iconColor: "text-purple-700",
+      label: "sidebar.customer",
+      iconColor: "text-red-700",
 
     }
   }

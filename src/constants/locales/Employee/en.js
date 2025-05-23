@@ -11,8 +11,7 @@ export default {
         editJob: "Edit Job",
     },
     table: {
-        firstName: "First Name",
-        lastName: "Last Name",
+        name: "Name",
         email: "Email",
         address: "Address",
         jobDescription: "Job Description",

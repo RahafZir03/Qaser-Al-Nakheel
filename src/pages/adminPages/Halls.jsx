@@ -99,14 +99,7 @@ export default function HallsTable() {
         </button>
       </div>
 
-      <div
-        className={`grid gap-6 ${halls.length === 1
-          ? "grid-cols-1"
-          : halls.length === 2
-            ? "grid-cols-1 md:grid-cols-2"
-            : "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
-          }`}
-      >
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {loading ? (
           <div className="col-span-full text-center text-white">
             Loading...
@@ -119,7 +112,7 @@ export default function HallsTable() {
           halls.map((hall) => (
             <div
               key={hall.id}
-              className={`bg-gray-800 text-white rounded-xl shadow-lg transform transition duration-300 hover:scale-[1.02] relative overflow-visible p-4 ${openDropdownId === hall.id ? "z-40" : "z-10"
+              className={`bg-gray-800 text-white rounded-xl shadow-lg transform transition duration-300 hover:scale-[1.02] relative overflow-visible border border-sec-color-100 p-4 ${openDropdownId === hall.id ? "z-40" : "z-10"
                 }`}
             >
               {/* صورة */}
@@ -129,13 +122,13 @@ export default function HallsTable() {
                   hall.images[0]?.image_name_url
                 }
                 alt=" Hall photo"
-                className="w-full h-48 object-cover rounded-t-xl "
+                className="w-full h-64 object-cover rounded-t-3xl"
               />
 
               {/* محتوى */}
               <div className="p-4 ">
-                <div className="flex justify-between items-center mb-1 relative">
-                  <h2 className="text-lg font-bold">
+                <div className="flex justify-between items-center mb-1 relative ">
+                  <h2 className="text-2xl font-bold">
                     {hall.name[i18next.language || "en"]}
                   </h2>
 
@@ -226,11 +219,11 @@ export default function HallsTable() {
                     )}
                   </div>
                 </div>
-                <p className="text-sm mb-2">
-                  <strong>Price/hour:</strong> {hall.price_per_hour}ILS
+                <p className="text-lg mb-2">
+                   💰<strong>Price/hour:</strong> {hall.price_per_hour}ILS
                 </p>
-                <p className="text-sm mb-2">
-                  <strong>Status :</strong>{" "}
+                <p className="text-lg mb-2">
+                  🟢<strong>Status :</strong>{" "}
                   <span
                     className={`inline-block px-2 py-0.5 rounded text-xs font-semibold ${hall.availability_status === "available"
                       ? "bg-green-100 text-green-700"
@@ -242,14 +235,14 @@ export default function HallsTable() {
                       : "Not available "}
                   </span>
                 </p>
-                <p className="text-sm mb-2">
-                  <strong>Type :</strong> {hall.type}
+                <p className="text-lg mb-2">
+                 🏷️ <strong>Type :</strong> {hall.type}
                 </p>
-                <p className="text-sm mb-2">
-                  <strong>Dimensions :</strong> {hall.length}م × {hall.width}م
+                <p className="text-lg mb-2">
+                  📏 <strong>Dimensions :</strong> {hall.length}م × {hall.width}م
                 </p>
-                <p className="text-sm mb-2">
-                  <strong>Evaluation:</strong> ⭐ {hall.rating}
+                <p className="text-lg mb-2">
+                  ⭐<strong>Evaluation:</strong> ⭐ {hall.rating}
                 </p>
 
 
@@ -261,8 +254,8 @@ export default function HallsTable() {
 
       {/* Modal يدوي لتفاصيل القاعة */}
       {showModal && selectedHall && (
-        <div className="fixed inset-0 z-[100] bg-black text-white bg-opacity-50 flex items-center justify-center">
-          <div className="bg-my-color relative shadow-lg max-w-4xl max-h-[90vh] rounded-lg w-full  ">
+        <div className="fixed inset-0 z-[130] bg-black text-white bg-opacity-50 flex items-center justify-center">
+          <div className="bg-admin-color relative shadow-lg max-w-4xl max-h-[90vh] rounded-lg w-full border border-sec-color-100">
             <button
               onClick={() => setShowModal(false)}
               className="absolute top-4 left-4 text-gray-700 hover:text-red-500 z-10 bg-white/80 rounded-full w-10 h-10 p-1 flex items-center justify-center transition"
@@ -271,7 +264,7 @@ export default function HallsTable() {
             </button>
             <div className="  max-h-[90vh] relative shadow-lg p-6 overflow-y-auto">
               {/* عنوان */}
-              <h3 className="text-2xl font-bold mb-4 text-my-color text-center ">
+              <h3 className="text-2xl font-bold mb-4 text-white text-center ">
                 {selectedHall.name.ar} / {selectedHall.name.en}
               </h3>
 
@@ -282,41 +275,41 @@ export default function HallsTable() {
                   selectedHall.images[0]?.image_name_url
                 }
                 alt="صورة القاعة"
-                className="w-full h-64 object-cover rounded mb-4"
+                className="w-full h-64 object-cover rounded mb-4 border border-sec-color-100"
               />
 
               {/* معلومات عامة */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
                 <p>
-                  <strong>الحالة:</strong>{" "}
+                  <strong className="text-sec-color-100">Status:</strong>{" "}
                   {selectedHall.availability_status === "available"
                     ? "متاحة"
                     : "غير متاحة"}
                 </p>
                 <p>
-                  <strong>النوع:</strong> {selectedHall.type}
+                  <strong className="text-sec-color-100">Type:</strong> {selectedHall.type}
+                </p>
+                <p >
+                  <strong className="text-sec-color-100">Price/hour:</strong> {selectedHall.price_per_hour} ILS
                 </p>
                 <p>
-                  <strong>السعر/ساعة:</strong> {selectedHall.price_per_hour} ر.س
-                </p>
-                <p>
-                  <strong>الأبعاد:</strong> {selectedHall.length}م ×{" "}
+                  <strong className="text-sec-color-100">Dimensions:</strong> {selectedHall.length}م ×{" "}
                   {selectedHall.width}م
                 </p>
                 <p>
-                  <strong>الاستخدام المناسب:</strong>{" "}
+                  <strong className="text-sec-color-100">Appropriate use :</strong>{" "}
                   {selectedHall.suitable_for.ar}
                 </p>
                 <p>
-                  <strong>التقييم:</strong> ⭐ {selectedHall.averageRating} (
-                  {selectedHall.ratingCount} تقييم)
+                  <strong className="text-sec-color-100">Evaluation:</strong> ⭐ {selectedHall.averageRating} (
+                  {selectedHall.ratingCount} evaluation)
                 </p>
               </div>
 
               {/* الوصف */}
               <div className="mb-4">
                 <h4 className="text-lg font-semibold text-sec-color-100">
-                  الوصف:
+                  Description:
                 </h4>
                 <p className="text-gray-200 whitespace-pre-line">
                   {selectedHall.description.ar}
@@ -326,7 +319,7 @@ export default function HallsTable() {
               {/* السعة */}
               <div className="mb-4">
                 <h4 className="text-lg font-semibold text-sec-color-100">
-                  أنماط السعة:
+                  Capacity patterns:
                 </h4>
                 <ul className="list-disc ps-5">
                   {(Array.isArray(selectedHall.capacity)
@@ -352,20 +345,20 @@ export default function HallsTable() {
               {/* المرافق */}
               <div className="mb-4">
                 <h4 className="text-lg font-semibold text-sec-color-100 mb-2">
-                  المرافق:
+                  Facilities:
                 </h4>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                   {selectedHall.facilities.map((facility) => (
                     <div
                       key={facility.id}
-                      className="border border-gray-600 rounded-xl p-4 flex items-start gap-4 relative bg-zinc-700 shadow-sm hover:shadow-md transition"
+                      className="border border-sec-color-100 rounded-xl p-4 flex items-start gap-4 relative bg-zinc-700 shadow-sm hover:shadow-md transition"
                     >
                       {/* صورة المرفق */}
                       {facility.image && (
                         <img
                           src={facility.image}
                           alt={facility.name.ar}
-                          className="w-14 h-14 object-cover rounded-lg border border-gray-500"
+                          className="w-14 h-14 object-cover rounded-lg border border-sec-color-100"
                         />
                       )}
 
@@ -407,7 +400,7 @@ export default function HallsTable() {
               {/* صور إضافية */}
               <div className="mb-4">
                 <h4 className="text-lg font-semibold text-sec-color-100 mb-2">
-                  صور إضافية:
+                  Additional Images:
                 </h4>
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
                   {selectedHall.images.map((img) => (
@@ -415,7 +408,7 @@ export default function HallsTable() {
                       key={img.id}
                       src={img.image_name_url}
                       alt="صورة"
-                      className="w-full h-32 object-cover rounded"
+                      className="w-full h-32 object-cover rounded border border-sec-color-100"
                     />
                   ))}
                 </div>

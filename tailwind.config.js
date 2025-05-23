@@ -37,7 +37,7 @@ export default {
       'slg': '950px',
       'lg': '1024px',
       'sxl': '1140px',
-      'xl': '1300px',
+      'xl': '1250px',
     },
   },
   plugins: [

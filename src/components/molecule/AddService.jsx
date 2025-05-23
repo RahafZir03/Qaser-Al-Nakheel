@@ -5,6 +5,8 @@ import { useEffect, useState } from "react";
 import { addService, serviceDataById, updateService } from "../../api/endpoints/room";
 import { toast } from "react-toastify";
 import { useTranslation } from 'react-i18next';
+import { IoMdCloseCircleOutline } from "react-icons/io";
+
 
 
 const AddServiceModal = ({ isOpen, onClose, serviceId, onServiceAdded }) => {
@@ -68,9 +70,10 @@ const AddServiceModal = ({ isOpen, onClose, serviceId, onServiceAdded }) => {
 
     return (
         <div className="fixed inset-0 flex items-center justify-center bg-admin-color bg-opacity-50 z-50 text-black">
-            <div className="bg-admin-color p-6 rounded shadow-lg max-w-lg w-full">
+            <div className="bg-admin-color p-6 rounded shadow-lg max-w-lg w-full border border-sec-color-100">
                 <div className="flex justify-between items-center">
-                <h2 className="text-xl font-bold">{t(`roomService.${serviceId ? 'update' : 'add'}`)} </h2>                    <button onClick={onClose} className="text-red-500 font-bold text-xl">&times;</button>
+                <h2 className="text-xl font-bold">{t(`roomService.${serviceId ? 'update' : 'add'}`)} </h2>                    
+                <button onClick={onClose} className="text-red-500 font-bold text-xl"><IoMdCloseCircleOutline size={35} /></button>
                 </div>
                 <form onSubmit={formik.handleSubmit} className="mt-4">
                     <div className="mb-4">
@@ -80,7 +83,7 @@ const AddServiceModal = ({ isOpen, onClose, serviceId, onServiceAdded }) => {
                             name="name_en"
                             value={formik.values.name_en}
                             onChange={formik.handleChange}
-                            className="w-full border p-2 rounded bg-gray-300"
+                            className="w-full border p-2 rounded bg-gray-700 text-white border-sec-color-100"
                             required
                         />
                     </div>
@@ -91,7 +94,7 @@ const AddServiceModal = ({ isOpen, onClose, serviceId, onServiceAdded }) => {
                             name="name_ar"
                             value={formik.values.name_ar}
                             onChange={formik.handleChange}
-                            className="w-full border p-2 rounded text-right"
+                            className="w-full border p-2 rounded text-right bg-gray-700 text-white border-sec-color-100"
                             required
                         />
                     </div>
@@ -101,7 +104,7 @@ const AddServiceModal = ({ isOpen, onClose, serviceId, onServiceAdded }) => {
                             name="description_en"
                             value={formik.values.description_en}
                             onChange={formik.handleChange}
-                            className="w-full border p-2 rounded"
+                            className="w-full border p-2 rounded bg-gray-700 text-white border-sec-color-100"
                             required
                         />
                     </div>
@@ -111,7 +114,7 @@ const AddServiceModal = ({ isOpen, onClose, serviceId, onServiceAdded }) => {
                             name="description_ar"
                             value={formik.values.description_ar}
                             onChange={formik.handleChange}
-                            className="w-full border p-2 rounded text-right"
+                            className="w-full border p-2 rounded text-right bg-gray-700 text-white border-sec-color-100"
                             required
                         />
                     </div>
@@ -123,7 +126,7 @@ const AddServiceModal = ({ isOpen, onClose, serviceId, onServiceAdded }) => {
                             onChange={(event) => {
                                 formik.setFieldValue("image", event.currentTarget.files[0]);
                             }}
-                            className="w-full border p-2 rounded bg-gray-300"
+                            className="w-full border p-2 rounded bg-gray-700 text-white border-sec-color-100"
                         />
                     </div>
 

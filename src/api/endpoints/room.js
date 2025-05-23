@@ -66,9 +66,10 @@ export const getAllRoom = () => {
   return axiosInstance.get('/room')
 };
 
-export const getAllRoomsNotAllData = () => {
-  return axiosInstance.get('/room/get/allRoomsNotAllData')
-}
+export const getAllRoomsNotAllData = (filters) => {
+  return axiosInstance.get(`/room/get/allRoomsNotAllData?search=${filters.searchQuery}&page=${filters.page}&limit=${filters.limit}`)
+  
+};
 export const getRoomById = (roomId) => {
   return axiosInstance.get(`/room/${roomId}`)
 };
@@ -145,3 +146,4 @@ export const updateSpecialPrice = async (specialPriceId, specialPriceData) => {
 export const getAllSpecialPrice = async () => {
   return axiosInstance.get(`/room/get/allSpecialPrice`);
   };
+

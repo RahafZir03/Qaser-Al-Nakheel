@@ -151,7 +151,7 @@ const AddRoom = () => {
   };
 
   return (
-    <div className="bg-admin-color p-4 sm:p-6 text-white max-w-7xl mx-auto rounded-lg">
+    <div className="bg-admin-color p-4 sm:p-6 text-white max-w-7xl mx-auto rounded-lg border border-sec-color-100">
       <h2 className="text-xl sm:text-2xl font-semibold mb-6 text-center">
         {roomId ? t('createroom.edit_title') : t('createroom.title')}
       </h2>
@@ -176,7 +176,7 @@ const AddRoom = () => {
                   <input
                     type="text"
                     name="room_no"
-                    className="p-2 rounded bg-gray-700 w-full"
+                    className="p-2 rounded bg-gray-700 w-full border border-sec-color-100"
                     onChange={formik.handleChange}
                     value={formik.values.room_no}
                   />
@@ -192,7 +192,7 @@ const AddRoom = () => {
                   </label>
                   <select
                     name="type"
-                    className="p-2 rounded bg-gray-700 w-full"
+                    className="p-2 rounded bg-gray-700 w-full border border-sec-color-100"
                     onChange={formik.handleChange}
                     value={formik.values.type}
                   >
@@ -233,7 +233,7 @@ const AddRoom = () => {
                   <input
                     type="number"
                     name="room_length"
-                    className="p-2 rounded bg-gray-700 w-full"
+                    className="p-2 rounded bg-gray-700 w-full border border-sec-color-100"
                     onChange={formik.handleChange}
                     value={formik.values.room_length}
                   />
@@ -250,7 +250,7 @@ const AddRoom = () => {
                   <input
                     type="number"
                     name="num_of_baths"
-                    className="p-2 rounded bg-gray-700 w-full"
+                    className="p-2 rounded bg-gray-700 w-full border border-sec-color-100"
                     onChange={formik.handleChange}
                     value={formik.values.num_of_baths}
                   />
@@ -267,7 +267,7 @@ const AddRoom = () => {
                   <input
                     type="text"
                     name="adult_guests"
-                    className="p-2 rounded bg-gray-700 w-full"
+                    className="p-2 rounded bg-gray-700 w-full border border-sec-color-100"
                     onChange={formik.handleChange}
                     value={formik.values.adult_guests}
                   />
@@ -281,7 +281,7 @@ const AddRoom = () => {
                   <input
                     type="text"
                     name="child_guests"
-                    className="p-2 rounded bg-gray-700 w-full"
+                    className="p-2 rounded bg-gray-700 w-full border border-sec-color-100"
                     onChange={formik.handleChange}
                     value={formik.values.child_guests}
                   />
@@ -301,7 +301,7 @@ const AddRoom = () => {
                   <input
                     type="text"
                     name="category_ar"
-                    className="p-2 rounded bg-gray-700 w-full"
+                    className="p-2 rounded bg-gray-700 w-full border border-sec-color-100" 
                     onChange={formik.handleChange}
                     value={formik.values.category_ar}
                   />
@@ -315,7 +315,7 @@ const AddRoom = () => {
                   <input
                     type="text"
                     name="category_en"
-                    className="p-2 rounded bg-gray-700 w-full"
+                    className="p-2 rounded bg-gray-700 w-full border border-sec-color-100"
                     onChange={formik.handleChange}
                     value={formik.values.category_en}
                   />
@@ -329,7 +329,7 @@ const AddRoom = () => {
                   <input
                     type="text"
                     name="bed_type_ar"
-                    className="p-2 rounded bg-gray-700 w-full"
+                    className="p-2 rounded bg-gray-700 w-full border border-sec-color-100"
                     onChange={formik.handleChange}
                     value={formik.values.bed_type_ar}
                   />
@@ -343,7 +343,7 @@ const AddRoom = () => {
                   <input
                     type="text"
                     name="bed_type_en"
-                    className="p-2 rounded bg-gray-700 w-full"
+                    className="p-2 rounded bg-gray-700 w-full border border-sec-color-100"
                     onChange={formik.handleChange}
                     value={formik.values.bed_type_en}
                   />
@@ -356,17 +356,17 @@ const AddRoom = () => {
               <h3 className="text-lg font-semibold mb-4">{t('createroom.sections.pricing')}</h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 {formik.values.pricing.map((item, index) => (
-                  <div key={item.day} className="flex items-center justify-between bg-gray-700 p-3 rounded">
+                  <div key={item.day} className="flex items-center justify-between bg-gray-700 p-3 rounded border border-sec-color-100">
                     <span className="font-medium">
                       {t(`createroom.days.${item.day}`)}:
                     </span>
                     <div className="flex items-center">
-                      <span className="mr-2">$</span>
+                      <span className="mr-2">ILS</span>
                       <input
                         type="number"
                         value={item.price}
                         onChange={(e) => handlePriceChange(index, e.target.value)}
-                        className="p-1 rounded bg-gray-600 w-20 text-right"
+                        className="p-1 rounded bg-gray-600 w-20 text-right border border-sec-color-100"
                         min="1"
                         step="1"
                       />
@@ -412,11 +412,11 @@ const AddRoom = () => {
             {/* Featured Image Upload */}
             <div className="bg-admin-color p-4 rounded-lg">
               <h3 className="text-lg font-semibold mb-4">{t('createroom.sections.featured_image')}</h3>
-              <div className="border-2 border-dashed border-gray-600 rounded-lg p-4 text-center cursor-pointer hover:bg-gray-700 transition-colors">
+              <div className="border-2 border-dashed border-sec-color-100 rounded-lg p-4 text-center cursor-pointer hover:bg-gray-700 transition-colors">
                 <input
                   type="file"
                   accept="image/*"
-                  className="hidden"
+                  className="hidden "
                   id="featuredImage"
                   onChange={handleMainImageChange}
                 />
@@ -454,7 +454,7 @@ const AddRoom = () => {
             {/* Additional Images Upload */}
             <div className="bg-admin-color p-4 rounded-lg">
               <h3 className="text-lg font-semibold mb-4">{t('createroom.sections.additional_images')}</h3>
-              <div className="border-2 border-dashed border-gray-600 rounded-lg p-4 text-center cursor-pointer hover:bg-gray-700 transition-colors">
+              <div className="border-2 border-dashed border-sec-color-100 rounded-lg p-4 text-center cursor-pointer hover:bg-gray-700 transition-colors">
                 <input
                   type="file"
                   accept="image/*"

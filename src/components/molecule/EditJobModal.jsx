@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { useTranslation } from "react-i18next";
 import { changeEmployeeJob, getAllworkPlaces } from "../../api/endpoints/employee";
-
+import { IoMdCloseCircleOutline } from "react-icons/io";
 const ROLES = ["admin", "employee", "reception"];
 
 export default function EditJobModal({ isOpen, onClose, employee, onSave }) {
@@ -72,17 +72,17 @@ export default function EditJobModal({ isOpen, onClose, employee, onSave }) {
 
   return (
     <div className="fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center">
-      <div className="bg-admin-color rounded-xl shadow-lg p-6 w-full max-w-lg animate-fade-in">
+      <div className="bg-admin-color rounded-xl shadow-lg p-6 w-full max-w-lg animate-fade-in border-2 border-sec-color-100">
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-xl font-semibold text-white">{t("editJobTitle")}</h2>
-          <button onClick={onClose} className="text-gray-500 hover:text-red-500 text-lg">×</button>
+          <button onClick={onClose} className="text-red-500">< IoMdCloseCircleOutline size={35}/> </button>
         </div>
 
         <div className="space-y-4">
           <div>
             <label className="block mb-1 font-medium text-white">{t("roleLabel")}</label>
             <select
-              className="w-full border rounded px-3 py-2"
+              className="w-full border rounded px-3 py-2  border-sec-color-100 bg-gray-700 text-white"
               value={role}
               onChange={(e) => setRole(e.target.value)}
             >
@@ -98,7 +98,7 @@ export default function EditJobModal({ isOpen, onClose, employee, onSave }) {
                 <label className="block mb-1 font-medium text-white">{t("jobTitleLabel")}</label>
                 <input
                   type="text"
-                  className="w-full border rounded px-3 py-2"
+                  className="w-full border rounded px-3 py-2  border-sec-color-100 bg-gray-700 text-white"
                   value={jopDescription}
                   onChange={(e) => setJopDescription(e.target.value)}
                 />
@@ -107,7 +107,7 @@ export default function EditJobModal({ isOpen, onClose, employee, onSave }) {
               <div>
                 <label className="block mb-1 font-medium text-white">{t("workplaceLabel")}</label>
                 <select
-                  className="w-full border rounded px-3 py-2"
+                  className="w-full border rounded px-3 py-2  border-sec-color-100 bg-gray-700 text-white"
                   value={selectedPlace?.id || ""}
                   onChange={(e) => {
                     const place = places.find(p => p.id === e.target.value);
@@ -127,8 +127,8 @@ export default function EditJobModal({ isOpen, onClose, employee, onSave }) {
         </div>
 
         <div className="mt-6 flex justify-end gap-3">
-          <button onClick={onClose} className="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300">{t("cancel")}</button>
-          <button onClick={handleSubmit} className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
+          <button onClick={onClose} className="px-4 py-2 bg-gray-600 hover:bg-gray-500 rounded text-white">{t("cancel")}</button>
+          <button onClick={handleSubmit} className="px-4 py-2 bg-yellow-500 hover:bg-yellow-600 text-white rounded ">
             {t("saveChanges")}
           </button>
         </div>

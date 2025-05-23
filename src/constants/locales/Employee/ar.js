@@ -11,8 +11,7 @@ export default {
         editJob: "تعديل الوظيفة",
     },
     table: {
-        firstName: "الاسم الأول",
-        lastName: "اسم العائلة",
+        name: "الاسم",
         email: "البريد الإلكتروني",
         address: "العنوان",
         jobDescription: "الوصف الوظيفي",

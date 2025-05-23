@@ -1,25 +1,31 @@
 /* eslint-disable react/prop-types */
-import { Navigate, useNavigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
-import { useEffect } from "react";
+import { Mosaic } from "react-loading-indicators";
 
 export default function ProtectedRoute({ element }) {
-  const navigate = useNavigate();
-  const authData = useSelector((state) => state.authData);
-  const userId = authData?.userId;
-  const userRole = authData?.userRole;
-  
-  useEffect(() => {
-    if (userId && userRole !== "admin") {
-      toast.warn("You do not have permission to access this link.");
-      navigate("/");
-    }
-  }, [userRole, userId, navigate]);
+  const { userId, userRole, isLoading } = useSelector(
+    (state) => state.authData
+  );
 
-  if (!userId) {
-    return <Navigate to="/login" />;
+  if (isLoading) {
+    return (
+      <div className="w-full h-screen flex justify-center items-center bg-my-color">
+        <Mosaic color={["#7a6a1d", "#a38d27", "#ccb131", "#d7c159"]} />
+      </div>
+    );
   }
 
-  return userRole === "admin" ? element : null;
+  if (!userId) {
+    toast.warn("Please log in first.");
+    return <Navigate to="/logIn" />;
+  }
+
+  if (userRole !== "admin") {
+    toast.warn("You do not have permission to access this link.");
+    return <Navigate to="/" />;
+  }
+
+  return element;
 }

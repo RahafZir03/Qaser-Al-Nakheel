@@ -42,13 +42,12 @@ import RestaurantBookings from "../pages/adminPages/RestaurantBookings";
 import UserMessages from "../pages/adminPages/UserMessages";
 import HallsTable from "../pages/adminPages/HallsTable";
 import NotProtectedRoute from "../components/HOC/withNotProtect";
-import PersistLogin2 from "../components/HOC/PersistLogin2";
 import Halls from "../pages/adminPages/Halls";
 import Pools from "../pages/adminPages/Pools";
 import Restaurants from "../pages/adminPages/Restaurants";
 import AdminCustomersPage from "../pages/adminPages/AdminCustomersPage";
 import UserProfilePage from "../components/molecule/UserProfilePage";
-import Payment from "../components/molecule/Payment"
+import Payment from "../components/molecule/Payment";
 const router = createBrowserRouter([
   {
     element: <PersistLogin />,
@@ -125,130 +124,124 @@ const router = createBrowserRouter([
           },
         ],
       },
+      {
+        path: "/admin",
+        element: <ProtectedRoute element={<AdminLayout />} />,
+        children: [
+          {
+            index: true,
+            element: <Dashboard />,
+          },
+          {
+            path: "roomtype",
+            element: <RoomType />,
+          },
+          {
+            path: "allservice",
+            element: <Service />,
+          },
+          {
+            path: "createroom",
+            element: <CreateRoom />,
+          },
+          {
+            path: "allroom",
+            element: <AllRoom />,
+          },
+          {
+            path: "updateroom/:id",
+            element: <UpdateRoom />,
+          },
+          {
+            path: "specialprice/:id",
+            element: <SpecialPrice />,
+          },
+          {
+            path: "employee",
+            element: <Employee />,
+          },
+          {
+            path: "roomBooking",
+            element: <RoomBookings />,
+          },
+          {
+            path: "hallBooking",
+            element: <HallBookings />,
+          },
+          {
+            path: "poolBooking",
+            element: <PoolBookings />,
+          },
+          {
+            path: "restaurantBooking",
+            element: <RestaurantBookings />,
+          },
+          {
+            path: "usersMessages",
+            element: <UserMessages />,
+          },
+          {
+            path: "hallsTable",
+            element: <HallsTable />,
+          },
+          {
+            path: "halls",
+            element: <Halls />,
+          },
+          {
+            path: "pools",
+            element: <Pools />,
+          },
+          {
+            path: "restaurants",
+            element: <Restaurants />,
+          },
+          {
+            path: "adminCustumer",
+            element: <AdminCustomersPage />,
+          },
+          {
+            path: "allUserData/:id",
+            element: <UserProfilePage />,
+          },
+          {
+            path: "payment/:id",
+            element: <Payment />,
+          },
+        ],
+      },
+      {
+        path: "logIn",
+        element: <NotProtectedRoute element={<Login />} />,
+        children: [
+          {
+            index: true,
+            element: <LoginForm />,
+          },
+          {
+            path: "forgot-password",
+            element: <ForgotPasswordForm />,
+          },
+          {
+            path: "reset-password",
+            element: <ResetPasswordForm />,
+          },
+        ],
+      },
+      {
+        path: "/signup",
+        element: <NotProtectedRoute element={<Signup />} />,
+      },
+      {
+        path: "/verificationPage/:email",
+        element: <VerificationPage />,
+      },
+      {
+        path: "*",
+        element: () => <h1>Page Not Found</h1>,
+      },
     ],
   },
-  {
-    path: "/admin",
-    //element: <ProtectedRoute element={<AdminLayout />} />,
-    element: <AdminLayout />,
-    children: [
-      {
-        index: true,
-        element: <Dashboard />,
-      },
-      {
-        path: "roomtype",
-        element: <RoomType />,
-      },
-      {
-        path: "allservice",
-        element: <Service />,
-      },
-      {
-        path: "createroom",
-        element: <CreateRoom />,
-      },
-      {
-        path: "allroom",
-        element: <AllRoom />,
-      },
-      {
-        path: "updateroom/:id",
-        element: <UpdateRoom />,
-      },
-      {
-        path: "specialprice/:id",
-        element: <SpecialPrice />,
-      },
-      {
-        path: "employee",
-        element: <Employee />,
-      },
-      {
-        path: "roomBooking",
-        element: <RoomBookings />,
-      },
-      {
-        path: "hallBooking",
-        element: <HallBookings />,
-      },
-      {
-        path: "poolBooking",
-        element: <PoolBookings />,
-      },
-      {
-        path: "restaurantBooking",
-        element: <RestaurantBookings />,
-      },
-      {
-        path: "usersMessages",
-        element: <UserMessages />,
-      },
-      {
-        path: "hallsTable",
-        element: <HallsTable />,
-      },
-      {
-        path: "halls",
-        element: <Halls />
-      },
-      {
-        path: "pools",
-        element: <Pools />
-      },
-      {
-        path: "restaurants",
-        element: <Restaurants />
-      },
-      {
-        path: "adminCustumer",
-        element: <AdminCustomersPage />
-      },
-      {
-        path: "allUserData/:id",
-        element: <UserProfilePage />
-      },
-      {
-        path: "payment/:id",
-        element: <Payment />
-      }
-    ],
-  },
-  {
-    //element: <PersistLogin2 />,
-    //children: [
-    //{
-    path: "logIn",
-    element: <NotProtectedRoute element={<Login />} />,
-    children: [
-      {
-        index: true,
-        element: <LoginForm />,
-      },
-      {
-        path: "forgot-password",
-        element: <ForgotPasswordForm />,
-      },
-      {
-        path: "reset-password",
-        element: <ResetPasswordForm />,
-      },
-    ],
-  },
-  {
-    path: "/signup",
-    element: <NotProtectedRoute element={<Signup />} />,
-  },
-  {
-    path: "/verificationPage/:email",
-    element: <VerificationPage />,
-  },
-  {
-    path: "*",
-    element: () => <h1>Page Not Found</h1>,
-  },
-  //],
-  //},
 ]);
 export default function AppRouter() {
   return <RouterProvider router={router} />;

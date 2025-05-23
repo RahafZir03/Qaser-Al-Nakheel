@@ -5,7 +5,7 @@ import { IoMdCloudUpload } from "react-icons/io";
 import { updateCustomerProfile } from "../../api/endpoints/customers";
 import { toast } from "react-toastify";
 import { useTranslation } from "react-i18next";
-
+import noImage from "../../assets/images/No_Image_Available.jpg";
 const EditProfile = () => {
   const { t } = useTranslation("profile");
   const userData = useSelector((state) => state.authData.allUserData);
@@ -18,23 +18,33 @@ const EditProfile = () => {
     enableReinitialize: true,
     initialValues: {
       first_name: userData?.first_name || "",
+      second_name: userData?.second_name || "",
+      third_name: userData?.third_name || "",
       last_name: userData?.last_name || "",
       phoneNumber: userData?.mobileNos?.[0] || "",
       city: userData?.city || "",
       country: userData?.country || "",
       postal_code: userData?.postal_code || "",
       birthdate: userData?.birthdate?.slice(0, 10) || "",
+      gender: userData?.gender || "",
+      profession: userData?.profession || "",
+      free_text: userData?.free_text || "",
       avatar: null,
     },
     onSubmit: async (values) => {
       setLoading(true);
       const formData = new FormData();
       formData.append("first_name", values.first_name);
+      formData.append("second_name", values.second_name);
+      formData.append("third_name", values.third_name);
       formData.append("last_name", values.last_name);
       formData.append("city", values.city);
       formData.append("country", values.country);
       formData.append("postal_code", values.postal_code);
       formData.append("birthdate", values.birthdate);
+      formData.append("gender", values.gender);
+      formData.append("profession", values.profession);
+      formData.append("free_text", values.free_text);
 
       if (values.avatar) {
         formData.append("image", values.avatar);
@@ -43,8 +53,9 @@ const EditProfile = () => {
       try {
         const response = await updateCustomerProfile(formData);
         toast.success(response.data.message);
-        // eslint-disable-next-line no-empty, no-unused-vars
+      // eslint-disable-next-line no-unused-vars
       } catch (error) {
+        toast.error(t("editProfile.error"));
       } finally {
         setLoading(false);
       }
@@ -82,7 +93,7 @@ const EditProfile = () => {
         <label className="block text-gray-700">{t("editProfile.avatar")}</label>
         <div className="flex items-center space-x-4">
           <img
-            src={ourAvatar}
+            src={ourAvatar ? ourAvatar : noImage}
             alt="Avatar Preview"
             className="w-20 h-20 rounded-full my-4 object-cover border-4 border-sec-color-100"
           />
@@ -105,7 +116,10 @@ const EditProfile = () => {
       </div>
       <div className="grid md:grid-cols-2 gap-x-5">
         <div className="mb-4">
-          <label htmlFor="first_name" className="block text-gray-700">
+          <label
+            htmlFor="first_name"
+            className="flex items-center gap-2 text-gray-700"
+          >
             {t("editProfile.firstName")}
             {!formik.values.first_name && (
               <span className="inline-block w-2 h-2 bg-red-500 rounded-full ml-2"></span>
@@ -120,9 +134,49 @@ const EditProfile = () => {
             className="w-full mt-1 p-2 border border-gray-300 rounded-md"
           />
         </div>
-
         <div className="mb-4">
-          <label htmlFor="last_name" className="block text-gray-700">
+          <label
+            htmlFor="second_name"
+            className="flex items-center gap-2 text-gray-700"
+          >
+            {t("editProfile.secondName")}
+            {!formik.values.second_name && (
+              <span className="inline-block w-2 h-2 bg-red-500 rounded-full ml-2"></span>
+            )}
+          </label>
+          <input
+            id="second_name"
+            name="second_name"
+            type="text"
+            onChange={formik.handleChange}
+            value={formik.values.second_name}
+            className="w-full mt-1 p-2 border border-gray-300 rounded-md"
+          />
+        </div>
+        <div className="mb-4">
+          <label
+            htmlFor="third_name"
+            className="flex items-center gap-2 text-gray-700"
+          >
+            {t("editProfile.thirdName")}
+            {!formik.values.third_name && (
+              <span className="inline-block w-2 h-2 bg-red-500 rounded-full ml-2"></span>
+            )}
+          </label>
+          <input
+            id="third_name"
+            name="third_name"
+            type="text"
+            onChange={formik.handleChange}
+            value={formik.values.third_name}
+            className="w-full mt-1 p-2 border border-gray-300 rounded-md"
+          />
+        </div>
+        <div className="mb-4">
+          <label
+            htmlFor="last_name"
+            className="flex items-center gap-2 text-gray-700"
+          >
             {t("editProfile.lastName")}
             {!formik.values.last_name && (
               <span className="inline-block w-2 h-2 bg-red-500 rounded-full ml-2"></span>
@@ -139,7 +193,10 @@ const EditProfile = () => {
         </div>
 
         <div className="mb-4">
-          <label htmlFor="country" className="block text-gray-700">
+          <label
+            htmlFor="country"
+            className="flex items-center gap-2 text-gray-700"
+          >
             {t("editProfile.country")}
             {!formik.values.country && (
               <span className="inline-block w-2 h-2 bg-red-500 rounded-full ml-2"></span>
@@ -155,7 +212,10 @@ const EditProfile = () => {
           />
         </div>
         <div className="mb-4">
-          <label htmlFor="city" className="block text-gray-700">
+          <label
+            htmlFor="city"
+            className="flex items-center gap-2 text-gray-700"
+          >
             {t("editProfile.city")}
             {!formik.values.city && (
               <span className="inline-block w-2 h-2 bg-red-500 rounded-full ml-2"></span>
@@ -172,7 +232,10 @@ const EditProfile = () => {
         </div>
 
         <div className="mb-4">
-          <label htmlFor="postal_code" className="block text-gray-700">
+          <label
+            htmlFor="postal_code"
+            className=" text-gray-700 flex items-center gap-2"
+          >
             {t("editProfile.postalCode")}
             {!formik.values.postal_code && (
               <span className="inline-block w-2 h-2 bg-red-500 rounded-full ml-2"></span>
@@ -187,9 +250,30 @@ const EditProfile = () => {
             className="w-full mt-1 p-2 border border-gray-300 rounded-md"
           />
         </div>
-
         <div className="mb-4">
-          <label htmlFor="birthdate" className="block text-gray-700">
+          <label
+            htmlFor="profession"
+            className="flex items-center gap-2 text-gray-700"
+          >
+            {t("editProfile.profession")}
+            {!formik.values.profession && (
+              <span className="inline-block w-2 h-2 bg-red-500 rounded-full ml-2"></span>
+            )}
+          </label>
+          <input
+            id="profession"
+            name="profession"
+            type="text"
+            onChange={formik.handleChange}
+            value={formik.values.profession}
+            className="w-full mt-1 p-2 border border-gray-300 rounded-md"
+          />
+        </div>
+        <div className="mb-4">
+          <label
+            htmlFor="birthdate"
+            className="flex items-center gap-2 text-gray-700"
+          >
             {t("editProfile.birthdate")}
             {!formik.values.birthdate && (
               <span className="inline-block w-2 h-2 bg-red-500 rounded-full ml-2"></span>
@@ -203,6 +287,47 @@ const EditProfile = () => {
             value={formik.values.birthdate}
             className="w-full mt-1 p-2 border border-gray-300 rounded-md"
           />
+        </div>
+        <div className="mb-4">
+          <label
+            htmlFor="gender"
+            className="flex items-center gap-2 text-gray-700"
+          >
+            {t("editProfile.gender")}
+            {!formik.values.gender && (
+              <span className="inline-block w-2 h-2 bg-red-500 rounded-full ml-2"></span>
+            )}
+          </label>
+          <select
+            id="gender"
+            name="gender"
+            onChange={formik.handleChange}
+            value={formik.values.gender}
+            className="w-full mt-1 py-2 px-4 border border-gray-300 rounded-md"
+          >
+            <option value="">{t("editProfile.chooseGender")}</option>
+            <option value="male">{t("editProfile.male")}</option>
+            <option value="female">{t("editProfile.female")}</option>
+          </select>
+        </div>
+        <div className="mb-4 col-span-2">
+          <label
+            htmlFor="free_text"
+            className="flex items-center gap-2 text-gray-700"
+          >
+            {t("editProfile.freeText")}
+            {!formik.values.free_text && (
+              <span className="inline-block w-2 h-2 bg-red-500 rounded-full ml-2"></span>
+            )}
+          </label>
+          <textarea
+            id="free_text"
+            name="free_text"
+            rows="3"
+            onChange={formik.handleChange}
+            value={formik.values.free_text}
+            className="w-full mt-1 p-2 border border-gray-300 rounded-md"
+          ></textarea>
         </div>
       </div>
       <button

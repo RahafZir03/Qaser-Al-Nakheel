@@ -46,18 +46,57 @@ export default function MyProfile() {
               {userData?.first_name} {userData?.last_name}
             </p>
           </div>
+
+          <div>
+            <p className="text-gray-900 font-semibold">
+              {t("my_profile.second_name")}
+            </p>
+            <p className="text-lg text-gray-600">
+              {userData?.second_name || t("my_profile.na")}
+            </p>
+          </div>
+
+          <div>
+            <p className="text-gray-900 font-semibold">
+              {t("my_profile.third_name")}
+            </p>
+            <p className="text-lg text-gray-600">
+              {userData?.third_name || t("my_profile.na")}
+            </p>
+          </div>
+
+          <div>
+            <p className="text-gray-900 font-semibold">
+              {t("my_profile.gender")}
+            </p>
+            <p className="text-lg text-gray-600">
+              {t(`my_profile.${userData?.gender || "na"}`)}
+            </p>
+          </div>
+
+          <div>
+            <p className="text-gray-900 font-semibold">
+              {t("my_profile.profession")}
+            </p>
+            <p className="text-lg text-gray-600">
+              {userData?.profession || t("my_profile.na")}
+            </p>
+          </div>
+
           <div>
             <p className="text-gray-900 font-semibold">
               {t("my_profile.email")}
             </p>
             <p className="text-lg text-gray-600">{userData?.email}</p>
           </div>
+
           <div>
             <p className="text-gray-900 font-semibold">
               {t("my_profile.phone_number")}
             </p>
             <p className="text-lg text-gray-600">{userData?.mobileNos?.[0]}</p>
           </div>
+
           <div>
             <p className="text-gray-900 font-semibold">
               {t("my_profile.birth_date")}
@@ -66,18 +105,21 @@ export default function MyProfile() {
               {new Date(userData?.birthdate).toLocaleDateString()}
             </p>
           </div>
+
           <div>
             <p className="text-gray-900 font-semibold">
               {t("my_profile.city")}
             </p>
             <p className="text-lg text-gray-600">{userData?.city}</p>
           </div>
+
           <div>
             <p className="text-gray-900 font-semibold">
               {t("my_profile.country")}
             </p>
             <p className="text-lg text-gray-600">{userData?.country}</p>
           </div>
+
           <div>
             <p className="text-gray-900 font-semibold">
               {t("my_profile.postal_code")}
@@ -86,6 +128,7 @@ export default function MyProfile() {
               {userData?.postal_code || t("my_profile.na")}
             </p>
           </div>
+
           <div>
             <p className="text-gray-900 font-semibold">
               {t("my_profile.account_status")}
@@ -114,6 +157,15 @@ export default function MyProfile() {
                 </div>
               </>
             )}
+          </div>
+
+          <div className="md:col-span-2">
+            <p className="text-gray-900 font-semibold">
+              {t("my_profile.free_text")}
+            </p>
+            <p className="text-lg text-gray-600 whitespace-pre-line">
+              {userData?.free_text || t("my_profile.na")}
+            </p>
           </div>
         </div>
       </div>

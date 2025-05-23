@@ -40,7 +40,12 @@ export default function SignUp() {
   const formik = useFormik({
     initialValues: {
       first_name: "",
+      second_name: "",
+      third_name: "",
       last_name: "",
+      gender: "",
+      profession: "",
+      free_text: "",
       email: "",
       mobileNo: [""],
       country: "",
@@ -74,6 +79,13 @@ export default function SignUp() {
         .required(t("validation.required")),
       birthdate: Yup.date().required(t("validation.required")),
       postal_code: Yup.string(),
+      second_name: Yup.string().nullable(),
+      third_name: Yup.string().nullable(),
+      gender: Yup.string()
+        .oneOf(["male", "female", "other"], t("validation.invalidGender"))
+        .required(t("validation.required")),
+      profession: Yup.string().nullable(),
+      free_text: Yup.string().nullable(),
     }),
     onSubmit: async (values) => {
       try {
@@ -90,6 +102,11 @@ export default function SignUp() {
         formData.append("confirmPassword", values.confirmPassword);
         formData.append("birthdate", values.birthdate);
         formData.append("postal_code", values.postal_code);
+        formData.append("second_name", values.second_name || "");
+        formData.append("third_name", values.third_name || "");
+        formData.append("gender", values.gender);
+        formData.append("profession", values.profession || "");
+        formData.append("free_text", values.free_text || "");
 
         if (fileInputRef.current && fileInputRef.current.files[0]) {
           formData.append("image", fileInputRef.current.files[0]);
@@ -99,6 +116,7 @@ export default function SignUp() {
         if (response.status >= 200 && response.status < 300) {
           setLoading(false);
           toast.success(response.data.message);
+          console.log(values.email);
           await sendVerificationCode(values.email);
           navigate(`/verificationPage/${values.email}`);
         }
@@ -139,6 +157,26 @@ export default function SignUp() {
                   </div>
                 )}
               </div>
+
+              <div>
+                <input
+                  type="text"
+                  placeholder={t("secondName")}
+                  {...formik.getFieldProps("second_name")}
+                  className="w-full p-3 bg-gray-100 border rounded-lg"
+                />
+              </div>
+            </div>
+            <div className="grid grid-cols-1 2xmobile:grid-cols-2 gap-4">
+              <div>
+                <input
+                  type="text"
+                  placeholder={t("thirdName")}
+                  {...formik.getFieldProps("third_name")}
+                  className="w-full p-3 bg-gray-100 border rounded-lg"
+                />
+              </div>
+
               <div>
                 <input
                   type="text"
@@ -153,23 +191,41 @@ export default function SignUp() {
                 )}
               </div>
             </div>
-
-            <div>
-              <label className="text-gray-100 ml-2 font-semibold text-lg">
-                {t("birthdate")}
-              </label>
-              <input
-                type="date"
-                {...formik.getFieldProps("birthdate")}
-                className="w-full p-3 bg-gray-100 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-              {formik.touched.birthdate && formik.errors.birthdate && (
-                <div className="text-red-300 text-sm mt-1">
-                  {formik.errors.birthdate}
-                </div>
-              )}
+            <div className="grid grid-cols-1 2xmobile:grid-cols-2 gap-4">
+              <div>
+                <label className="text-gray-100 ml-2 font-semibold text-lg">
+                  {t("birthdate")}
+                </label>
+                <input
+                  type="date"
+                  {...formik.getFieldProps("birthdate")}
+                  className="w-full p-3 bg-gray-100 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+                {formik.touched.birthdate && formik.errors.birthdate && (
+                  <div className="text-red-300 text-sm mt-1">
+                    {formik.errors.birthdate}
+                  </div>
+                )}
+              </div>
+              <div>
+                <label className="text-gray-100 ml-2 font-semibold text-lg">
+                  {t("gender")}
+                </label>
+                <select
+                  {...formik.getFieldProps("gender")}
+                  className="w-full p-[9px] bg-gray-100 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                >
+                  <option value="">{t("selectGender")}</option>
+                  <option value="male">{t("male")}</option>
+                  <option value="female">{t("female")}</option>
+                </select>
+                {formik.touched.gender && formik.errors.gender && (
+                  <div className="text-red-300 text-sm mt-1">
+                    {formik.errors.gender}
+                  </div>
+                )}
+              </div>
             </div>
-
             <div>
               <input
                 type="email"
@@ -183,56 +239,65 @@ export default function SignUp() {
                 </div>
               )}
             </div>
-
-            <div>
-              <input
-                type="password"
-                placeholder={t("password")}
-                {...formik.getFieldProps("password")}
-                className="w-full p-3 bg-gray-100 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-gray-500"
-              />
-              {formik.touched.password && formik.errors.password && (
-                <div className="text-red-300 text-sm mt-1">
-                  {formik.errors.password}
-                </div>
-              )}
-            </div>
-
-            <div>
-              <input
-                type="password"
-                placeholder={t("confirmPassword")}
-                {...formik.getFieldProps("confirmPassword")}
-                className="w-full p-3 bg-gray-100 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-gray-500"
-              />
-              {formik.touched.confirmPassword &&
-                formik.errors.confirmPassword && (
+            <div className="grid grid-cols-1 2xmobile:grid-cols-2 gap-4">
+              <div>
+                <input
+                  type="password"
+                  placeholder={t("password")}
+                  {...formik.getFieldProps("password")}
+                  className="w-full p-3 bg-gray-100 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-gray-500"
+                />
+                {formik.touched.password && formik.errors.password && (
                   <div className="text-red-300 text-sm mt-1">
-                    {formik.errors.confirmPassword}
+                    {formik.errors.password}
                   </div>
                 )}
-            </div>
+              </div>
 
-            <div>
-              <input
-                type="text"
-                name="mobileNo[0]"
-                placeholder={t("phone")}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                value={formik.values.mobileNo[0]}
-                className="w-full p-3 bg-gray-100 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-gray-500"
-              />
-              {formik.touched.mobileNo &&
-                formik.touched.mobileNo[0] &&
-                formik.errors.mobileNo &&
-                formik.errors.mobileNo[0] && (
-                  <div className="text-red-300 text-sm mt-1">
-                    {formik.errors.mobileNo[0]}
-                  </div>
-                )}
+              <div>
+                <input
+                  type="password"
+                  placeholder={t("confirmPassword")}
+                  {...formik.getFieldProps("confirmPassword")}
+                  className="w-full p-3 bg-gray-100 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-gray-500"
+                />
+                {formik.touched.confirmPassword &&
+                  formik.errors.confirmPassword && (
+                    <div className="text-red-300 text-sm mt-1">
+                      {formik.errors.confirmPassword}
+                    </div>
+                  )}
+              </div>
             </div>
-
+            <div className="grid grid-cols-1 2xmobile:grid-cols-2 gap-4">
+              <div>
+                <input
+                  type="text"
+                  name="mobileNo[0]"
+                  placeholder={t("phone")}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  value={formik.values.mobileNo[0]}
+                  className="w-full p-3 bg-gray-100 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-gray-500"
+                />
+                {formik.touched.mobileNo &&
+                  formik.touched.mobileNo[0] &&
+                  formik.errors.mobileNo &&
+                  formik.errors.mobileNo[0] && (
+                    <div className="text-red-300 text-sm mt-1">
+                      {formik.errors.mobileNo[0]}
+                    </div>
+                  )}
+              </div>
+              <div>
+                <input
+                  type="text"
+                  placeholder={t("profession")}
+                  {...formik.getFieldProps("profession")}
+                  className="w-full p-3 bg-gray-100 border rounded-lg"
+                />
+              </div>
+            </div>
             <div className="grid grid-cols-1 2xmobile:grid-cols-2 gap-4">
               <div>
                 <input
@@ -269,6 +334,13 @@ export default function SignUp() {
               className="w-full p-3 bg-gray-100 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-gray-500"
             />
 
+            <div>
+              <textarea
+                placeholder={t("freeText")}
+                {...formik.getFieldProps("free_text")}
+                className="w-full p-3 bg-gray-100 border rounded-lg"
+              />
+            </div>
             <button
               type="submit"
               className="w-full p-3 bg-red-600 text-white font-semibold flex justify-center items-center rounded-lg hover:bg-red-500 transition duration-300"

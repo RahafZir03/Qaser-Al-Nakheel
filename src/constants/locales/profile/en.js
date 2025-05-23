@@ -25,7 +25,15 @@ export default {
         "not_verified": "Not Verified",
         "verification_required": "You must make your account",
         "booking_restriction": "to be able to make reservations.",
-        "na": "N/A"
+        "na": "N/A",
+        "second_name": "Second Name",
+        "third_name": "Third Name",
+        "gender": "Gender",
+        "male": "Male",
+        "female": "Female",
+        "other": "Other",
+        "profession": "Profession",
+        "free_text": "About You"
     },
     "messages": {
         "title": "Customer Messages",
@@ -49,7 +57,16 @@ export default {
         "postalCode": "Postal Code",
         "birthdate": "Birthdate",
         "submit": "Update Profile",
-        "loading": "Updating..."
+        "loading": "Updating...",
+        "secondName": "Second Name",
+        "thirdName": "Third Name",
+        "gender": "Gender",
+        "chooseGender": "Select Gender",
+        "male": "Male",
+        "female": "Female",
+        "profession": "Profession",
+        "freeText": "About You",
+        "error": "An error occurred while updating your profile"
     },
     "changePassword": {
         "title": "Change Password",
@@ -88,5 +105,16 @@ export default {
     "actions": "Action",
     "cancel": "Cancel",
     "confirmCancel": "Are you sure you want to cancel this booking?",
-    "errorOccurred": "An error occurred. Please try again."
+    "errorOccurred": "An error occurred. Please try again.",
+    "payed": "Payed",
+    "notPayed": "Not Payed",
+    "paymentStatus": "Payment Status",
+    "all": "All",
+    "confirmed": "Confirmed",
+    "pending": "Pending",
+    "cancelled": "Cancelled",
+    "applyFilters": "Apply Filters",
+    "reserved": "Reserved",
+    "checked_in": "Checked In",
+    "checked_out": "Checked Out",
 }

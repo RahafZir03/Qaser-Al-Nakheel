@@ -23,7 +23,7 @@ const SidebarItem = ({
     <li
       className={`group transition-all duration-500 ${
         sidebarSize === "big" ? "pe-5" : sidebarSize === "small" ? "pe-2" : ""
-      }`}
+      } `}
     >
       {linkType === "link" ? (
         <NavLink
@@ -38,7 +38,7 @@ const SidebarItem = ({
                 : sidebarSize === "small"
                 ? "ps-4 pe-3"
                 : ""
-            } ${i18n.dir() === "rtl" ? "rounded-e-full" : "rounded-l-full"}
+            } ${i18n.language === "ar" ? "rounded-l-full" : "rounded-r-full"}
           `}
         >
           <div className="p-2 bg-[#4b506844] rounded-full me-3 group-hover:bg-[#22242E] transition-all duration-500">
@@ -63,7 +63,7 @@ const SidebarItem = ({
                   ? "ps-4 pe-3"
                   : ""
               }
-              ${i18n.dir() === "rtl" ? "rounded-e-full" : "rounded-l-full"}
+              ${i18n.language === "ar" ? "rounded-e-full" : "rounded-r-full"}
             `}
           >
             <div className="p-2 bg-[#4b506844] rounded-full me-3 group-hover:bg-[#22242E] transition-all duration-500">

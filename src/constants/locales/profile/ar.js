@@ -25,7 +25,15 @@ export default {
         "not_verified": "غير موثق",
         "verification_required": "يجب أن تقوم بعمل",
         "booking_restriction": "لحسابك ليتم إتاحة الحجز لدينا.",
-        "na": "غير متوفر"
+        "na": "غير متوفر",
+        "second_name": "الاسم الثاني",
+        "third_name": "الاسم الثالث",
+        "gender": "الجنس",
+        "male": "ذكر",
+        "female": "أنثى",
+        "other": "آخر",
+        "profession": "المهنة",
+        "free_text": "نبذة تعريفية"
     },
     "messages": {
         "title": "رسائل العملاء",
@@ -49,7 +57,16 @@ export default {
         "postalCode": "الرمز البريدي",
         "birthdate": "تاريخ الميلاد",
         "submit": "تحديث الملف",
-        "loading": "جاري التحديث..."
+        "loading": "جاري التحديث...",
+        "secondName": "الاسم الثاني",
+        "thirdName": "الاسم الثالث",
+        "gender": "الجنس",
+        "chooseGender": "اختر الجنس",
+        "male": "ذكر",
+        "female": "أنثى",
+        "profession": "المهنة",
+        "freeText": "نبذة تعريفية",
+        "error": "حدث خطأ أثناء تحديث البيانات"
     },
     "changePassword": {
         "title": "تغيير كلمة المرور",
@@ -90,4 +107,15 @@ export default {
     "errorOccurred": "حدث خطأ. الرجاء المحاولة لاحقاً.",
     "confirmTitle": "تأكيد الإلغاء",
     "confirmCancel": "هل أنت متأكد من أنك تريد إلغاء هذا الحجز؟",
+    "paymentStatus": "حالة الدفع",
+    "confirmed": "مؤكد",
+    "pending": "قيد الانتظار",
+    "cancelled": "ملغى",
+    "all": "الكل",
+    "payed": "مدفوع",
+    "notPayed": "غير مدفوع",
+    "applyFilters": "تطبيق الفلاتر",
+    "checked_in": "تسجيل الوصول",
+    "checked_out": "تسجيل المغادرة",
+    "reserved": "محجوز",
 }

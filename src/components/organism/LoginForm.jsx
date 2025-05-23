@@ -38,6 +38,7 @@ export default function LoginForm() {
         const response = isEmployee
           ? await logInForEmployee(values)
           : await logIn(values);
+        console.log(response.data);
         toast.success(
           t("login.welcome", {
             firstName: response.data.user.first_name,
@@ -52,7 +53,7 @@ export default function LoginForm() {
           })
         );
         navigate("/");
-      // eslint-disable-next-line no-unused-vars
+        // eslint-disable-next-line no-unused-vars
       } catch (error) {
         // Handle error
       } finally {

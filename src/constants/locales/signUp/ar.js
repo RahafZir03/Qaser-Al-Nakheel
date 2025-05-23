@@ -16,8 +16,15 @@ export default {
     signInNow: "سجل الدخول الآن",
     goToHome: "الذهاب إلى الصفحة الرئيسية",
     uploadImage: "اضغط لرفع صورة",
-    enterImage:"أدخل صورة",
-
+    enterImage: "أدخل صورة",
+    secondName: "الاسم الثاني",
+    thirdName: "الاسم الثالث",
+    gender: "الجنس",
+    selectGender: "اختر الجنس",
+    male: "ذكر",
+    female: "أنثى",
+    profession: "المهنة",
+    freeText: "ملاحظات إضافية",
     // Validation messages
     validation: {
         required: "هذا الحقل مطلوب",
@@ -26,15 +33,16 @@ export default {
         atLeastOnePhone: "يجب إدخال رقم جوال واحد على الأقل",
         minPassword: "يجب أن تكون كلمة المرور 6 أحرف على الأقل",
         passwordsMustMatch: "كلمتا المرور غير متطابقتين",
+        invalidGender: "الجنس غير صالح"
     },
 
     verification: {
         title: "التحقق من الحساب",
-        description:"تم ارسال كود التحقق الى ايميلك",
+        description: "تم ارسال كود التحقق الى ايميلك",
         email: "البريد الإلكتروني",
         code: "رمز التحقق (6 خانات)",
         verify: "تحقق",
-        sendAgain:"أرسل مرة أخرى",
+        sendAgain: "أرسل مرة أخرى",
         checkSpam: "يرجى التحقق من صندوق الرسائل المزعجة(Spam) إذا لم تجد الرسالة.",
         expiryWarning: "إذا تأخرت في إدخال الرمز لأكثر من 10 دقائق، يرجى طلب إرسال رمز جديد إلى بريدك الإلكتروني.",
         validation: {

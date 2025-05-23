@@ -5,6 +5,7 @@ import {iconMap,colorMap} from '../../constants/cardData';
 import { MdOutlineBedroomChild } from "react-icons/md";
 import { dashboardData } from '../../api/endpoints/dashboard';
 import { FaUsers } from 'react-icons/fa';
+import { Mosaic } from 'react-loading-indicators';
 
 export default function Dashboard() {
   const [cardData,setCardData]=useState({});
@@ -21,24 +22,27 @@ export default function Dashboard() {
   getDashboardData()
   },[])
   return (
-    <div className="flex-1 p-4 ">
-      <h2 className="text-2xl font-bold mb-4">Dashboard</h2>
+    <div className="flex-1 p-10 bg-admin-color">
+      <h2 className="text-3xl font-bold mb-7 text-white">Dashboard</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 slg:grid-cols-3 gap-4">
         {cardData.length > 0 ? (
           cardData.map((card, index) => {
             const Icon = iconMap[card.title.en] || FaUsers;
             const color = colorMap[card.title.en] || "bg-gray-500";
             return (
-            <Card 
-              key={index} 
-              title={lang==="ar"? card.title.ar:card.title.en} 
-              value={card.value} 
-              Icon={Icon} 
-              bgColor={color}
-            />
-          )})
+              <Card
+                key={index}
+                title={lang === "ar" ? card.title.ar : card.title.en}
+                value={card.value}
+                Icon={Icon}
+                bgColor={color}
+              />
+            );
+          })
         ) : (
-          <p className='text-white'>Loading...</p>
+          <div className="w-full h-[600px] flex justify-center items-center col-span-3">
+            <Mosaic color={["#7a6a1d", "#a38d27", "#ccb131", "#d7c159"]} />
+          </div>
         )}
       </div>
     </div>

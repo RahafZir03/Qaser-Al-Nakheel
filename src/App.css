@@ -1,73 +1,83 @@
 body {
-    background-color: #f4f4f4;
-    font-family: Arial, sans-serif;
-    margin: 0;
-  }
-  
-  .dashboard-container {
-    display: flex;
-  }
+  background-color: #f4f4f4;
+  font-family: Arial, sans-serif;
+  margin: 0;
+}
 
-    .Toastify__toast {
-      background-color: #1f1f1f !important;
-      color: #fff !important;
-    }
-  
-    .Toastify__progress-bar {
-      background: #00d084 !important;
-    }
-  
-  .sidebar {
-    width: 200px;
-    background: #333;
-    color: white;
-    padding: 20px;
-  }
-  
-  .sidebar ul {
-    list-style: none;
-    padding: 0;
-  }
-  
-  .sidebar li {
-    padding: 10px;
-    cursor: pointer;
-  }
-  
-  .dashboard-content {
-    flex: 1;
-    padding: 20px;
-  }
-  
-  .summary-cards {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-  }
-  
-  .summary-card {
-    background: #fff;
-    border-radius: 10px;
-    padding: 20px;
-    text-align: center;
-  }
-  
-  .green {
-    border-left: 10px solid green;
-  }
-  
-  .blue {
-    border-left: 10px solid blue;
-  }
-  
-  .grey {
-    border-left: 10px solid grey;
-  }
-  
-  .orange {
-    border-left: 10px solid orange;
-  }
-  
-  .red {
-    border-left: 10px solid red;
-  }
+.dashboard-container {
+  display: flex;
+}
+
+.Toastify__toast {
+  background-color: #1f1f1f !important;
+  color: #fff !important;
+}
+
+.Toastify__progress-bar {
+  background: #00d084 !important;
+}
+
+.sidebar {
+  width: 200px;
+  background: #333;
+  color: white;
+  padding: 20px;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar li {
+  padding: 10px;
+  cursor: pointer;
+}
+
+.dashboard-content {
+  flex: 1;
+  padding: 20px;
+}
+
+.summary-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.summary-card {
+  background: #fff;
+  border-radius: 10px;
+  padding: 20px;
+  text-align: center;
+}
+
+.green {
+  border-left: 10px solid green;
+}
+
+.blue {
+  border-left: 10px solid blue;
+}
+
+.grey {
+  border-left: 10px solid grey;
+}
+
+.orange {
+  border-left: 10px solid orange;
+}
+
+.red {
+  border-left: 10px solid red;
+}
+
+.rtl {
+  direction: rtl;
+  text-align: right;
+}
+
+.ltr {
+  direction: ltr;
+  text-align: left;
+}

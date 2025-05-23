@@ -17,6 +17,15 @@ export default {
     goToHome: "Go to Home",
     uploadImage: "Click to upload image",
     enterImage: "Enter Image",
+    "secondName": "Second Name",
+    "thirdName": "Third Name",
+    "gender": "Gender",
+    "selectGender": "Select Gender",
+    "male": "Male",
+    "female": "Female",
+    "other": "Other",
+    "profession": "Profession",
+    "freeText": "Additional Notes",
 
     // Validation messages
     validation: {
@@ -26,6 +35,7 @@ export default {
         atLeastOnePhone: "At least one phone number is required",
         minPassword: "At least 6 characters",
         passwordsMustMatch: "Passwords must match",
+        "invalidGender": "Invalid gender"
     },
 
     verification: {

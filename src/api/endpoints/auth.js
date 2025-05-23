@@ -36,7 +36,9 @@ export const getUserData = () => {
 
 
 export const logInForEmployee = (empData) => {
-  return axiosInstance.post('/employee/login', empData)
+  return axiosInstance.post('/employee/login', empData, {
+    withCredentials: true
+  })
 }
 
 export const sendForgotPasswordEmail = (emailData) => {

@@ -1,15 +1,18 @@
 import PropTypes from "prop-types";
+
 import profileImage from "../../assets/images/vaiolet.png";
 import SidebarLink from "../atoms/SidebarLink";
 import sidebarItems from "../../constants/sidebarItems";
 import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import i18next from "i18next";
+import { useSelector } from "react-redux";
 
 export default function Sidebar({ sidebarSize, isHalfScreen, setSidebarSize }) {
   const { t } = useTranslation();
   const changeSize = true;
-
+  const authData = useSelector((state) => state.authData);
+  console.log(authData);
   useEffect(() => {
     if (changeSize === isHalfScreen) {
       setSidebarSize("small");
@@ -51,10 +54,12 @@ export default function Sidebar({ sidebarSize, isHalfScreen, setSidebarSize }) {
         </h1>
       )}
       <div
-        className={`flex flex-col overflow-y-auto overflow-x-hidden ${
+        dir={i18next.language === "ar" ? "rtl" : "ltr"}
+        className={`flex flex-col overflow-y-auto overflow-x-hidden pb-20 ${
           isHalfScreen ? "mt-[70px]" : ""
         }`}
       >
+        
         <div
           className={`py-1 mb-0 mt-[18px] ${
             sidebarSize === "big"
@@ -71,7 +76,10 @@ export default function Sidebar({ sidebarSize, isHalfScreen, setSidebarSize }) {
           />
           <div className="w-full">
             {sidebarSize === "big" && (
-              <p className="text-md text-white">اسم المستخدم</p>
+              <p className="text-md text-white">
+                {authData.allUserData.first_name}{" "}
+                {authData.allUserData.last_name}
+              </p>
             )}
           </div>
         </div>

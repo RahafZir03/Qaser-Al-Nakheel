@@ -1,4 +1,5 @@
 /* eslint-disable react/prop-types */
+import mainLogo from "../../assets/images/logo.png";
 import { useEffect } from "react";
 import { TfiMenu } from "react-icons/tfi";
 import { useDispatch, useSelector } from "react-redux";
@@ -51,7 +52,7 @@ export default function AdminNavbar({
         )}
         <button
           type="button"
-          className="text-white text-2xl"
+          className="text-white text-2xl hover:text-sec-color-100 transition-colors duration-200"
           onClick={changeSize}
         >
           <TfiMenu />
@@ -60,11 +61,15 @@ export default function AdminNavbar({
       <div className="flex justify-center items-center gap-7">
         <Link
           to="/"
-          className="text-xl flex items-center gap-3 font-bold text-white hover:text-sec-color transition-colors duration-200"
+          className="text-xl flex items-center gap-3 font-bold text-white hover:text-sec-color-100 transition-colors duration-200"
         >
           <FaArrowRightArrowLeft />
           <span>Home</span>
         </Link>
+        <div className="flex items-center ">
+          <img src={mainLogo} alt="Logo" className="h-16" />
+        </div>
+
         <button
           onClick={toggleLanguage}
           className="relative w-24 h-12 bg-gray-700 rounded-full p-1"

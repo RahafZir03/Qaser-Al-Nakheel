@@ -40,30 +40,30 @@ export const deleteMessage = (messageId) => {
   return axiosInstance.delete(`/contact/${messageId}`)
 }
 
-export const getPoolReservationForCustomer = (page, limit, status) => {
+export const getPoolReservationForCustomer = (params) => {
   const state = store.getState();
   const id = state.authData?.userId;
-  return axiosInstance.get(`/pools/getPoolReservationByCustomerId/${id}?page=${page}&limit=${limit}${status ? `&status=${status}` : ""}`)
-}
+  return axiosInstance.get(`/pools/getPoolReservationByCustomerId/${id}`, { params });
+};
 
-export const getRestaurantReservationForCustomer = (page, limit, status) => {
+export const getRestaurantReservationForCustomer = (params) => {
   const state = store.getState();
   const id = state.authData?.userId;
-  return axiosInstance.get(`/restaurants/get/ReservationsCustomer/${id}?page=${page}&limit=${limit}${status ? `&status=${status}` : ""}`)
-}
+  return axiosInstance.get(`/restaurants/get/ReservationsCustomer/${id}`, { params });
+};
 
-export const getRoomBookings = (page, limit, status) => {
+export const getRoomBookings = (params) => {
+  console.log(params)
   const state = store.getState();
   const id = state.authData?.userId;
-  return axiosInstance.get(`/booking/customerBookings/${id}?page=${page}&limit=${limit}${status ? `&status=${status}` : ""}`)
-}
+  return axiosInstance.get(`/booking/customerBookings/${id}`, { params });
+};
 
-export const getHallReservationForCustomer = (page, limit, status) => {
+export const getHallReservationForCustomer = (params) => {
   const state = store.getState();
   const id = state.authData?.userId;
-  return axiosInstance.get(`/halls/customerHallReservation/${id}?page=${page}&limit=${limit}${status ? `&status=${status}` : ""}`)
-
-}
+  return axiosInstance.get(`/halls/customerHallReservation/${id}`, { params });
+};
 
 export const cancelHallReservation = (id) => {
   return axiosInstance.patch(`/halls/cancelHallReservation/${id}`)

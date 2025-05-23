@@ -14,7 +14,7 @@ export default function HallsTable() {
       const res = await getAllHalls();
       console.log(res.data);
       setHalls(res.data.halls);
-    } catch (err) {
+    } catch  {
       toast.error("فشل في تحميل القاعات");
       setHalls([]);
     } finally {

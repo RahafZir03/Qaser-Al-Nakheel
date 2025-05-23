@@ -129,11 +129,12 @@ const UpdateRoom = () => {
         newPricing[index].price = value === '' ? '' : Number(value);
         formik.setFieldValue('pricing', newPricing);
     };
+    
 
     return (
-        <div className="max-w-4xl mx-auto mt-10 p-6 bg-admin-color shadow rounded-lg">
+        <div className="max-w-4xl mx-auto mt-10 p-6 bg-admin-color shadow rounded-lg border border-sec-color-100">
             <h2 className="text-2xl font-bold mb-6 text-center text-white">{t("singleUpdateroom.update_room.title")}</h2>
-            <form onSubmit={formik.handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <form onSubmit={formik.handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-6 ">
                 <div className="col-span-full mt-6 text-center">
                     <button type="button" onClick={() => setIsModalOpen(true)} className="bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded">
                         {t('createroom.updateMainImage') || 'Update Main Image'}
@@ -142,7 +143,7 @@ const UpdateRoom = () => {
 
                 <div>
                     <label className="block mb-1 text-white capitalize">{t('createroom.fields.room_type')}</label>
-                    <select name="type" className="p-2 rounded bg-gray-700 w-full text-white" onChange={formik.handleChange} value={formik.values.type}>
+                    <select name="type" className="p-2 rounded bg-gray-700 w-full text-white border border-sec-color-100" onChange={formik.handleChange} value={formik.values.type}>
                         <option value="">{t('createroom.select_default')}</option>
                         {roomType.length > 0 && roomType.map((type) => (
 
@@ -151,16 +152,16 @@ const UpdateRoom = () => {
                     </select>
                 </div>
                 {Object.keys(formik.values).filter((key) => key !== 'isActive' && key !== 'id' && key !== "bed_type" && key !== 'type' && key !== 'averageRating' && key !== 'ratingCount' && key !== 'RoomPricings' && key !== 'RoomImages' && key !== 'SpecialPricings' && key !== 'isBooked' && key !== 'pricing' && key !== 'RoomType' && key !== 'services' && key != 'Services' && key !== 'category').map((key) => (
-                    <Input key={key} name={key} value={formik.values[key]} onChange={formik.handleChange} />
+                    <Input key={key} name={key} value={formik.values[key]} onChange={formik.handleChange}  />
                 ))}
                 <div className="col-span-full my-4">
                     <h3 className="text-xl font-semibold text-white my-4">{t('singleUpdateroom.update_room.price')}</h3>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 ">
                         {formik.values.pricing && formik.values.pricing.map((dayData, index) => (
-                            <div key={dayData.day} className="bg-white p-4 rounded-lg shadow-sm border border-gray-200">
-                                <label className="block text-sm font-semibold text-gray-700 mb-2 capitalize">{t(`createroom.days.${dayData.day}`)}</label>
-                                <input type="number" value={dayData.price} onChange={(e) => handlePriceChange(index, e.target.value)} className="w-full p-2 border border-gray-300 rounded" min="1" />
+                            <div key={dayData.day} className="bg-gray-700 p-4 rounded-lg shadow-sm border border-sec-color-100">
+                                <label className="block text-sm font-semibold  text-white mb-2 capitalize ">{t(`createroom.days.${dayData.day}`)}</label>
+                                <input type="number" value={dayData.price} onChange={(e) => handlePriceChange(index, e.target.value)} className="w-full p-2 border border-sec-color-100 rounded bg-gray-700 text-white" min="1" />
                             </div>
                         ))}
                     </div>
@@ -244,7 +245,7 @@ const Input = ({ name, value, onChange }) => {
                 name={name}
                 value={myValue}
                 onChange={handleChange}
-                className="w-full p-2 border rounded"
+                className="w-full p-2  rounded bg-gray-700  text-white border border-sec-color-100"
             />
 
         </div>

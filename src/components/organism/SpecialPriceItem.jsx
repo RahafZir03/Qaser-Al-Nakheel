@@ -47,12 +47,12 @@ const SpecialPriceItem = ({ price }) => {
     });
 
     const inputClass =
-        "border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all w-full";
+        "border border-sec-color-100 bg-gray-700 text-white  rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all w-full";
 
     return (
         <motion.li
             layout
-            className="bg-white p-4 rounded-xl shadow-md transition-all duration-300 hover:shadow-lg"
+            className="border border-sec-color-100 bg-gray-700 text-white p-4 rounded-xl shadow-md transition-all duration-300 hover:shadow-lg"
         >
             <AnimatePresence mode="wait">
                 {!editing ? (
@@ -81,10 +81,10 @@ const SpecialPriceItem = ({ price }) => {
                         initial={{ opacity: 0, y: -10 }}
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: 10 }}
-                        className="space-y-3"
+                        className="space-y-3 "
                     >
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                            <div>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 ">
+                            <div >
                                 <input
                                     name="name_ar"
                                     value={formik.values.name_ar}

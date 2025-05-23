@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import { Trash2 } from "lucide-react";
 import { addPoolFacilities } from "../../api/endpoints/pool";
 import axiosInstance from "../../api/axios";
+import { IoMdCloseCircleOutline } from "react-icons/io";
 
 // eslint-disable-next-line react/prop-types
 export default function AddFacilityModal({ poolId, onClose, onFacilityAdded }) {
@@ -71,19 +72,19 @@ export default function AddFacilityModal({ poolId, onClose, onFacilityAdded }) {
     return (
         <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex justify-center items-center">
             <div className="bg-admin-color text-black rounded-xl p-6 w-full max-w-3xl overflow-y-auto max-h-[90vh] relative">
-                <button onClick={onClose} className="absolute top-2 left-2 text-xl text-red-500">×</button>
-                <h2 className="text-2xl font-bold text-white text-center mb-4">إضافة مرفق جديد</h2>
+                <button onClick={onClose} className="absolute top-2 left-2 text-xl text-red-500"><IoMdCloseCircleOutline size={35}/></button>
+                <h2 className="text-2xl font-bold text-white text-center mb-4">Add a New Facility  </h2>
 
                 <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={handleSubmit}>
                     {({ setFieldValue, isSubmitting, errors, touched }) => (
                         <Form className="space-y-4">
-                            <Field name="name_ar" placeholder="الاسم بالعربية" className="w-full border p-2 rounded" />
-                            <Field name="name_en" placeholder="Name in English" className="w-full border p-2 rounded" />
-                            <Field as="textarea" name="desc_ar" placeholder="الوصف بالعربية" className="w-full border p-2 rounded" />
-                            <Field as="textarea" name="desc_en" placeholder="Description in English" className="w-full border p-2 rounded" />
+                            <Field name="name_ar" placeholder=" Name in Arabic" className="w-full border p-2 rounded bg-gray-700 border-sec-color-100" />
+                            <Field name="name_en" placeholder="Name in English" className="w-full border p-2 rounded bg-gray-700 border-sec-color-100" />
+                            <Field as="textarea" name="desc_ar" placeholder="Description in Arabic" className="w-full border p-2 rounded bg-gray-700 border-sec-color-100" />
+                            <Field as="textarea" name="desc_en" placeholder="Description in English" className="w-full border p-2 rounded bg-gray-700 border-sec-color-100" />
 
                             <div>
-                                <label className="block mb-1">الصورة</label>
+                                <label className="block mb-1">Image</label>
                                 <input
                                     type="file"
                                     accept="image/*"
@@ -96,7 +97,7 @@ export default function AddFacilityModal({ poolId, onClose, onFacilityAdded }) {
                                             reader.readAsDataURL(file);
                                         }
                                     }}
-                                    className="w-full border p-2 rounded"
+                                    className="w-full border p-2 rounded bg-gray-700 border-sec-color-100"
                                 />
                                 {touched.image && errors.image && <div className="text-red-500 text-sm mt-1">{errors.image}</div>}
                                 {imagePreview && (
@@ -109,7 +110,7 @@ export default function AddFacilityModal({ poolId, onClose, onFacilityAdded }) {
                                 disabled={isSubmitting}
                                 className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
                             >
-                                {isSubmitting ? "جاري الإرسال..." : "إضافة"}
+                                {isSubmitting ? "Sending ..." : "Add "}
                             </button>
                         </Form>
                     )}

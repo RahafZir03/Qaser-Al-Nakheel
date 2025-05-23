@@ -240,7 +240,12 @@ const resources = {
         "active": "Active",
         "inactive": "Inactive",
         "view_details": "View details",
-        "delete": "Delete"
+        "delete": "Delete",
+        "search": "Search",
+        "search_placeholder": "Search for a room...",
+        "clear_search": "Clear search",
+        "all_types": "All Types"
+
       },
 
 
@@ -458,7 +463,11 @@ const resources = {
         "active": "مفعل",
         "inactive": "غير مفعل",
         "view_details": "عرض التفاصيل",
-        "delete": "حذف"
+        "delete": "حذف",
+        "search": "بحث",
+        "search_placeholder": "ابحث عن غرفة...",
+        "clear_search": "مسح البحث",
+        "all_types": "جميع الأنواع"
       },
       "createroom": {
         "title": "إنشاء غرفة",

@@ -5,6 +5,7 @@ import { addEmployee } from "../../api/endpoints/employee";
 import { toast } from "react-toastify";
 import { useTranslation } from "react-i18next";
 import * as Yup from "yup";
+import { IoMdCloseCircleOutline } from "react-icons/io";
 
 const AddEmployeeModal = ({ isOpen, onClose, onAdd }) => {
     const [loading, setLoading] = useState(false);
@@ -77,10 +78,10 @@ const AddEmployeeModal = ({ isOpen, onClose, onAdd }) => {
 
     return (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50 text-black">
-            <div className="bg-admin-color p-6 rounded shadow-lg max-w-xl w-full">
+            <div className="bg-admin-color p-6 rounded shadow-lg max-w-xl w-full border-2 border-sec-color-100">
                 <div className="flex justify-between items-center mb-4">
                     <h2 className="text-xl font-bold text-white">{t('addEmployee')}</h2>
-                    <button onClick={onClose} className="text-red-500 font-bold text-xl">&times;</button>
+                    <button onClick={onClose} className="text-red-500 font-bold text-xl"><IoMdCloseCircleOutline size={35}/></button>
                 </div>
 
                 <form onSubmit={formik.handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -90,7 +91,7 @@ const AddEmployeeModal = ({ isOpen, onClose, onAdd }) => {
                             name="first_name"
                             placeholder={t('firstName')}
                             {...formik.getFieldProps("first_name")}
-                            className="p-2 rounded bg-gray-700 text-white w-full"
+                            className="p-2 rounded bg-gray-700 text-white w-full border border-sec-color-100"
                         />
                         {formik.touched.first_name && formik.errors.first_name && (
                             <div className="text-red-400 text-sm">{formik.errors.first_name}</div>
@@ -103,7 +104,7 @@ const AddEmployeeModal = ({ isOpen, onClose, onAdd }) => {
                             name="last_name"
                             placeholder={t('lastName')}
                             {...formik.getFieldProps("last_name")}
-                            className="p-2 rounded bg-gray-700 text-white w-full"
+                            className="p-2 rounded bg-gray-700 text-white w-full border border-sec-color-100"
                         />
                         {formik.touched.last_name && formik.errors.last_name && (
                             <div className="text-red-400 text-sm">{formik.errors.last_name}</div>
@@ -117,7 +118,7 @@ const AddEmployeeModal = ({ isOpen, onClose, onAdd }) => {
                             type="email"
                             placeholder={t('email')}
                             {...formik.getFieldProps("email")}
-                            className="p-2 rounded bg-gray-700 text-white w-full"
+                            className="p-2 rounded bg-gray-700 text-white w-full border border-sec-color-100"
                         />
                         {formik.touched.email && formik.errors.email && (
                             <div className="text-red-400 text-sm">{formik.errors.email}</div>
@@ -125,13 +126,13 @@ const AddEmployeeModal = ({ isOpen, onClose, onAdd }) => {
                     </div>
 
                     {/* Password */}
-                    <div>
+                    <div >
                         <input
                             name="password"
                             type="password"
                             placeholder={t('password')}
                             {...formik.getFieldProps("password")}
-                            className="p-2 rounded bg-gray-700 text-white w-full"
+                            className="p-2 rounded bg-gray-700 text-white w-full border border-sec-color-100"
                         />
                         {formik.touched.password && formik.errors.password && (
                             <div className="text-red-400 text-sm">{formik.errors.password}</div>
@@ -143,7 +144,7 @@ const AddEmployeeModal = ({ isOpen, onClose, onAdd }) => {
                         name="address"
                         placeholder={t('address')}
                         {...formik.getFieldProps("address")}
-                        className="p-2 rounded bg-gray-700 text-white w-full"
+                        className="p-2 rounded bg-gray-700 text-white w-full border border-sec-color-100"
                     />
 
                     {/* Job Description */}
@@ -151,7 +152,7 @@ const AddEmployeeModal = ({ isOpen, onClose, onAdd }) => {
                         name="jop_description"
                         placeholder={t('jobDescription')}
                         {...formik.getFieldProps("jop_description")}
-                        className="p-2 rounded bg-gray-700 text-white w-full"
+                        className="p-2 rounded bg-gray-700 text-white w-full border border-sec-color-100"
                     />
 
                     {/* Salary */}
@@ -161,7 +162,7 @@ const AddEmployeeModal = ({ isOpen, onClose, onAdd }) => {
                             type="number"
                             placeholder={t('salary')}
                             {...formik.getFieldProps("salary")}
-                            className="p-2 rounded bg-gray-700 text-white w-full"
+                            className="p-2 rounded bg-gray-700 text-white w-full border border-sec-color-100"
                         />
                         {formik.touched.salary && formik.errors.salary && (
                             <div className="text-red-400 text-sm">{formik.errors.salary}</div>
@@ -173,7 +174,7 @@ const AddEmployeeModal = ({ isOpen, onClose, onAdd }) => {
                         <select
                             name="shift"
                             {...formik.getFieldProps("shift")}
-                            className="p-2 rounded bg-gray-700 text-white w-full"
+                            className="p-2 rounded bg-gray-700 text-white w-full border border-sec-color-100"
                         >
                             <option value="">{t('selectShift')}</option>
                             <option value="Morning">{t('morning')}</option>
@@ -189,7 +190,7 @@ const AddEmployeeModal = ({ isOpen, onClose, onAdd }) => {
                     <select
                         name="status"
                         {...formik.getFieldProps("status")}
-                        className="p-2 rounded bg-gray-700 text-white w-full"
+                        className="p-2 rounded bg-gray-700 text-white w-full border border-sec-color-100"
                     >
                         <option value="Active">{t('active')}</option>
                         <option value="Inactive">{t('inactive')}</option>
@@ -200,7 +201,7 @@ const AddEmployeeModal = ({ isOpen, onClose, onAdd }) => {
                         <select
                             name="role"
                             {...formik.getFieldProps("role")}
-                            className="p-2 rounded bg-gray-700 text-white w-full"
+                            className="p-2 rounded bg-gray-700 text-white w-full border border-sec-color-100"
                         >
                             <option value="">{t('selectRole')}</option>
                             <option value="admin">{t('admin')}</option>
@@ -222,7 +223,7 @@ const AddEmployeeModal = ({ isOpen, onClose, onAdd }) => {
                                     value={number}
                                     onChange={(e) => handleMobileChange(idx, e.target.value)}
                                     placeholder={`${t('mobile')} #${idx + 1}`}
-                                    className="flex-1 p-2 rounded bg-gray-700 text-white"
+                                    className="flex-1 p-2 rounded bg-gray-700 text-white border border-sec-color-100"
                                 />
                                 {mobileInputs.length > 1 && (
                                     <button
@@ -248,7 +249,7 @@ const AddEmployeeModal = ({ isOpen, onClose, onAdd }) => {
                     <div className="col-span-1 md:col-span-2 flex justify-end">
                         <button
                             type="submit"
-                            className="bg-green-500 hover:bg-green-600 px-4 py-2 rounded text-white"
+                            className="bg-yellow-500 hover:bg-yellow-600 px-4 py-2 rounded text-white"
                             disabled={loading}
                         >
                             {loading ? t('general.saving') : t('addEmployee')}

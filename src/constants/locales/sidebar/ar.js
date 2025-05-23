@@ -13,7 +13,11 @@ export default {
         hallBooking:"حجوزات القاعات",
         poolBooking:"حجوزات المسابح",
         restaurantBooking:"حجوزات المطعم",
-        usersMessages:"رسائل الزبائن"
+        usersMessages:"رسائل الزبائن",
+        hall: "القاعات",
+        pool: "المسابح",
+        restaurant: "المطعم",
+        customer: "الزبائن",
     },
     navbar: {
         home: "الرئيسية",

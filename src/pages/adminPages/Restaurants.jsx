@@ -73,7 +73,7 @@ export default function RestaurantTable() {
                 </button>
             </div>
 
-            <div className={`grid ${restaurant.length <= 2 ? "grid-cols-1 sm:grid-cols-2" : "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"} gap-8`}>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6  p-4 rounded-lg">
                 {loading ? (
                     <div className="col-span-full text-center text-white">Loading...</div>
                 ) : restaurant.length === 0 ? (
@@ -82,7 +82,7 @@ export default function RestaurantTable() {
                     restaurant.map((restaurant) => (
                         <div
                             key={restaurant.id}
-                            className="relative overflow-hidden rounded-3xl shadow-2xl bg-gradient-to-br from-zinc-800 to-zinc-900 transform transition-all duration-500 hover:scale-[1.02]"
+                            className="relative overflow-hidden rounded-3xl shadow-2xl bg-gray-800 text-white border border-sec-color-100 transform transition-all duration-500 hover:scale-[1.02] w-full"
                         >
                             <img
                                 src={
@@ -106,19 +106,18 @@ export default function RestaurantTable() {
                                         <FaEllipsisV className="text-xl" />
                                     </button>
                                 </div>
-                                <p className="text-white text-base mb-1">
-                                    🏷️ <strong>{restaurant.name[i18next.language || "en"]}</strong>
+                                <p className="text-white  mb-1 text-lg">
+                                    🏷️ <strong >{restaurant.name[i18next.language || "en"]}</strong>
                                 </p>
-                                <p className="text-white text-sm mb-1">
+                                <p className="text-white text-lg mb-1">
                                     ⏰ <strong>Hours:</strong> {restaurant.Opening_hours}
                                 </p>
-                                <p className="text-white text-sm mb-1">
+                                <p className="text-white text-lg mb-1">
                                     🍽️ <strong>Cuisine:</strong> {restaurant.Cuisine_type?.[i18next.language || "en"]}
                                 </p>
-                                <p className="text-white text-sm mb-2">
+                                <p className="text-white text-lg mb-2">
                                     ⭐ <strong>Rating:</strong> {restaurant.averageRating}
                                 </p>
-
                                 <div className="mt-4">
                                     <button
                                         onClick={() => {
@@ -135,21 +134,30 @@ export default function RestaurantTable() {
 
                             {openDropdownId === restaurant.id && (
                                 <div className={`dropdown-menu absolute top-20 z-50 ${i18next.language === "ar" ? "left-4" : "right-4"} bg-zinc-700 text-white rounded-xl shadow-xl w-52 p-3 space-y-2 animate-fade-in`}>
-                                    <button onClick={() => {
-                                        setSelectedRestaurant(restaurant);
-                                        setShowImageModal(true);
-                                        setOpenDropdownId(null);
-                                    }} className="w-full text-left hover:bg-sec-color-100 px-3 py-2 rounded-lg">
+                                    <button
+                                        onClick={() => {
+                                            setSelectedRestaurant(restaurant);
+                                            setShowImageModal(true);
+                                            setOpenDropdownId(null);
+                                        }}
+                                        className="w-full text-left hover:bg-sec-color-100 px-3 py-2 rounded-lg"
+                                    >
                                         🖼️ Restaurant Images
                                     </button>
-                                    <button onClick={() => {
-                                        setSelectedRestaurant(restaurant);
-                                        setShowUpdateRestaurantModal(true);
-                                        setOpenDropdownId(null);
-                                    }} className="w-full text-left hover:bg-sec-color-100 px-3 py-2 rounded-lg">
+                                    <button
+                                        onClick={() => {
+                                            setSelectedRestaurant(restaurant);
+                                            setShowUpdateRestaurantModal(true);
+                                            setOpenDropdownId(null);
+                                        }}
+                                        className="w-full text-left hover:bg-sec-color-100 px-3 py-2 rounded-lg"
+                                    >
                                         ✏️ Edit
                                     </button>
-                                    <button onClick={() => handleDeleteRestaurant(restaurant.id)} className="w-full text-left text-red-300 hover:bg-red-500/10 px-3 py-2 rounded-lg">
+                                    <button
+                                        onClick={() => handleDeleteRestaurant(restaurant.id)}
+                                        className="w-full text-left text-red-300 hover:bg-red-500/10 px-3 py-2 rounded-lg"
+                                    >
                                         🗑️ Delete
                                     </button>
                                 </div>
@@ -159,9 +167,10 @@ export default function RestaurantTable() {
                 )}
             </div>
 
+
             {showModal && selectedRestaurant && (
-                <div className="fixed inset-0 z-[100] bg-black text-white bg-opacity-50 flex items-center justify-center">
-                    <div className="bg-my-color relative shadow-lg max-w-4xl max-h-[90vh] rounded-lg w-full">
+                <div className="fixed inset-0 z-[130] bg-black text-white bg-opacity-50 flex items-center justify-center ">
+                    <div className="bg-admin-color relative shadow-lg max-w-4xl max-h-[90vh] rounded-lg w-full border border-sec-color-100">
                         <button
                             onClick={() => setShowModal(false)}
                             className="absolute top-4 left-4 text-gray-700 hover:text-red-500 z-10 bg-white/80 rounded-full w-10 h-10 p-1 flex items-center justify-center transition"
@@ -175,41 +184,41 @@ export default function RestaurantTable() {
                                     selectedRestaurant.images[0]?.image_name_url
                                 }
                                 alt="صورة المطعم"
-                                className="w-full h-64 object-cover rounded mb-4"
+                                className="w-full h-64 object-cover rounded mb-4 border border-sec-color-100"
                             />
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
                                 <h3 className="text-2xl font-bold mb-4 text-white text-center col-span-full">
                                     {selectedRestaurant.name.ar} / {selectedRestaurant.name.en}
                                 </h3>
-                                <p>
-                                    <strong>نوع المطبخ:</strong> {selectedRestaurant.Cuisine_type.en} / {selectedRestaurant.Cuisine_type.ar}
+                                <p >
+                                    <strong className="text-sec-color-100">Kitchen type :</strong> {selectedRestaurant.Cuisine_type.en} / {selectedRestaurant.Cuisine_type.ar}
                                 </p>
                                 <p>
-                                    <strong>السعة:</strong> {selectedRestaurant.capacity}
+                                    <strong className="text-sec-color-100">Capacity:</strong> {selectedRestaurant.capacity}
                                 </p>
                                 <p>
-                                    <strong>ساعات العمل:</strong> {selectedRestaurant.Opening_hours}
+                                    <strong className="text-sec-color-100"> Working hours:</strong> {selectedRestaurant.Opening_hours}
                                 </p>
                                 <p>
-                                    <strong>التقييم:</strong> ⭐ {selectedRestaurant.averageRating} (
-                                    {selectedRestaurant.ratingCount} تقييم)
+                                    <strong className="text-sec-color-100">Rating:</strong> ⭐ {selectedRestaurant.averageRating} (
+                                    {selectedRestaurant.ratingCount} )
                                 </p>
                             </div>
                             <div className="mb-4">
-                                <h4 className="text-lg font-semibold text-sec-color-100">الوصف:</h4>
+                                <h4 className="text-lg font-semibold text-sec-color-100">Description:</h4>
                                 <p className="text-gray-200 whitespace-pre-line">
                                     {selectedRestaurant.description.ar}/ {selectedRestaurant.description.en}
                                 </p>
                             </div>
                             <div className="mb-4">
-                                <h4 className="text-lg font-semibold text-sec-color-100 mb-2">صور إضافية:</h4>
+                                <h4 className="text-lg font-semibold text-sec-color-100 mb-2">Additional Images:</h4>
                                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
                                     {selectedRestaurant.images.map((img) => (
                                         <img
                                             key={img.id}
                                             src={img.image_name_url}
                                             alt="صورة"
-                                            className="w-full h-32 object-cover rounded"
+                                            className="w-full h-32 object-cover rounded border border-sec-color-100"
                                         />
                                     ))}
                                 </div>

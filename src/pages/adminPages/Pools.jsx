@@ -84,7 +84,7 @@ export default function PoolsTable() {
             </div>
 
 
-            <div className={`grid ${pools.length <= 2 ? "grid-cols-1 sm:grid-cols-2" : "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"} gap-8 transition-all duration-500`}>
+            <div className={`grid justify-center sm:grid-cols-2 lg:grid-cols-3 gap-8 transition-all duration-500 `}>
                 {loading ? (
                     <div className="col-span-full text-center text-white">Loading...</div>
                 ) : pools.length === 0 ? (
@@ -93,9 +93,9 @@ export default function PoolsTable() {
                     pools.map((pool) => (
                         <div
                             key={pool.id}
-                            className={`relative overflow-hidden rounded-3xl shadow-2xl bg-gradient-to-br from-zinc-800 to-zinc-900 transform transition-all duration-500 hover:scale-[1.02] ${pools.length <= 2 ? "col-span-full" : ""
-                                } animate-fade-in`}
-                        >
+                            className="relative w-full max-w-md mx-auto overflow-hidden rounded-3xl shadow-2xl bg-gray-800 transform transition-all 
+                            duration-500 hover:scale-[1.02] animate-fade-in border border-sec-color-100">
+                        
                             <img
                                 src={
                                     pool.images.find((img) => img.main)?.image_name_url ||
@@ -120,16 +120,16 @@ export default function PoolsTable() {
                                     </button>
                                 </div>
 
-                                <p className="text-white mb-2 text-base">
+                                <p className="text-white mb-2  text-lg">
                                     💵 <strong>Entry Price:</strong> {pool.hourly_rate} ILS
                                 </p>
-                                <p className="text-white mb-2 text-base">
+                                <p className="text-white mb-2 text-lg">
                                     📏 <strong>Size:</strong> {pool.size}
                                 </p>
-                                <p className="text-white mb-2 text-base">
+                                <p className="text-white mb-2 text-lg">
                                     ⭐ <strong>Rating:</strong> {pool.averageRating}
                                 </p>
-                                <p className="text-white mb-2 text-base">
+                                <p className="text-white mb-2 text-lg">
                                     🟢 <strong>Status:</strong> {pool.status === "available" ? "Available" : "Not available"}
                                 </p>
 
@@ -183,15 +183,15 @@ export default function PoolsTable() {
 
             {/* Modal يدوي لتفاصيل القاعة */}
             {showModal && selectedPool && (
-                <div className="fixed inset-0 z-[100] bg-black text-white bg-opacity-50 flex items-center justify-center">
-                    <div className="bg-my-color relative shadow-lg max-w-4xl max-h-[90vh] rounded-lg w-full  ">
+                <div className="fixed inset-0 z-[130] bg-black text-white bg-opacity-50 flex items-center justify-center">
+                    <div className="bg-admin-color relative shadow-lg max-w-4xl max-h-[90vh] rounded-lg w-full  ">
                         <button
                             onClick={() => setShowModal(false)}
                             className="absolute top-4 left-4 text-gray-700 hover:text-red-500 z-10 bg-white/80 rounded-full w-10 h-10 p-1 flex items-center justify-center transition"
                         >
                             <CiCircleRemove className="text-4xl " />
                         </button>
-                        <div className="  max-h-[90vh] relative shadow-lg p-6 overflow-y-auto">
+                        <div className="  max-h-[90vh] relative shadow-lg p-6 overflow-y-auto border border-sec-color-100">
                             {/* عنوان */}
 
 
@@ -202,7 +202,7 @@ export default function PoolsTable() {
                                     selectedPool.images[0]?.image_name_url
                                 }
                                 alt="صورة القاعة"
-                                className="w-full h-64 object-cover rounded mb-4"
+                                className="w-full h-64 object-cover rounded mb-4 border border-sec-color-100"
                             />
 
                             {/* معلومات عامة */}
@@ -210,34 +210,34 @@ export default function PoolsTable() {
                                 <h3 className="text-2xl font-bold mb-4 text-white text-center ">
                                     {selectedPool.name.ar} / {selectedPool.name.en}
                                 </h3>
-                                <p>
-                                    <strong>الحالة:</strong>{" "}
+                                <p >
+                                    <strong className="text-sec-color-100">Status:</strong>{" "}
                                     {selectedPool.status === "available"
                                         ? "متاحة"
                                         : "غير متاحة"}
                                 </p>
                                 <p>
-                                    <strong>النوع:</strong> {selectedPool.pool_type}
+                                    <strong className="text-sec-color-100">Type:</strong> {selectedPool.pool_type}
                                 </p>
                                 <p>
-                                    <strong>السعة:</strong> {selectedPool.max_capacity}
+                                    <strong className="text-sec-color-100">Capacity:</strong> {selectedPool.max_capacity}
                                 </p>
                                 <p>
-                                    <strong>سعر الدخول</strong> {selectedPool.hourly_rate} ر.س
+                                    <strong className="text-sec-color-100">Entry price:</strong> {selectedPool.hourly_rate} ILS
                                 </p>
                                 <p>
-                                    <strong>الأبعاد:</strong> {selectedPool.size}
+                                    <strong className="text-sec-color-100">Dimensions:</strong> {selectedPool.size}
                                 </p>
                                 <p>
-                                    <strong>التقييم:</strong> ⭐ {selectedPool.averageRating} (
-                                    {selectedPool.ratingCount} تقييم)
+                                    <strong className="text-sec-color-100">Rating:</strong> ⭐ {selectedPool.averageRating} (
+                                    {selectedPool.ratingCount} rating)
                                 </p>
                             </div>
 
                             {/* الوصف */}
                             <div className="mb-4">
                                 <h4 className="text-lg font-semibold text-sec-color-100">
-                                    الوصف:
+                                    Description:
                                 </h4>
                                 <p className="text-gray-200 whitespace-pre-line">
                                     {selectedPool.description.ar}
@@ -248,20 +248,20 @@ export default function PoolsTable() {
                             {/* المرافق */}
                             <div className="mb-4">
                                 <h4 className="text-lg font-semibold text-sec-color-100 mb-2">
-                                    المرافق:
+                                    Facilities:
                                 </h4>
                                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                                     {selectedPool.facilities.map((facility) => (
                                         <div
                                             key={facility.id}
-                                            className="border border-gray-600 rounded-xl p-4 flex items-start gap-4 relative bg-zinc-700 shadow-sm hover:shadow-md transition"
+                                            className="border border-sec-color-100 rounded-xl p-4 flex items-start gap-4 relative bg-zinc-700 shadow-sm hover:shadow-md transition"
                                         >
                                             {/* صورة المرفق */}
                                             {facility.image && (
                                                 <img
                                                     src={facility.image}
                                                     alt={facility.name.ar}
-                                                    className="w-14 h-14 object-cover rounded-lg border border-gray-500"
+                                                    className="w-14 h-14 object-cover rounded-lg  border border-sec-color-100"
                                                 />
                                             )}
 
@@ -302,8 +302,8 @@ export default function PoolsTable() {
 
                             {/* صور إضافية */}
                             <div className="mb-4">
-                                <h4 className="text-lg font-semibold text-sec-color-100 mb-2">
-                                    صور إضافية:
+                                <h4 className="text-lg font-semibold text-sec-color-100 mb-2 ">
+                                    Additional Images:
                                 </h4>
                                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
                                     {selectedPool.images.map((img) => (
@@ -311,7 +311,7 @@ export default function PoolsTable() {
                                             key={img.id}
                                             src={img.image_name_url}
                                             alt="صورة"
-                                            className="w-full h-32 object-cover rounded"
+                                            className="w-full h-32 object-cover rounded border border-sec-color-100"
                                         />
                                     ))}
                                 </div>

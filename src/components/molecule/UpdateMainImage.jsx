@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 import { updateMainImage, addRoomImage, deleteSingleRoomImage } from "../../api/endpoints/room";
 import { useTranslation } from 'react-i18next';
 import { FaTrash } from "react-icons/fa";
-
+import { IoMdCloseCircleOutline } from "react-icons/io";
 import noImage from "../../assets/images/No_Image_Available.jpg"
 const UpdateMainImage = ({ isOpen, onClose, mainImageData, roomId, imageUrl, secondaryImages }) => {
   const [selectedMainFile, setSelectedMainFile] = useState(null);
@@ -116,11 +116,11 @@ const UpdateMainImage = ({ isOpen, onClose, mainImageData, roomId, imageUrl, sec
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-admin-color bg-opacity-50 z-50 text-black ">
-      <div className="modal-content bg-admin-color p-6 rounded shadow-lg max-w-lg w-full max-h-[90vh] overflow-y-auto ">
+    <div className="fixed inset-0 flex items-center justify-center bg-admin-color bg-opacity-50 z-[130] text-black ">
+      <div className="modal-content bg-admin-color p-6 rounded shadow-lg max-w-lg w-full max-h-[90vh] overflow-y-auto border border-sec-color-100 ">
         <div className="flex justify-between items-center mb-4 ">
           <h2 className="text-xl font-bold text-white">{t("updateMainImage")}</h2>
-          <button onClick={onClose} className="text-red-500 font-bold text-xl">X</button>
+          <button onClick={onClose} className="text-red-500 font-bold text-xl"> <IoMdCloseCircleOutline size={35} /></button>
 
         </div>
 
@@ -128,20 +128,20 @@ const UpdateMainImage = ({ isOpen, onClose, mainImageData, roomId, imageUrl, sec
         <form onSubmit={handleMainImageSubmit}>
 
           <div className="mb-4">
-            <label className="block font-medium text-white">{t("choosefile")}</label>
+            <label className="block font-medium text-white ">{t("choosefile")}</label>
 
             <input
               type="file"
               accept="image/jpeg, image/jpg, image/png"
               onChange={handleMainFileChange}
-              className="w-full border p-2 rounded bg-white"
+              className="w-full border p-2 rounded bg-gray-700 text-white border-sec-color-100"
               required
             />
           </div>
           {mainPreview && (
             <div className="mb-4">
               <p className="text-white mb-2">{t("preview")}:</p>
-              <img src={mainPreview} alt="Preview" className="max-h-48 rounded" />
+              <img src={mainPreview} alt="Preview" className="max-h-48 rounded border border-sec-color-100" />
             </div>
           )}
           <button
@@ -162,7 +162,7 @@ const UpdateMainImage = ({ isOpen, onClose, mainImageData, roomId, imageUrl, sec
               secondaryImages.map((image, index) => (
                 <div key={index} className="relative">
 
-                  <img src={image.image_name_url} alt="Secondary" className="w-24 h-24 object-cover rounded" />
+                  <img src={image.image_name_url} alt="Secondary" className="w-24 h-24 object-cover rounded border border-sec-color-100" />
                   <button
                     onClick={() => handleDeleteSecondaryImage(image.id)}
                     className="absolute top-2 right-2 bg-red-500/60 text-white rounded-full w-6 h-6 flex items-center justify-center hover:bg-red-600"
@@ -186,7 +186,7 @@ const UpdateMainImage = ({ isOpen, onClose, mainImageData, roomId, imageUrl, sec
                 type="file"
                 accept="image/jpeg, image/jpg, image/png"
                 onChange={handleSecondaryFileChange}
-                className="w-full border p-2 rounded bg-white"
+                className="w-full border p-2 rounded bg-gray-700 text-white border-sec-color-100"
               />
               <button
                 type="submit"

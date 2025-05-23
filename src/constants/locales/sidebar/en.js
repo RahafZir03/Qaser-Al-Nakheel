@@ -13,7 +13,11 @@ export default {
         hallBooking: "Halls Bookings",
         poolBooking: "Pools Bookings",
         restaurantBooking: "Restaurant Bookings",
-        usersMessages: "Users Messages"
+        usersMessages: "Users Messages",
+        hall: "Halls",
+        pool: "Pools",
+        restaurant: "Restaurant",
+        customer: "Customers",
     },
     navbar: {
         home: "Home",

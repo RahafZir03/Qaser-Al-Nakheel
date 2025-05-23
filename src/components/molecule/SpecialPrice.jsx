@@ -9,7 +9,7 @@ import { toast } from "react-toastify";
 import { IoMdClose } from "react-icons/io";
 import { useTranslation } from "react-i18next";
 import SpecialPriceItem from "../organism/SpecialPriceItem";
-
+import { IoMdCloseCircleOutline } from "react-icons/io";
 const SpecialPrice = ({ isOpen, onClose, roomId }) => {
   const { t, i18n } = useTranslation("specialprice");
   const lang = i18n.language || "en";
@@ -123,12 +123,12 @@ const SpecialPrice = ({ isOpen, onClose, roomId }) => {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-admin-color  bg-opacity-90 z-50">
-      <div className="bg-admin-color p-6 rounded-lg shadow-lg w-full max-w-3xl max-h-[90vh] overflow-y-auto">
+    <div className="fixed inset-0 flex items-center justify-center bg-admin-color  bg-opacity-90 z-[130]">
+      <div className="bg-admin-color p-6 rounded-lg shadow-lg w-full max-w-3xl max-h-[90vh] overflow-y-auto border-2  border-sec-color-100">
         <div className="flex relative justify-between mb-4 text-white">
           <h2 className="text-3xl font-extrabold mb-8 text-center border-b border-gray-700 pb-4">{editingPriceId ? t("specialprice.updateTitle") : t("specialprice.addTitle")}</h2>
-          <button onClick={onClose} className="absolute right-0 text-white text-2xl hover:text-red-400 transition">
-            <IoMdClose />
+          <button onClick={onClose} className="absolute right-0  text-2xl text-red-500 transition">
+            <IoMdCloseCircleOutline size={35} />
           </button>
         </div>
 
@@ -143,7 +143,7 @@ const SpecialPrice = ({ isOpen, onClose, roomId }) => {
                 value={formik.values.name_ar}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
-                className="w-full p-2 border rounded"
+                className="w-full p-2 border rounded  border-sec-color-100 bg-gray-700 text-white"
               />
               {formik.touched.name_ar && formik.errors.name_ar && (
                 <p className="text-red-500 text-sm">{formik.errors.name_ar}</p>
@@ -158,7 +158,7 @@ const SpecialPrice = ({ isOpen, onClose, roomId }) => {
                 value={formik.values.name_en}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
-                className="w-full p-2 border rounded"
+                className="w-full p-2 border rounded  border-sec-color-100 bg-gray-700 text-white"
               />
               {formik.touched.name_en && formik.errors.name_en && (
                 <p className="text-red-500 text-sm">{formik.errors.name_en}</p>
@@ -173,7 +173,7 @@ const SpecialPrice = ({ isOpen, onClose, roomId }) => {
                 value={formik.values.description_ar}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
-                className="w-full p-2 border rounded"
+                className="w-full p-2 border rounded  border-sec-color-100 bg-gray-700 text-white"
               />
               {formik.touched.description_ar && formik.errors.description_ar && (
                 <p className="text-red-500 text-sm">{formik.errors.description_ar}</p>
@@ -188,7 +188,7 @@ const SpecialPrice = ({ isOpen, onClose, roomId }) => {
                 value={formik.values.description_en}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
-                className="w-full p-2 border rounded"
+                className="w-full p-2 border rounded  border-sec-color-100 bg-gray-700 text-white"
               />
               {formik.touched.description_en && formik.errors.description_en && (
                 <p className="text-red-500 text-sm">{formik.errors.description_en}</p>
@@ -205,7 +205,7 @@ const SpecialPrice = ({ isOpen, onClose, roomId }) => {
                 value={formik.values.start_date}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
-                className="w-full p-2 border rounded"
+                className="w-full p-2 border rounded  border-sec-color-100 bg-gray-700 text-white"
               />
               {formik.touched.start_date && formik.errors.start_date && (
                 <p className="text-red-500 text-sm">{formik.errors.start_date}</p>
@@ -220,7 +220,7 @@ const SpecialPrice = ({ isOpen, onClose, roomId }) => {
                 value={formik.values.end_date}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
-                className="w-full p-2 border rounded"
+                className="w-full p-2 border rounded  border-sec-color-100 bg-gray-700 text-white"
               />
               {formik.touched.end_date && formik.errors.end_date && (
                 <p className="text-red-500 text-sm">{formik.errors.end_date}</p>
@@ -236,7 +236,7 @@ const SpecialPrice = ({ isOpen, onClose, roomId }) => {
               value={formik.values.price}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
-              className="w-full p-2 border rounded"
+              className="w-full p-2 border rounded  border-sec-color-100 bg-gray-700 text-white"
             />
             {formik.touched.price && formik.errors.price && (
               <p className="text-red-500 text-sm">{formik.errors.price}</p>
@@ -258,7 +258,7 @@ const SpecialPrice = ({ isOpen, onClose, roomId }) => {
               <SpecialPriceItem key={price.id} price={price} />
             ))
           ) : (
-            <p className="text-white text-center">{t("specialprice.noData")}</p>
+            <p className="text-white text-center ">{t("specialprice.noData")}</p>
           )}
         </ul>
 

@@ -1,13 +1,13 @@
 import axiosInstance from "../axios";
 
 // employee endpoints
-export const employeeData = () => {
-  return axiosInstance.get('/employee');
+export const employeeData = (page, limit) => {
+  return axiosInstance.get(`/employee/filters/${page}/${limit}`);
 }
 //add employee
 export const addEmployee = (data) => {
   console.log(data)
-  return axiosInstance.post('/employee', data);
+  return axiosInstance.post(`/employee`, data);
 }
 
 
@@ -37,5 +37,5 @@ export const updateEmployee = (id, data) => {
 //}
 //getAllworkPlaces
 export const getAllworkPlaces = () => {
-  return axiosInstance.get('/general/getAllworkPlaces');
+  return axiosInstance.get(`/general/getAllworkPlaces`);
 }

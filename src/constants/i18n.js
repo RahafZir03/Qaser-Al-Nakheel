@@ -37,12 +37,18 @@ import restaurant_ar from './locales/restaurant/ar';
 import profile_en from './locales/profile/en';
 import profile_ar from './locales/profile/ar';
 
+
 import adminBooking_en from './locales/adminBooking/en';
 import adminBooking_ar from './locales/adminBooking/ar';
 
 import halls_en from './locales/halls/en';
 import halls_ar from './locales/halls/ar';
 
+import pool_en from './locales/pool/en';
+import pool_ar from './locales/pool/ar';
+
+import restaurants_en from './locales/restaurants/en';
+import restaurants_ar from './locales/restaurants/ar';
 
 const resources = {
   en: {
@@ -64,6 +70,8 @@ const resources = {
     updateemployee: updateemployee_en,
     EditJobModal: EditJobModal_en,
     halls: halls_en,
+    pool:pool_en,
+    restaurants: restaurants_en,
     translation: {
       "companyHallMainTexts": {
         "upperSection": {
@@ -201,7 +209,8 @@ const resources = {
         "title": "Title",
         "description": "Description",
         "serviceNumber": "Service Number",
-        "action": "Action"
+        "action": "Action",
+        "search_placeholder": "Search for a service..."
       },
       "roomNameEnglish": "Room Name (English)",
       "roomNamearabic": "Room Name (Arabic)",
@@ -214,6 +223,8 @@ const resources = {
       "updating": "Updating...",
       "newupdateRoomType": "Update Room Type",
       "headerAddRoomService": "Add Room Service",
+      "close": "Close",
+      "add": "Add",
       "roomService": {
         "add": "Add Room Service",
         "update": "Update Room Service"
@@ -223,6 +234,8 @@ const resources = {
       "ServiceDescriptionEnglish": "Description (English)",
       "ServiceDescriptionArabic": "Description (Arabic)",
       "ServiceImage": "Service Image",
+       "hdashboard": "Dashboard",
+
       "all_rooms": {
         "title": "All Rooms",
         "create_new": "+ Create new",
@@ -244,7 +257,8 @@ const resources = {
         "search": "Search",
         "search_placeholder": "Search for a room...",
         "clear_search": "Clear search",
-        "all_types": "All Types"
+        "all_types": "All Types",
+        "rating": "Rating",
 
       },
 
@@ -386,8 +400,9 @@ const resources = {
     addemployee: addemployee_ar,
     updateemployee: updateemployee_ar,
     EditJobModal: EditJobModal_ar,
-    halls_en: halls_ar,
-
+    halls: halls_ar,
+    pool:pool_ar,
+    restaurants: restaurants_ar,
     translation: {
       "companyHallMainTexts": {
         "upperSection": {
@@ -425,8 +440,10 @@ const resources = {
         "title": "العنوان",
         "description": "وصف الخدمة",
         "serviceNumber": "رقم الخدمة",
-        "action": "الإجراء"
+        "action": "الإجراء",
+        "search_placeholder": "ابحث عن خدمة..."
       },
+      "hdashboard": "لوحة التحكم",
       "roomNameEnglish": "اسم الغرفة (بالإنجليزية)",
       "roomNamearabic": "اسم الغرفة (بالعربية)",
       "roomDescriptionEnglish": "وصف الغرفة (بالإنجليزية)",
@@ -437,6 +454,8 @@ const resources = {
       "newRoomType": "إضافة نوع غرفة",
       "updating": "جاري التحديث...",
       "newupdateRoomType": "تحديث نوع الغرفة",
+      "close": "إغلاق",
+      "add": "إضافة",
       "roomService": {
         "add": "إضافة خدمة الغرفة",
         "update": "تحديث خدمة الغرفة"
@@ -467,7 +486,8 @@ const resources = {
         "search": "بحث",
         "search_placeholder": "ابحث عن غرفة...",
         "clear_search": "مسح البحث",
-        "all_types": "جميع الأنواع"
+        "all_types": "جميع الأنواع",
+        "rating": "التقييم"
       },
       "createroom": {
         "title": "إنشاء غرفة",

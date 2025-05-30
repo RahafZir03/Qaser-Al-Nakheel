@@ -38,6 +38,7 @@ const SpecialPriceItem = ({ price }) => {
         onSubmit: async (values) => {
             try {
                 const response = await updateSpecialPrice(price.id, values);
+                console.log(values)
                 toast.success(response.data.message);
                 setEditing(false);
             } catch (err) {

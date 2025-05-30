@@ -8,6 +8,7 @@ import RestaurantImage from "../../components/molecule/Restaurantimage";
 import UpdateRestaurantModal from "../../components/molecule/UpdateRestaurant";
 import { CiCircleRemove } from "react-icons/ci";
 import { PlusIcon } from "lucide-react";
+import { useTranslation } from 'react-i18next';
 
 export default function RestaurantTable() {
     const [restaurant, setRestaurant] = useState([]);
@@ -18,7 +19,7 @@ export default function RestaurantTable() {
     const [showAddRestaurantModal, setShowAddRestaurantModal] = useState(false);
     const [showImageModal, setShowImageModal] = useState(false);
     const [showUpdateRestuarantModal, setShowUpdateRestaurantModal] = useState(false);
-
+    const { t } = useTranslation("restaurants");
     useEffect(() => {
         const handleClickOutside = (e) => {
             if (!e.target.closest(".dropdown-menu")) {
@@ -34,7 +35,7 @@ export default function RestaurantTable() {
             const res = await getAllRestaurants();
             setRestaurant(res.data);
         } catch {
-            toast.error("فشل في تحميل المطاعم");
+            toast.error(t("restaurant.failed"));
             setRestaurant([]);
         } finally {
             setLoading(false);
@@ -42,15 +43,15 @@ export default function RestaurantTable() {
     };
 
     const handleDeleteRestaurant = async (restaurantId) => {
-        if (!window.confirm("هل أنت متأكد من حذف هذا المطعم ؟")) return;
+        if (!window.confirm(t("restaurant.Cdelete"))) return;
 
         try {
             await deleteRestaurant(restaurantId);
             setRestaurant((prev) => prev.filter((restaurant) => restaurant.id !== restaurantId));
-            toast.success("تم حذف المطعم بنجاح");
+            toast.success(t("restaurant.deletesuccess"));
         } catch (error) {
             console.error("Error deleting restaurant:", error);
-            toast.error("فشل في حذف المطعم");
+            toast.error(t("restaurant.deletefailed"));
         }
     };
 
@@ -61,7 +62,7 @@ export default function RestaurantTable() {
     return (
         <div className="p-4 md:p-8 bg-admin-color">
             <div className="flex justify-between items-center mb-4">
-                <h1 className="text-2xl font-semibold text-white">List of Restaurant</h1>
+                <h1 className="text-2xl font-semibold text-white">{t("restaurant.list")}</h1>
                 <button
                     onClick={() => {
                         setShowAddRestaurantModal(true);
@@ -69,15 +70,15 @@ export default function RestaurantTable() {
                     }}
                     className="text-white bg-sec-color-100 flex hover:bg-sec-color-200 focus:outline-none focus:ring-2 focus:ring-sec-color-200 focus:ring-opacity-50 rounded-lg px-4 py-2 transition duration-150"
                 >
-                    <PlusIcon /> Add Restaurant
+                    <PlusIcon /> {t("restaurant.addres")}
                 </button>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6  p-4 rounded-lg">
                 {loading ? (
-                    <div className="col-span-full text-center text-white">Loading...</div>
+                    <div className="col-span-full text-center text-white">{t("restaurant.load")}</div>
                 ) : restaurant.length === 0 ? (
-                    <div className="col-span-full text-center text-white">There are no restaurants</div>
+                    <div className="col-span-full text-center text-white">{t("restaurant.nores")}</div>
                 ) : (
                     restaurant.map((restaurant) => (
                         <div
@@ -107,16 +108,16 @@ export default function RestaurantTable() {
                                     </button>
                                 </div>
                                 <p className="text-white  mb-1 text-lg">
-                                    🏷️ <strong >{restaurant.name[i18next.language || "en"]}</strong>
+                                     <strong >{restaurant.name[i18next.language || "en"]}</strong>
                                 </p>
                                 <p className="text-white text-lg mb-1">
-                                    ⏰ <strong>Hours:</strong> {restaurant.Opening_hours}
+                                     <strong>{t("restaurant.hours")}:</strong> {restaurant.Opening_hours}
                                 </p>
                                 <p className="text-white text-lg mb-1">
-                                    🍽️ <strong>Cuisine:</strong> {restaurant.Cuisine_type?.[i18next.language || "en"]}
+                                    <strong>{t("restaurant.cuisine")}:</strong> {restaurant.Cuisine_type?.[i18next.language || "en"]}
                                 </p>
                                 <p className="text-white text-lg mb-2">
-                                    ⭐ <strong>Rating:</strong> {restaurant.averageRating}
+                                     <strong>{t("restaurant.rating")}:</strong> {restaurant.averageRating}
                                 </p>
                                 <div className="mt-4">
                                     <button
@@ -127,7 +128,7 @@ export default function RestaurantTable() {
                                         }}
                                         className="mt-2 inline-block px-6 py-2 bg-sec-color-100 hover:bg-sec-color-200 text-white rounded-full transition shadow-lg"
                                     >
-                                        🔍 View Details
+                                        🔍 {t("restaurant.view")}
                                     </button>
                                 </div>
                             </div>
@@ -142,7 +143,7 @@ export default function RestaurantTable() {
                                         }}
                                         className="w-full text-left hover:bg-sec-color-100 px-3 py-2 rounded-lg"
                                     >
-                                        🖼️ Restaurant Images
+                                        🖼️ {t("restaurant.image")}
                                     </button>
                                     <button
                                         onClick={() => {
@@ -152,13 +153,13 @@ export default function RestaurantTable() {
                                         }}
                                         className="w-full text-left hover:bg-sec-color-100 px-3 py-2 rounded-lg"
                                     >
-                                        ✏️ Edit
+                                        ✏️{t("restaurant.edit")}
                                     </button>
                                     <button
                                         onClick={() => handleDeleteRestaurant(restaurant.id)}
                                         className="w-full text-left text-red-300 hover:bg-red-500/10 px-3 py-2 rounded-lg"
                                     >
-                                        🗑️ Delete
+                                        🗑️{t("restaurant.delete")}
                                     </button>
                                 </div>
                             )}
@@ -191,27 +192,27 @@ export default function RestaurantTable() {
                                     {selectedRestaurant.name.ar} / {selectedRestaurant.name.en}
                                 </h3>
                                 <p >
-                                    <strong className="text-sec-color-100">Kitchen type :</strong> {selectedRestaurant.Cuisine_type.en} / {selectedRestaurant.Cuisine_type.ar}
+                                    <strong className="text-sec-color-100">{t("restaurant.cuisine")}:</strong> {selectedRestaurant.Cuisine_type.en} / {selectedRestaurant.Cuisine_type.ar}
                                 </p>
                                 <p>
-                                    <strong className="text-sec-color-100">Capacity:</strong> {selectedRestaurant.capacity}
+                                    <strong className="text-sec-color-100">{t("restaurant.capacity")}:</strong> {selectedRestaurant.capacity}
                                 </p>
                                 <p>
-                                    <strong className="text-sec-color-100"> Working hours:</strong> {selectedRestaurant.Opening_hours}
+                                    <strong className="text-sec-color-100">{t("restaurant.hours")}:</strong> {selectedRestaurant.Opening_hours}
                                 </p>
                                 <p>
-                                    <strong className="text-sec-color-100">Rating:</strong> ⭐ {selectedRestaurant.averageRating} (
+                                    <strong className="text-sec-color-100">{t("restaurant.rating")}:</strong> ⭐ {selectedRestaurant.averageRating} (
                                     {selectedRestaurant.ratingCount} )
                                 </p>
                             </div>
                             <div className="mb-4">
-                                <h4 className="text-lg font-semibold text-sec-color-100">Description:</h4>
+                                <h4 className="text-lg font-semibold text-sec-color-100">{t("restaurant.description")}:</h4>
                                 <p className="text-gray-200 whitespace-pre-line">
                                     {selectedRestaurant.description.ar}/ {selectedRestaurant.description.en}
                                 </p>
                             </div>
                             <div className="mb-4">
-                                <h4 className="text-lg font-semibold text-sec-color-100 mb-2">Additional Images:</h4>
+                                <h4 className="text-lg font-semibold text-sec-color-100 mb-2">{t("restaurant.additionalimages")}:</h4>
                                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
                                     {selectedRestaurant.images.map((img) => (
                                         <img

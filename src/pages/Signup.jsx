@@ -13,9 +13,11 @@ import imagename from "../assets/images/background.png";
 import imageIcon from "../assets/images/google.png";
 import imageLogo from "../assets/images/facebook.png";
 import imagelogo from "../assets/images/logo.png";
-import { FaArrowDown } from "react-icons/fa";
+import { FaArrowDown, FaHome } from "react-icons/fa";
 import noimage from "../assets/images/noimage.jpg";
 import { useTranslation } from "react-i18next";
+import i18next from "i18next";
+import { setLanguage } from "../features/langData/langSlice";
 
 export default function SignUp() {
   const { t } = useTranslation("signUp");
@@ -23,7 +25,7 @@ export default function SignUp() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [image, setImage] = useState(noimage);
-
+  const dispatch = useDispatch();
   const handleImageClick = () => {
     if (fileInputRef.current) {
       fileInputRef.current.click();
@@ -72,8 +74,11 @@ export default function SignUp() {
       country: Yup.string().required(t("validation.required")),
       city: Yup.string().required(t("validation.required")),
       password: Yup.string()
-        .min(6, t("validation.minPassword"))
-        .required(t("validation.required")),
+        .required(t("validation.required"))
+        .matches(
+          /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+          t("validation.minPassword")
+        ),
       confirmPassword: Yup.string()
         .oneOf([Yup.ref("password"), null], t("validation.passwordsMustMatch"))
         .required(t("validation.required")),
@@ -126,6 +131,11 @@ export default function SignUp() {
     },
   });
 
+  const toggleLanguage = () => {
+    const newLang = i18next.language === "en" ? "ar" : "en";
+    dispatch(setLanguage(newLang));
+  };
+
   return (
     <div className="relative min-h-screen w-full flex items-center justify-center bg-black">
       <img
@@ -133,6 +143,21 @@ export default function SignUp() {
         alt="Background"
         className="absolute top-0 left-0 w-full h-full object-cover opacity-100"
       />
+      <div className="absolute top-4 left-4 flex items-center gap-4 z-50">
+        <Link
+          to="/"
+          className="bg-white flex items-center gap-3 text-black font-semibold py-2 px-4 rounded hover:bg-gray-200 shadow"
+        >
+          <FaHome />
+          {t("goToHome")}
+        </Link>
+        <button
+          onClick={toggleLanguage}
+          className="bg-white text-black font-semibold py-2 px-4 rounded hover:bg-gray-200 shadow"
+        >
+          🌐 {i18next.language === "ar" ? "English" : "العربية"}
+        </button>
+      </div>
       <div className="relative bg-bg-gray-100 text-gray-900 bg-opacity-0 p-8 rounded-xl shadow-lg w-full max-w-[1300px] mx-auto">
         <form
           onSubmit={formik.handleSubmit}
@@ -416,12 +441,6 @@ export default function SignUp() {
                 {t("signInNow")}
               </Link>
             </p>
-            <Link
-              to={"/"}
-              className="w-full p-3 mt-5 bg-gray-500 text-bg-gray-100 text-gray-100 rounded-lg hover:bg-gray-600 transition duration-300"
-            >
-              {t("goToHome")}
-            </Link>
           </div>
         </form>
       </div>

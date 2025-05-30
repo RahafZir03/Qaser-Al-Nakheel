@@ -1,5 +1,6 @@
 export default {
     home: {
+        title:"احجز غرفتك الان",
         ImageCarousel: {
             button: "رؤية التفاصيل",
             specialPrice: "سعر خاص لوقت محدود",

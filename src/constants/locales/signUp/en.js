@@ -33,7 +33,7 @@ export default {
         invalidEmail: "Invalid email",
         phoneFormat: "Phone number must be 10 digits and start with 05",
         atLeastOnePhone: "At least one phone number is required",
-        minPassword: "At least 6 characters",
+        minPassword: "The password must contain at least 8 characters, an uppercase letter, a lowercase letter, a number, and a special symbol.",
         passwordsMustMatch: "Passwords must match",
         "invalidGender": "Invalid gender"
     },

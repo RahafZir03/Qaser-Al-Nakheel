@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import { useState } from "react";
 import RatingModal from "../molecule/RatingModal";
 import ConfirmCancelModal from "../molecule/ConfirmCancelModal";
+import { FaRegTrashAlt, FaStar } from "react-icons/fa";
 
 /* eslint-disable react/prop-types */
 const BookingTables = ({ bookings, type }) => {
@@ -97,23 +98,25 @@ const BookingTables = ({ bookings, type }) => {
 
   const CancelButton = ({ id }) => (
     <button
+      title={t("cancel")}
       onClick={() => handleCancelClick(id)}
-      className="px-4 py-2 bg-red-100 text-red-600 rounded-full text-xs font-semibold hover:bg-red-200 transition-all duration-200"
+      className="px-2 py-2 bg-red-100 text-red-600 rounded-full text-xs font-semibold hover:bg-red-200 transition-all duration-200"
     >
-      {t("cancel")}
+      <FaRegTrashAlt className="text-xl" />
     </button>
   );
 
   const RateButton = ({ id }) => {
     return (
       <button
+        title={t("rate")}
         onClick={() => {
           setSelectedBooking(id);
           setOpenRating(true);
         }}
-        className="px-4 py-2 bg-yellow-100 text-yellow-600 rounded-full text-xs font-semibold hover:bg-yellow-200 transition-all duration-200 ml-2"
+        className="px-2 py-2 bg-yellow-100 text-yellow-600 rounded-full text-xs font-semibold hover:bg-yellow-200 transition-all duration-200 ml-2"
       >
-        {t("rate")}
+        <FaStar className="text-xl"/>
       </button>
     );
   };

@@ -1,14 +1,11 @@
 import axiosInstance from "../axios";
 
 export const getInvoices = (id,status) =>{
-    console.log(id)
     return axiosInstance.get(`/payment/getUnpaidOrPaidInvoices/${id}?payed=${status}`)
 };
 
 export const PayInvoices = (payload) =>{
-    console.log(payload)
     return axiosInstance.post(`/payment/payInvoices`,payload)
-
 };
 
 export const  getInvoicesForAll = (status) =>{

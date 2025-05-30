@@ -7,8 +7,8 @@ export const createBookingByRoomType = (formData) => {
     return axiosInstance.post(`/booking/${id}`, formData);
 }
 
-export const getRoomTypeForNavbar = (filters) => {
-    return axiosInstance.get(`/room/get/RoomTypeForNavbar/select=${filters.select}`);
+export const getRoomTypeForNavbar = () => {
+    return axiosInstance.get(`/room/get/RoomTypeForNavbar`);
 }
 
 export const getRoomTypeAndRoomsByTypeId = (typeId, checkIn, checkOut) => {

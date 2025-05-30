@@ -103,8 +103,8 @@ export default function VerificationPage() {
           </p>
           <button
             type="submit"
-            disabled={loading || !formik.isValid || formik.isSubmitting}
-            className="w-full p-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-500 transition duration-300"
+            disabled ={formik.isSubmitting || loading}
+            className="p-3 flex w-full justify-center bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-500 transition duration-300"
           >
             {loading ? (
               <ReactLoading type="spin" color="#fff" height={20} width={20} />
@@ -121,7 +121,7 @@ export default function VerificationPage() {
             </p>
             <button
               type="button"
-              onClick={() => sendCode(formik.values.email)} // تمرير البريد الإلكتروني مباشرة إلى الدالة
+              onClick={() => sendCode(formik.values.email)}
               className="w-full p-3 bg-yellow-500 text-black font-semibold rounded-lg hover:bg-yellow-300 transition duration-300"
             >
               {t("verification.sendAgain")}

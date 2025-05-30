@@ -1,11 +1,9 @@
 /* eslint-disable react/prop-types */
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import QuickBookingForm from "../organism/QuickBookingForm";
 import LinkButton from "../atoms/LinkButton";
 
 const Carousel = ({ slides }) => {
-  const locale = "ar";
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const prevSlide = () => {
@@ -63,16 +61,6 @@ const Carousel = ({ slides }) => {
                   size="large"
                 />
               </motion.div>
-              {slides[currentIndex].showForm === "roomBooking" && (
-                <motion.div
-                  initial={{ y: 20, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  transition={{ delay: 0.6, duration: 0.6 }}
-                  className="mt-10"
-                >
-                  <QuickBookingForm locale={locale} />{/* my forom for booking in home page */}
-                </motion.div>
-              )}
             </div>
           </motion.div>
         </AnimatePresence>

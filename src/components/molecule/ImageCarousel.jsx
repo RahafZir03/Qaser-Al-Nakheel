@@ -68,51 +68,55 @@ const ImageCarousel = ({ images }) => {
 
           return (
             <div key={src.id}>
-              <div className="relative w-full h-[350px] rounded overflow-hidden group border shadow-lg shadow-gray-700 my-4">
-                <div className=" absolute bottom-0 w-full h-0 group-hover:h-96 transition-all duration-300 ease-out bg-my-color/60 z-10 border-t-1 overflow-hidden">
-                  <div className="flex flex-col justify-center items-center h-full text-white p-4">
-                    <h2 className="text-3xl font-bold">
-                      {src.name[i18n.language] || src.name.en}
-                    </h2>
-                    <p className="mt-2 text-center h-28 overflow-y-auto text-sm font-medium">
-                      {src.description[i18n.language] || src.description.en}
-                    </p>
-                    <div
-                      className="flex items-center gap-1 justify-center"
-                      title={`${
-                        i18n.language === "en"
-                          ? "Number of reviews"
-                          : "عدد التقييمات"
-                      } : ${src.room.ratingCount}`}
-                    >
-                      <p className="">
-                        {i18n.language === "en"
-                          ? "Users Rating"
-                          : "تقييم المستخدمين"}{" "}
-                        :
-                      </p>
-                      <RenderStars ratingNumber={src.room.averageRating} />
-                    </div>
-                    <p className="mt-4 bg-green-800 p-2 rounded-md text-center">
-                      {price} NIS{" "}
-                      {isSpecial && (
-                        <span className="text-yellow-400 block mt-1 text-sm">
-                          (سعر خاص لوقت محدود - حتى {formattedEndDate})
-                        </span>
-                      )}
-                    </p>
-                    <Link
-                      to={`/rooms/roomDetails/${src.room.id}`}
-                      className="mt-4 px-4 py-2 bg-yellow-700  text-white rounded hover:bg-sec-color-200 transition duration-200"
-                    >
-                      {t("home.ImageCarousel.button")}
-                    </Link>
+              <div className="relative w-full h-[350px] rounded-2xl overflow-hidden group border shadow-xl shadow-black/40 my-4 transition-transform duration-500 hover:scale-[1.02]">
+                {/* Overlay Content */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10 flex flex-col justify-end p-6 text-white space-y-3">
+                  <h2 className="text-xl sm:text-2xl font-extrabold">
+                    {src.name[i18n.language] || src.name.en}
+                  </h2>
+                  <p className="text-sm line-clamp-3">
+                    {src.description[i18n.language] || src.description.en}
+                  </p>
+
+                  <div
+                    className="flex items-center gap-2 text-sm"
+                    title={`${
+                      i18n.language === "en"
+                        ? "Number of reviews"
+                        : "عدد التقييمات"
+                    } : ${src.room.ratingCount}`}
+                  >
+                    <span>
+                      {i18n.language === "en"
+                        ? "Users Rating"
+                        : "تقييم المستخدمين"}
+                      :
+                    </span>
+                    <RenderStars ratingNumber={src.room.averageRating} />
                   </div>
+
+                  <p className="text-base sm:text-lg font-semibold bg-green-700/90 px-3 py-1 rounded-md w-fit">
+                    {price} NIS{" "}
+                    {isSpecial && (
+                      <span className="block text-yellow-300 text-sm mt-1 font-medium">
+                        ({t("home.ImageCarousel.special")} - {formattedEndDate})
+                      </span>
+                    )}
+                  </p>
+
+                  <Link
+                    to={`/rooms/roomDetails/${src.room.id}`}
+                    className="mt-2 flex max-w-fit bg-yellow-600 hover:bg-yellow-500 text-white font-medium px-5 py-2 rounded-full transition duration-300 shadow-md"
+                  >
+                    {t("home.ImageCarousel.button")}
+                  </Link>
                 </div>
+
+                {/* Background Image */}
                 <img
                   src={src.room.RoomImages[0].image_name_url}
                   alt={`Slide ${index + 1}`}
-                  className="rounded shadow-lg w-full h-[350px]  object-cover group-hover:scale-110 transition-transform duration-[2000ms] ease-out"
+                  className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-[2000ms] ease-out"
                 />
               </div>
             </div>

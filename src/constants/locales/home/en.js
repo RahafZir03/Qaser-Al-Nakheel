@@ -1,6 +1,7 @@
 
 export default {
     home: {
+        title: "Book Your Room Now",
         ImageCarousel: {
             button: "View Details",
             specialPrice: "Special Price for Limited Time",

@@ -20,7 +20,7 @@ export default function Profile() {
         withDesc={false}
         imgSrc={upperImage}
       />
-      <div className="max-w-[1300px] mx-auto grid grid-cols-1 gap-0 gap-y-6 lg:gap-6 lg:grid-cols-4 py-20 px-5">
+      <div className="max-w-[1500px] mx-auto grid grid-cols-1 gap-0 gap-y-6 lg:gap-6 lg:grid-cols-4 py-20 px-5">
         <div className=" space-y-6">
           <div className="w-full border pb-4 rounded-md bg-white">
             <div className="h-28 bg-sec-text-sec-color-100 bg-opacity-90 rounded-t-md flex justify-center items-end"></div>

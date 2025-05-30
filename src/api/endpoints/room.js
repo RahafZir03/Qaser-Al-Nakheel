@@ -12,7 +12,7 @@ export const updateRoomType = (typeId, typeData) => {
   return axiosInstance.put(`/room/roomTypeUpdate/${typeId}`, typeData)
 }
 export const addRoomType = (typeData) => {
-  return axiosInstance.post('/room/addRoomType', typeData);
+  return axiosInstance.post(`/room/addRoomType`, typeData);
 };
 
 export const getRoomTypeById = (typeId) => {
@@ -21,8 +21,9 @@ export const getRoomTypeById = (typeId) => {
 
 
 // service endpoints
-export const serviceData = () => {
-  return axiosInstance.get('/services');
+export const serviceData = (filters) => {
+  console.log(filters)
+  return axiosInstance.get(`/services?search=${filters.search}&page=${filters.page}&limit=${filters.limit}`);
 }
 export const serviceDataById = (serviceId) => {
   return axiosInstance.get(`/services/${serviceId}`);

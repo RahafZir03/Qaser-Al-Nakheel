@@ -35,7 +35,6 @@ export default function AllRoom() {
                 limit: 6
             });
 
-            console.log("Rooms from API:", response.data.rooms);
             if (response?.data?.rooms && Array.isArray(response.data.rooms)) {
                 setFilteredRooms(response.data.rooms);
                 setTotalCount(response.data.totalPages);
@@ -45,37 +44,36 @@ export default function AllRoom() {
                 setFilteredRooms([]);
             }
         } catch (error) {
-            console.error("Error fetching rooms:", error);
             setError(error.response?.data?.message || error.message || t('all_rooms.fetch_error'));
             setFilteredRooms([]);
         } finally {
             setLoading(false);
         }
     };
+
     useEffect(() => {
-    fetchRooms();
-}, [page, searchQuery]);
+        fetchRooms();
+    }, [page, searchQuery]);
 
     const handleSearchSubmit = (e) => {
-    e.preventDefault();
+        e.preventDefault();
+        if (inputValue.trim() === "") {
+            setSearchQuery("");
+            setPage(1);
+            setIsSearchActive(false);
+            return;
+        }
+        setSearchQuery(inputValue.trim());
+        setPage(1);
+        setIsSearchActive(true);
+    };
 
-    if (inputValue.trim() === "") {
+    const handleClearSearch = () => {
+        setInputValue("");
         setSearchQuery("");
         setPage(1);
         setIsSearchActive(false);
-        return;
-    }
-
-    setSearchQuery(inputValue.trim()); // ← فقط الآن نحدّث searchQuery الفعلي
-    setPage(1);
-    setIsSearchActive(true);
-};
-    const handleClearSearch = () => {
-    setInputValue("");
-    setSearchQuery("");
-    setPage(1);
-    setIsSearchActive(false);
-};
+    };
 
     const handleViewRoom = async (roomId) => {
         const response = await getRoomById(roomId);
@@ -110,20 +108,21 @@ export default function AllRoom() {
     return (
         <div className="p-4 md:p-8 bg-admin-color">
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-4 gap-4">
-                <h1 className="text-2xl font-semibold text-white">{t('all_rooms.title')}</h1>
-                <div className="flex items-center gap-4">
-                    <form onSubmit={handleSearchSubmit} className="flex items-center max-w-sm mx-auto">
+                {/* العنوان والبحث في نفس الجهة */}
+                <div className="flex flex-col md:flex-row items-start md:items-center gap-4">
+                    <h1 className="text-2xl font-semibold text-white">{t('all_rooms.title')}</h1>
+                    <form onSubmit={handleSearchSubmit} className="flex items-center">
                         <label htmlFor="simple-search" className="sr-only">{t('all_rooms.search')}</label>
-                        <div className="relative w-full">
-                            <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-                                <svg className="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 20">
-                                    <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 5v10M3 5a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm0 10a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm12 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm0 0V6a3 3 0 0 0-3-3H9m1.5-2-2 2 2 2" />
+                        <div className="relative">
+                            <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                                <svg className="w-4 h-4 text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                                    <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
                                 </svg>
                             </div>
                             <input
                                 type="text"
                                 id="simple-search"
-                                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
                                 placeholder={t('all_rooms.search_placeholder')}
                                 value={inputValue}
                                 onChange={(e) => setInputValue(e.target.value)}
@@ -137,7 +136,6 @@ export default function AllRoom() {
                             <svg className="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
                                 <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
                             </svg>
-                            <span className="sr-only">{t('all_rooms.search')}</span>
                         </button>
                         {isSearchActive && (
                             <button
@@ -149,14 +147,14 @@ export default function AllRoom() {
                             </button>
                         )}
                     </form>
-
-                    <button
-                        onClick={() => navigate("/admin/createroom")}
-                        className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
-                    >
-                        {t('all_rooms.create_new')}
-                    </button>
                 </div>
+
+                <button
+                    onClick={() => navigate("/admin/createroom")}
+                    className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
+                >
+                    {t('all_rooms.create_new')}
+                </button>
             </div>
 
             {error && (
@@ -185,12 +183,13 @@ export default function AllRoom() {
                     {t('all_rooms.no_results_for')} &quot;{searchQuery}&quot;
                 </div>
             ) : (
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+
                     {filteredRooms.map((room) => (
                         <AdminRoomCard
                             key={room.id}
                             room={room}
-                            handleViewRoom={handleViewRoom} // تم تمرير الدالة هنا
+                            handleViewRoom={handleViewRoom}
                             handleRoomActive={handleRoomActive}
                             handleDeleteRoom={handleDeleteRoom}
                             handleSpecialPrice={handleSpecialPrice}
@@ -203,6 +202,7 @@ export default function AllRoom() {
             {selectedRoom &&
                 <RoomModal room={selectedRoom.room} onClose={() => setSelectedRoom(null)} />
             }
+
             {isSpecialOpen && (
                 <SpecialPrice
                     isOpen={isSpecialOpen}
@@ -213,6 +213,7 @@ export default function AllRoom() {
                     roomId={selectedRoomIdForSpecial}
                 />
             )}
+
             {/* Pagination */}
             {!loading && totalCount > 1 && (
                 <div className="mt-6 flex justify-center">

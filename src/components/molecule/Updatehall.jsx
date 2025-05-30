@@ -4,10 +4,11 @@ import { toast } from "react-toastify";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 import { getHallById, updateHall } from "../../api/endpoints/halls";
-import { IoMdCloseCircleOutline } from "react-icons/io";
+import { useTranslation } from 'react-i18next';
 
 export default function UpdateHallModal({ hallId, onClose, onUpdated }) {
     const [initialValues, setInitialValues] = useState(null);
+     const { t } = useTranslation("halls");
 
     useEffect(() => {
         const fetchData = async () => {
@@ -92,52 +93,151 @@ export default function UpdateHallModal({ hallId, onClose, onUpdated }) {
 
     return (
         <div className="fixed inset-0 z-[130] bg-black bg-opacity-60 flex items-center justify-center p-4">
-            <div className="bg-admin-color rounded-2xl w-full max-w-3xl p-6 shadow-xl overflow-y-auto max-h-[90vh] relative">
-                <button onClick={onClose} className="absolute top-2 left-3 text-2xl  text-red-500"><IoMdCloseCircleOutline size={35}/></button>
-                <h2 className="text-2xl font-bold text-white mb-6 text-center">Update Hall</h2>
+            <div className="bg-admin-color rounded-2xl w-full border border-sec-color-100 max-w-3xl p-6 shadow-xl overflow-y-auto max-h-[90vh] relative">
+                <h2 className="text-2xl font-bold text-white mb-6 text-center">{t('update.update')}</h2>
 
                 <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={handleSubmit} enableReinitialize>
                     {({ values, isSubmitting }) => (
                         <Form className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
-                            <Field name="name_ar" placeholder="Name in Arabic" className="p-2 border rounded border-sec-color-100 bg-gray-700" />
-                            <Field name="name_en" placeholder="Name in English" className="p-2 border rounded border-sec-color-100 bg-gray-700" />
-                            <Field name="description_ar" placeholder="Description in " className="p-2 border rounded border-sec-color-100 bg-gray-700" />
-                            <Field name="description_en" placeholder="Description in English" className="p-2 border rounded border-sec-color-100 bg-gray-700" />
-                            <Field name="suitable_for_ar" placeholder=" Suitable For (Arabic)" className="p-2 border rounded border-sec-color-100 bg-gray-700" />
-                            <Field name="suitable_for_en" placeholder="Suitable For (English)" className="p-2 border rounded border-sec-color-100 bg-gray-700" />
-                            <Field name="type" as="select" className="p-2 border rounded border-sec-color-100 bg-gray-700">
-                                <option value="" disabled>Choose the hall type  </option>
-                                <option value="party">Party</option>
-                                <option value="meeting">Meeting</option>
-                            </Field>
-                            <Field name="price_per_hour" type="number" placeholder="السعر لكل ساعة" className="p-2 border rounded border-sec-color-100 bg-gray-700" />
-                            <Field name="length" type="number" placeholder="الطول" className="p-2 border rounded border-sec-color-100 bg-gray-700" />
-                            <Field name="width" type="number" placeholder="العرض" className="p-2 border rounded border-sec-color-100 bg-gray-700" />
+                            <div>
+                                <label htmlFor="name_ar" className="text-white">{t('update.name_ar')}</label>
+                                <Field
+                                    id="name_ar"
+                                    name="name_ar"
+                                    className="p-2 border rounded border-sec-color-100 bg-gray-700 w-full"
+                                />
+                            </div>
+
+                            <div>
+                                <label htmlFor="name_en" className="text-white">{t('update.name_en')}</label>
+                                <Field
+                                    id="name_en"
+                                    name="name_en"
+                                    className="p-2 border rounded border-sec-color-100 bg-gray-700 w-full"
+                                />
+                            </div>
+
+                            <div>
+                                <label htmlFor="description_ar" className="text-white">{t('update.desc_ar')}</label>
+                                <Field
+                                    id="description_ar"
+                                    name="description_ar"
+                                    className="p-2 border rounded border-sec-color-100 bg-gray-700 w-full"
+                                />
+                            </div>
+
+                            <div>
+                                <label htmlFor="description_en" className="text-white">{t('update.desc_en')}</label>
+                                <Field
+                                    id="description_en"
+                                    name="description_en"
+                                    className="p-2 border rounded border-sec-color-100 bg-gray-700 w-full"
+                                />
+                            </div>
+
+                            <div>
+                                <label htmlFor="suitable_for_ar" className="text-white">{t('update.suitablefor_ar')}</label>
+                                <Field
+                                    id="suitable_for_ar"
+                                    name="suitable_for_ar"
+                                    className="p-2 border rounded border-sec-color-100 bg-gray-700 w-full"
+                                />
+                            </div>
+
+                            <div>
+                                <label htmlFor="suitable_for_en" className="text-white">{t('update.suitablefor_en')}</label>
+                                <Field
+                                    id="suitable_for_en"
+                                    name="suitable_for_en"
+                                    className="p-2 border rounded border-sec-color-100 bg-gray-700 w-full"
+                                />
+                            </div>
+
+                            <div>
+                                <label htmlFor="type" className="text-white">{t('update.halltype')}</label>
+                                <Field
+                                    id="type"
+                                    name="type"
+                                    as="select"
+                                    className="p-2 border rounded border-sec-color-100 bg-gray-700 w-full"
+                                >
+                                    <option value="" disabled>{t('update.choose')}</option>
+                                    <option value="party">{t('update.party')}</option>
+                                    <option value="meeting">{t('update.meeting')}</option>
+                                </Field>
+                            </div>
+
+                            <div>
+                                <label htmlFor="price_per_hour" className="text-white">{t('update.priceperhour')}</label>
+                                <Field
+                                    id="price_per_hour"
+                                    name="price_per_hour"
+                                    type="number"
+                                    className="p-2 border rounded border-sec-color-100 bg-gray-700 w-full"
+                                />
+                            </div>
+
+                            <div>
+                                <label htmlFor="length" className="text-white">{t('update.length')}</label>
+                                <Field
+                                    id="length"
+                                    name="length"
+                                    type="number"
+                                    className="p-2 border rounded border-sec-color-100 bg-gray-700 w-full"
+                                />
+                            </div>
+
+                            <div>
+                                <label htmlFor="width" className="text-white">{t('update.width')}</label>
+                                <Field
+                                    id="width"
+                                    name="width"
+                                    type="number"
+                                    className="p-2 border rounded border-sec-color-100 bg-gray-700 w-full"
+                                />
+                            </div>
+
 
                             {/* ✅ عرض السعة حسب النوع */}
                             <div className="md:col-span-2 mt-4">
-                                <h4 className="text-sec-color-100 font-semibold mb-2 text-lg">Capacity by type  </h4>
+                                <h4 className="text-sec-color-100 font-semibold mb-2 text-lg">{t('update.capacitybytype')}</h4>
                                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 ">
                                     {values.capacities.map((c, i) => {
-                                        if(i>5) return null; 
+                                        if (i > 5) return null;
                                         console.log(c)
-                                        return(
-                                        <div key={i} className="flex items-center gap-2">
-                                            <label className="w-24 text-gray-300">{c.type}</label>
-                                            <Field
-                                                name={`capacities[${i}].capacity`}
-                                                type="number"
-                                                placeholder="عدد الأشخاص"
-                                                className="flex-1 p-2 border rounded border-sec-color-100 bg-gray-700"
-                                            />
-                                        </div>
-                                    )})}
+                                        return (
+                                            <div key={i} className="flex items-center gap-2">
+                                                <label className="w-24 text-gray-300">{c.type}</label>
+                                                <Field
+                                                    name={`capacities[${i}].capacity`}
+                                                    type="number"
+                                                    placeholder="عدد الأشخاص"
+                                                    className="flex-1 p-2 border rounded border-sec-color-100 bg-gray-700"
+                                                />
+                                            </div>
+                                        )
+                                    })}
                                 </div>
                             </div>
 
-                            <button type="submit" disabled={isSubmitting} className="md:col-span-2 mt-6 px-6 py-2 rounded-xl w-full text-white bg-sec-color-100 max-w-52 hover:bg-opacity-90">
-                                {isSubmitting ? "Updating ..." : "Update Hall"}
-                            </button>
+                            <div className="flex justify-end gap-3 mt-6">
+
+                                <button
+                                    type="submit"
+                                    disabled={isSubmitting}
+                                    className="px-6 py-2 rounded-xl w-full max-w-52 text-white bg-sec-color-100 hover:bg-opacity-90"
+                                >
+                                    {isSubmitting ? t('update.Updating') :t('update.Update')}
+                                </button>
+                                 <button
+                                    type="button"
+                                    onClick={onClose}
+                                    className="px-6 py-2 rounded-xl w-full max-w-52 text-white bg-gray-500 hover:bg-opacity-90"
+                                >
+                                {t('update.close')}
+                                </button>
+                            </div>
+
                         </Form>
                     )}
                 </Formik>

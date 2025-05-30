@@ -18,19 +18,19 @@ export default function Employee() {
   const [selectedEmployee, setSelectedEmployee] = useState(null);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [isEditJobModalOpen, setIsEditJobModalOpen] = useState(false);
-  
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
 
-  const { t,i18n } = useTranslation("Employee");
+  const { t, i18n } = useTranslation("Employee");
 
   const isArabic = i18n.language === "ar";
   const fetchEmployees = async () => {
     try {
-      const response = await employeeData();
+      const limit =10;
+      const response = await employeeData(page, limit);
       if (response?.data?.employees && Array.isArray(response.data.employees)) {
         setEmployees(response.data.employees);
-        setTotalPages(Math.ceil(response.data.count / 10));
+        setTotalPages(response.data.totalPages);
       } else {
         toast.error(t('toasts.noEmployeeData'));
         setEmployees([]);
@@ -57,9 +57,9 @@ export default function Employee() {
     }
   };
 
-  const handleShiftChange = async (id, newShift) => {
+  const handleShiftChange = (id, newShift) => {
     try {
-      await changeShift(id, { shift: newShift });
+      changeShift(id, { shift: newShift });
       toast.success(t('toasts.shiftUpdated'));
       fetchEmployees();
     } catch {
@@ -86,7 +86,7 @@ export default function Employee() {
 
   useEffect(() => {
     fetchEmployees();
-  }, []);
+  }, [page]);
 
   const truncateText = (text, length = 20) =>
     text?.length > length ? `${text.slice(0, length)}...` : text;
@@ -103,11 +103,10 @@ export default function Employee() {
         </button>
       </div>
 
-      <div  className="overflow-x-auto bg-white/5 rounded-xl shadow">
+      <div className="overflow-x-auto bg-white/5 rounded-xl shadow">
         <table className="min-w-full text-white text-sm">
           <thead>
-            <tr className={`text-sm bg-white/10 ${
-                isArabic ? "text-right" : "text-left"
+            <tr className={`text-sm bg-white/10 ${isArabic ? "text-right" : "text-left"
               }`}>
               <th className="p-3">{t('table.name')}</th>
               <th className="p-3">{t('table.email')}</th>
@@ -155,11 +154,10 @@ export default function Employee() {
                   <td className="p-3">
                     <button
                       onClick={() => handleStatusChange(emp.id, emp.status)}
-                      className={`px-2 py-1 rounded text-xs font-medium ${
-                        emp.status === "Active"
-                          ? "bg-green-300 text-green-900"
-                          : "bg-red-300 text-red-900"
-                      }`}
+                      className={`px-2 py-1 rounded text-xs font-medium ${emp.status === "Active"
+                        ? "bg-green-300 text-green-900"
+                        : "bg-red-300 text-red-900"
+                        }`}
                     >
                       {t(`status.${emp.status?.toLowerCase()}`)}
                     </button>
@@ -176,7 +174,7 @@ export default function Employee() {
                         setSelectedEmployee(emp);
                         setIsEditModalOpen(true);
                       }}
-                       title={t('buttons.edit')}>
+                      title={t('buttons.edit')}>
                       <FaEdit className=" text-white" size={20} />
                     </button>
                     <button
@@ -194,15 +192,15 @@ export default function Employee() {
           </tbody>
         </table>
         {totalPages > 1 && (
-                  <PaginationRounded
-                    count={totalPages}
-                    page={page}
-                    onChange={(e, value) => {
-                      setPage(value);
-                    }}
-                    theme="dark"
-                  />
-                )}
+          <PaginationRounded
+            count={totalPages}
+            page={page}
+            onChange={(e, value) => {
+              setPage(value);
+            }}
+            theme="dark"
+          />
+        )}
       </div>
 
       <AddEmployeeModal

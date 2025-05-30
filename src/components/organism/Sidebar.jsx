@@ -12,11 +12,9 @@ export default function Sidebar({ sidebarSize, isHalfScreen, setSidebarSize }) {
   const { t } = useTranslation();
   const changeSize = true;
   const authData = useSelector((state) => state.authData);
-  console.log(authData);
   useEffect(() => {
     if (changeSize === isHalfScreen) {
       setSidebarSize("small");
-      console.log(isHalfScreen);
     }
   }, [isHalfScreen, setSidebarSize, changeSize]);
 

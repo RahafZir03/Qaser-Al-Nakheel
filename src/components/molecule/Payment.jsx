@@ -1,24 +1,24 @@
 import { useEffect, useState } from "react";
-import { getInvoices, PayInvoices } from "../../api/endpoints/payment";
-import { useParams } from "react-router-dom";
+import { getInvoices } from "../../api/endpoints/payment";
+import { useParams, useNavigate } from "react-router-dom";
+import i18n from "../../constants/i18n";
 
 const InvoicesTablePage = () => {
     const [status, setStatus] = useState("false");
     const [loading, setLoading] = useState(false);
     const [invoices, setInvoices] = useState([]);
     const [selectedInvoices, setSelectedInvoices] = useState({});
-    const [showConfirmModal, setShowConfirmModal] = useState(false);
-
+    const isArabic = i18n.language === "ar";
     const { id } = useParams();
     const userId = id;
+    const navigate = useNavigate();
 
     const fetchInvoices = async () => {
         setLoading(true);
         try {
             const res = await getInvoices(userId, status);
             setInvoices(res?.data?.unpaidInvoices || []);
-        } catch (err) {
-            console.error(err);
+        } catch  {
             setInvoices([]);
         } finally {
             setLoading(false);
@@ -36,43 +36,68 @@ const InvoicesTablePage = () => {
         }));
     };
 
-    const selectedData = Array.isArray(invoices)
-        ? invoices.filter((inv) => selectedInvoices[inv.invoice_id])
-        : [];
-
-    const totalAmount = selectedData.reduce((sum, inv) => sum + parseFloat(inv.amount), 0);
+    const handleNext = () => {
+        const selected = invoices.filter((invoice) => selectedInvoices[invoice.invoice_id]);
+        navigate("/admin/selectedinvoices", { state: { selected,userId } });
+    };
 
     const renderGuests = (details) => {
         return details.num_of_guests || details.num_guests || details.number_of_guests || "-";
     };
 
     const renderStartDate = (details, type) => {
-        if (type === "Booking") return details.check_in_date;
-        if (type === "CustomerPool") return details.start_time;
-        if (type === "CustomerRestaurant") return details.reservation_date;
-        if (type === "HallReservation") return details.start_time;
-        return "-";
+        let rawDate = null;
+
+        if (type === "Booking") rawDate = details.check_in_date;
+        else if (type === "CustomerPool") rawDate = details.start_time;
+        else if (type === "CustomerRestaurant") rawDate = details.reservation_date;
+        else if (type === "HallReservation") rawDate = details.start_time;
+
+        if (!rawDate) return "-";
+
+        const date = new Date(rawDate);
+        return date.toLocaleString("en-GB", {
+            day: "2-digit",
+            month: "2-digit",
+            year: "numeric",
+            hour: "2-digit",
+            minute: "2-digit",
+            hour12: false,
+        });
     };
 
     const renderEndDate = (details, type) => {
-        if (type === "Booking") return details.check_out_date;
-        if (type === "CustomerPool") return details.end_time;
-        if (type === "HallReservation") return details.end_time;
-        return "-";
+        let rawDate = null;
+
+        if (type === "Booking") rawDate = details.check_out_date;
+        else if (type === "CustomerPool") rawDate = details.end_time;
+        else if (type === "HallReservation") rawDate = details.end_time;
+
+        if (!rawDate) return "-";
+
+        const date = new Date(rawDate);
+        return date.toLocaleString("en-GB", {
+            day: "2-digit",
+            month: "2-digit",
+            year: "numeric",
+            hour: "2-digit",
+            minute: "2-digit",
+            hour12: false,
+        });
     };
 
     const renderLocation = (details, type) => {
         if (type === "Booking") return details.room?.room_no || "-";
         if (type === "CustomerRestaurant") return details.restaurant?.name?.ar || "-";
-        if (type === "CustomerPool") return details.pool_id || "-";
+        if (type === "CustomerPool") return details.pool?.name?.ar || "-";
         if (type === "HallReservation") return details.hall?.name?.ar || "-";
         return "-";
     };
 
     return (
-        <div className="p-6 space-y-6">
-            <div className="flex items-center gap-4">
-                <span className="text-lg font-semibold">حالة الفواتير:</span>
+        <div className="p-6 space-y-6 bg-admin-color">
+            <div className="flex items-center gap-4 ">
+                <span className="text-lg font-semibold ">حالة الفواتير:</span>
                 <select
                     value={status}
                     onChange={(e) => setStatus(e.target.value)}
@@ -88,10 +113,10 @@ const InvoicesTablePage = () => {
             ) : invoices.length === 0 ? (
                 <div className="text-center text-gray-500 py-10">لا توجد فواتير حاليًا</div>
             ) : (
-                <div className="overflow-x-auto">
-                    <table className="w-full border rounded-xl text-sm text-right">
+                <div className="overflow-x-auto bg-white/5 rounded-xl shadow">
+                    <table className="min-w-full text-white text-sm">
                         <thead>
-                            <tr className="bg-gray-100">
+                            <tr className={`text-sm bg-white/10 ${isArabic ? "text-right" : "text-left"}`}>
                                 {status === "false" && <th className="p-2">تحديد</th>}
                                 <th className="p-2">نوع الفاتورة</th>
                                 <th className="p-2">المبلغ</th>
@@ -104,7 +129,7 @@ const InvoicesTablePage = () => {
                         </thead>
                         <tbody>
                             {invoices.map((invoice) => (
-                                <tr key={invoice.invoice_id} className="border-t text-white">
+                                <tr key={invoice.invoice_id} className="border-b border-gray-700 hover:bg-gray-800">
                                     {status === "false" && (
                                         <td className="p-2 text-center">
                                             <input
@@ -128,92 +153,12 @@ const InvoicesTablePage = () => {
                     </table>
                 </div>
             )}
-
-            {status === "false" && selectedData.length > 0 && (
-                <div className="mt-6 border rounded-xl p-4 bg-black shadow-sm w-full max-w-xl mx-auto">
-                    <h3 className="text-lg text-white font-bold mb-3">الفواتير المحددة</h3>
-                    <table className="w-full text-sm text-right text-white">
-                        <thead>
-                            <tr className="bg-gray-100 text-black">
-                                <th className="p-2">نوع الفاتورة</th>
-                                <th className="p-2">المبلغ</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {selectedData.map((invoice) => (
-                                <tr key={invoice.invoice_id} className="border-t">
-                                    <td className="p-2">{invoice.invoice_type}</td>
-                                    <td className="p-2">{invoice.amount}</td>
-                                </tr>
-                            ))}
-                            <tr className="font-bold text-green-700">
-                                <td className="p-2">المجموع الكلي</td>
-                                <td className="p-2">NIS {totalAmount.toFixed(2)}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            )}
-
-            {status === "false" && (
-                <button
-                    className="mt-4 bg-green-700 text-white px-5 py-2 rounded-md hover:bg-black transition-colors duration-200"
-                    onClick={() => {
-                        if (selectedData.length === 0) return alert("لم يتم اختيار أي فاتورة");
-                        setShowConfirmModal(true);
-                    }}
-                >
-                    دفع الفواتير المحددة
-                </button>
-            )}
-
-            {showConfirmModal && (
-                <div className="fixed inset-0 bg-black bg-opacity-30 backdrop-blur-sm flex items-center justify-center z-50">
-                    <div className="bg-admin-color shadow-2xl rounded-3xl px-8 py-10 w-full max-w-sm text-center relative">
-                        <div className="w-16 h-16 rounded-full bg-green-100 text-green-600 flex items-center justify-center mx-auto mb-4 text-3xl">✅</div>
-                        <h2 className="text-xl font-bold text-white mb-3">تأكيد الدفع</h2>
-                        <p className="text-white mb-6">
-                            هل أنت متأكد أنك تريد دفع الفواتير المحددة؟
-                            <br />
-                            المبلغ الإجمالي:{" "}
-                            <span className="font-semibold text-green-700">NIS {totalAmount.toFixed(2)}</span>
-                        </p>
-                        <div className="flex justify-center gap-3 mt-4">
-                            <button
-                                onClick={() => setShowConfirmModal(false)}
-                                className="px-4 py-2 rounded-md border border-gray-300 text-white hover:bg-gray-100 transition duration-150"
-                            >
-                                إلغاء
-                            </button>
-                            <button
-                                onClick={async () => {
-                                    const payload = {
-                                        cust_id: userId,
-                                        payment_method: "visa card",
-                                        invoices: selectedData.map((inv) => ({
-                                            invoice_id: inv.invoice_id,
-                                            invoice_type: inv.invoice_type,
-                                            amount: inv.amount,
-                                        })),
-                                    };
-
-                                    try {
-                                        await PayInvoices(payload);
-                                        setShowConfirmModal(false);
-                                        fetchInvoices();
-                                        setSelectedInvoices({});
-                                    } catch (err) {
-                                        console.error(err);
-                                    }
-                                }}
-                                className="px-4 py-2 rounded-md bg-green-600 text-white hover:bg-green-700 transition duration-150"
-                            >
-                                تأكيد
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            )}
+            <button
+                onClick={handleNext}
+                className="mt-4 bg-green-700 text-white px-5 py-2 rounded-md hover:bg-black transition-colors duration-200"
+            >
+                Next
+            </button>
         </div>
     );
 };

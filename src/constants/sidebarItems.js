@@ -15,7 +15,7 @@ import { SlHome } from "react-icons/sl";
 import { LiaSwimmingPoolSolid } from "react-icons/lia";
 import { GrRestaurant } from "react-icons/gr";
 import { CiUser } from "react-icons/ci";
-
+import { FaFileInvoiceDollar } from "react-icons/fa";
 
 const sidebarItems = [
   {
@@ -154,6 +154,16 @@ const sidebarItems = [
       label: "sidebar.customer",
       iconColor: "text-red-700",
 
+    }
+  },
+  {
+    linkType: "link",
+    Icon:  FaFileInvoiceDollar,
+    data:{
+      to: "/admin/invoices",
+      icon: FaFileInvoiceDollar,
+      label: "Invoices",
+      iconColor: "text-yellow-700",
     }
   }
 ];

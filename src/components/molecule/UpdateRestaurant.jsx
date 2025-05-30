@@ -4,10 +4,12 @@ import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 import { toast } from "react-toastify";
 import { getRestaurantbyid, updateRestaurant } from "../../api/endpoints/restaurant";
-import { IoMdCloseCircleOutline } from "react-icons/io";
+import { useTranslation } from 'react-i18next';
 
 export default function UpdateRestaurantModal({ restaurantId, onClose, onUpdated }) {
   const [initialValues, setInitialValues] = useState(null);
+  const { t } = useTranslation("restaurants");
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -27,8 +29,8 @@ export default function UpdateRestaurantModal({ restaurantId, onClose, onUpdated
           opening_hours: restaurant.Opening_hours,
         });
       } catch (error) {
-        console.error("فشل في تحميل بيانات المطعم:", error);
-        toast.error("فشل في تحميل بيانات المطعم");
+        console.error("failed to load restaurant data:", error);
+        toast.error(t("update.failed"));
       }
     };
 
@@ -50,83 +52,94 @@ export default function UpdateRestaurantModal({ restaurantId, onClose, onUpdated
     try {
 
       const { data } = await updateRestaurant(restaurantId, values);
-      toast.success("تم تحديث المطعم بنجاح");
+      toast.success(t("update.success"));
       onUpdated(data.restaurant);
       onClose();
     } catch (err) {
-      console.error("خطأ أثناء التحديث:", err);
-      toast.error("فشل في تحديث المطعم");
+      console.error("Error while updating:", err);
+      toast.error(t("update.failedupdate"));
     } finally {
       setSubmitting(false);
     }
   };
 
-  if (!initialValues) return <div className="text-white text-center">جاري تحميل البيانات...</div>;
+  if (!initialValues) return <div className="text-white text-center">{t("update.load")}</div>;
 
   return (
     <div className="fixed inset-0 z-50 bg-black bg-opacity-60 flex items-center justify-center p-4">
       <div className="bg-admin-color rounded-2xl w-full max-w-3xl p-6 border border-sec-color-100 shadow-xl overflow-y-auto max-h-[90vh] relative">
-        <button onClick={onClose} className="absolute top-2 left-3 text-2xl text-red-500"><IoMdCloseCircleOutline size={35}/></button>
-        <h2 className="text-2xl font-bold text-white mb-6 text-center">Updating Restaurant </h2>
+        <h2 className="text-2xl font-bold text-white mb-6 text-center">{t("update.updateres")}</h2>
 
         <Formik
-  initialValues={initialValues}
-  validationSchema={validationSchema}
-  onSubmit={handleSubmit}
-  enableReinitialize
->
-  {({ isSubmitting }) => (
-    <Form className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-white">
-      <div>
-        <label htmlFor="name_ar">اسم المطعم (عربي)</label>
-        <Field id="name_ar" name="name_ar" className="p-2 mt-2 border rounded border-sec-color-100 bg-gray-700 w-full" />
-      </div>
+          initialValues={initialValues}
+          validationSchema={validationSchema}
+          onSubmit={handleSubmit}
+          enableReinitialize
+        >
+          {({ isSubmitting }) => (
+            <Form className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-white">
+              <div>
+                <label htmlFor="name_ar">{t("update.rest_ar")}</label>
+                <Field id="name_ar" name="name_ar" className="p-2 mt-2 border rounded border-sec-color-100 bg-gray-700 w-full" />
+              </div>
 
-      <div>
-        <label htmlFor="name_en">Restaurant Name (English)</label>
-        <Field id="name_en" name="name_en" className="p-2 mt-2 border rounded border-sec-color-100 bg-gray-700 w-full" />
-      </div>
+              <div>
+                <label htmlFor="name_en">{t("update.rest_en")}</label>
+                <Field id="name_en" name="name_en" className="p-2 mt-2 border rounded border-sec-color-100 bg-gray-700 w-full" />
+              </div>
 
-      <div>
-        <label htmlFor="description_ar">الوصف (عربي)</label>
-        <Field id="description_ar" name="description_ar" className="p-2 mt-2 border rounded border-sec-color-100 bg-gray-700 w-full" />
-      </div>
+              <div>
+                <label htmlFor="description_ar">{t("update.desc_ar")}</label>
+                <Field id="description_ar" name="description_ar" className="p-2 mt-2 border rounded border-sec-color-100 bg-gray-700 w-full" />
+              </div>
 
-      <div>
-        <label htmlFor="description_en">Description (English)</label>
-        <Field id="description_en" name="description_en" className="p-2 mt-2 border rounded border-sec-color-100 bg-gray-700 w-full" />
-      </div>
+              <div>
+                <label htmlFor="description_en">{t("update.desc_en")}</label>
+                <Field id="description_en" name="description_en" className="p-2 mt-2 border rounded border-sec-color-100 bg-gray-700 w-full" />
+              </div>
 
-      <div>
-        <label htmlFor="cuisine_type_ar">نوع المطبخ (عربي)</label>
-        <Field id="cuisine_type_ar" name="cuisine_type_ar" className="p-2 mt-2 border rounded border-sec-color-100 bg-gray-700 w-full" />
-      </div>
+              <div>
+                <label htmlFor="cuisine_type_ar">{t("update.cuisine_ar")}</label>
+                <Field id="cuisine_type_ar" name="cuisine_type_ar" className="p-2 mt-2 border rounded border-sec-color-100 bg-gray-700 w-full" />
+              </div>
 
-      <div>
-        <label htmlFor="cuisine_type_en">Cuisine Type (English)</label>
-        <Field id="cuisine_type_en" name="cuisine_type_en" className="p-2 mt-2 border rounded border-sec-color-100 bg-gray-700 w-full" />
-      </div>
+              <div>
+                <label htmlFor="cuisine_type_en">{t("update.cuisine_en")}</label>
+                <Field id="cuisine_type_en" name="cuisine_type_en" className="p-2 mt-2 border rounded border-sec-color-100 bg-gray-700 w-full" />
+              </div>
 
-      <div>
-        <label htmlFor="capacity">الطاقة الاستيعابية</label>
-        <Field id="capacity" name="capacity" type="number" className="p-2 mt-2 border rounded border-sec-color-100 bg-gray-700 w-full" />
-      </div>
+              <div>
+                <label htmlFor="capacity">{t("update.capacity")}</label>
+                <Field id="capacity" name="capacity" type="number" className="p-2 mt-2 border rounded border-sec-color-100 bg-gray-700 w-full" />
+              </div>
 
-      <div>
-        <label htmlFor="opening_hours">ساعات العمل</label>
-        <Field id="opening_hours" name="opening_hours" className="p-2 mt-2 border rounded border-sec-color-100 bg-gray-700 w-full" />
-      </div>
+              <div>
+                <label htmlFor="opening_hours">{t("update.hours")}</label>
+                <Field id="opening_hours" name="opening_hours" className="p-2 mt-2 border rounded border-sec-color-100 bg-gray-700 w-full" />
+              </div>
 
-      <button
-        type="submit"
-        disabled={isSubmitting}
-        className="md:col-span-2 mt-6 px-6 py-2 rounded-xl w-full mt-2 text-white bg-sec-color-100 max-w-52 hover:bg-opacity-90"
-      >
-        {isSubmitting ? "Sending..." : "Update Restaurant"}
-      </button>
-    </Form>
-  )}
-</Formik>
+              <div className="flex justify-end gap-3 mt-6">
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="px-6 py-2 rounded-xl w-full max-w-52 text-white bg-sec-color-100 hover:bg-opacity-90"
+                >
+                  {isSubmitting ?  t('update.Updating') :t('update.Update')}
+                </button>
+                <button
+                  type="button"
+                  onClick={onClose}
+                  className="px-6 py-2 rounded-xl w-full max-w-52 text-white bg-gray-500 hover:bg-opacity-90"
+                >
+                 {t("update.close")}
+                </button>
+
+
+              </div>
+
+            </Form>
+          )}
+        </Formik>
       </div>
     </div>
   );

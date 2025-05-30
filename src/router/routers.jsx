@@ -48,6 +48,8 @@ import Restaurants from "../pages/adminPages/Restaurants";
 import AdminCustomersPage from "../pages/adminPages/AdminCustomersPage";
 import UserProfilePage from "../components/molecule/UserProfilePage";
 import Payment from "../components/molecule/Payment";
+import Invoices from "../pages/adminPages/Invoices";
+import SelectedInvoicesPage from "../components/molecule/SelectedInvoicesPage";
 const router = createBrowserRouter([
   {
     element: <PersistLogin />,
@@ -208,6 +210,14 @@ const router = createBrowserRouter([
             path: "payment/:id",
             element: <Payment />,
           },
+          {
+            path: "invoices",
+            element: <Invoices />
+          },
+          {
+            path: "selectedinvoices",
+            element: <SelectedInvoicesPage />
+          }
         ],
       },
       {

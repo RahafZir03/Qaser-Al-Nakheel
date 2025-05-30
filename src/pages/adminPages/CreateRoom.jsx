@@ -301,7 +301,7 @@ const AddRoom = () => {
                   <input
                     type="text"
                     name="category_ar"
-                    className="p-2 rounded bg-gray-700 w-full border border-sec-color-100" 
+                    className="p-2 rounded bg-gray-700 w-full border border-sec-color-100"
                     onChange={formik.handleChange}
                     value={formik.values.category_ar}
                   />
@@ -378,17 +378,19 @@ const AddRoom = () => {
 
             {/* Amenities Section */}
             <div className="bg-admin-color p-4 rounded-lg">
-              <h3 className="text-lg font-semibold mb-4">{t('createroom.sections.amenities')}</h3>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <h3 className="text-lg font-semibold mb-4">
+                {t('createroom.sections.amenities')}
+              </h3>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 {services.map((service) => {
                   const isChecked = formik.values.services.includes(service.id);
                   return (
-                    <div key={service.id} className="flex items-center">
+                    <div key={service.id} className="flex items-center gap-2">
                       <input
                         type="checkbox"
                         id={`service-${service.id}`}
                         name="services"
-                        className="mr-2 h-5 w-5"
+                        className="h-5 w-5"
                         checked={isChecked}
                         onChange={(e) => {
                           const updatedServices = e.target.checked
@@ -405,6 +407,8 @@ const AddRoom = () => {
                 })}
               </div>
             </div>
+
+
           </div>
 
           {/* Right Column - Images */}

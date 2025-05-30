@@ -5,12 +5,15 @@ import { toast } from "react-toastify";
 import { Trash2 } from "lucide-react";
 import { addPoolFacilities } from "../../api/endpoints/pool";
 import axiosInstance from "../../api/axios";
-import { IoMdCloseCircleOutline } from "react-icons/io";
+import { useTranslation } from 'react-i18next';
+
 
 // eslint-disable-next-line react/prop-types
 export default function AddFacilityModal({ poolId, onClose, onFacilityAdded }) {
     const [facilities, setFacilities] = useState([]);
     const [imagePreview, setImagePreview] = useState(null);
+    const { t } = useTranslation("pool");
+
 
     const initialValues = {
         name_ar: "",
@@ -39,10 +42,10 @@ export default function AddFacilityModal({ poolId, onClose, onFacilityAdded }) {
                 formData.append("image", values.image);
             }
 
-            const res = await addPoolFacilities( poolId, formData);
+            const res = await addPoolFacilities(poolId, formData);
             const newFacility = res.data.facility;
 
-            toast.success("تمت إضافة المرفق بنجاح");
+            toast.success(t("facility.addsuccess"));
             setFacilities((prev) => [...prev, newFacility]);
 
             // ← نبلّغ المكون الأب بالمرفق الجديد ليضيفه فوراً في الـ Details
@@ -53,7 +56,7 @@ export default function AddFacilityModal({ poolId, onClose, onFacilityAdded }) {
             onClose(); // ← نغلق المودال بعد الإضافة
         } catch (err) {
             console.error(err);
-            toast.error("فشل في إضافة المرفق");
+            toast.error(t("facility.addfailed"));
         } finally {
             setSubmitting(false);
         }
@@ -71,20 +74,37 @@ export default function AddFacilityModal({ poolId, onClose, onFacilityAdded }) {
 
     return (
         <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex justify-center items-center">
-            <div className="bg-admin-color text-black rounded-xl p-6 w-full max-w-3xl overflow-y-auto max-h-[90vh] relative">
-                <button onClick={onClose} className="absolute top-2 left-2 text-xl text-red-500"><IoMdCloseCircleOutline size={35}/></button>
-                <h2 className="text-2xl font-bold text-white text-center mb-4">Add a New Facility  </h2>
+            <div className="bg-admin-color text-black rounded-xl border border-sec-color-100 p-6 w-full max-w-3xl overflow-y-auto max-h-[90vh] relative">
+                <h2 className="text-2xl font-bold text-white text-center mb-4">{t('facility.addfacility')}</h2>
 
                 <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={handleSubmit}>
                     {({ setFieldValue, isSubmitting, errors, touched }) => (
                         <Form className="space-y-4">
-                            <Field name="name_ar" placeholder=" Name in Arabic" className="w-full border p-2 rounded bg-gray-700 border-sec-color-100" />
-                            <Field name="name_en" placeholder="Name in English" className="w-full border p-2 rounded bg-gray-700 border-sec-color-100" />
-                            <Field as="textarea" name="desc_ar" placeholder="Description in Arabic" className="w-full border p-2 rounded bg-gray-700 border-sec-color-100" />
-                            <Field as="textarea" name="desc_en" placeholder="Description in English" className="w-full border p-2 rounded bg-gray-700 border-sec-color-100" />
+                            <div>
+                                <label htmlFor="name_ar" className="text-white">{t('facility.name_ar')}</label>
+                                <Field id="name_ar" name="name_ar" className="p-2 mt-2 border rounded border-sec-color-100 bg-gray-700 w-full" />
+                            </div>
 
                             <div>
-                                <label className="block mb-1">Image</label>
+                                <label htmlFor="name_en" className="text-white">{t('facility.name_en')}</label>
+                                <Field id="name_en" name="name_en" className="p-2 mt-2 border rounded border-sec-color-100 bg-gray-700 w-full" />
+                            </div>
+
+
+                            <div>
+                                <label htmlFor="description_ar" className="text-white">{t('facility.desc_ar')}</label>
+                                <Field id="description_ar" name="description_ar" className="p-2 mt-2 border rounded border-sec-color-100 bg-gray-700 w-full"
+                                />
+                            </div>
+
+                            <div >
+                                <label htmlFor="description_en" className="text-white">{t('facility.desc_en')}</label>
+                                <Field id="description_en" name="description_en" className="p-2 mt-2 border rounded border-sec-color-100 bg-gray-700 w-full"
+                                />
+                            </div>
+
+                            <div>
+                                <label className="block mb-1 text-white">{t('facility.image')}</label>
                                 <input
                                     type="file"
                                     accept="image/*"
@@ -105,13 +125,25 @@ export default function AddFacilityModal({ poolId, onClose, onFacilityAdded }) {
                                 )}
                             </div>
 
-                            <button
-                                type="submit"
-                                disabled={isSubmitting}
-                                className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
-                            >
-                                {isSubmitting ? "Sending ..." : "Add "}
-                            </button>
+                            <div className="flex justify-end gap-3 mt-4">
+                                 <button
+                                    type="submit"
+                                    disabled={isSubmitting}
+                                    className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+                                >
+                                    {isSubmitting ? t('facility.sending') : t('facility.add')}
+                                </button>
+                                
+                                <button
+                                    type="button"
+                                    onClick={onClose}
+                                    className="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600"
+                                >
+                                     {t('facility.close')}
+                                </button>
+
+                            </div>
+
                         </Form>
                     )}
                 </Formik>

@@ -4,10 +4,11 @@ import { toast } from "react-toastify";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 import { getPoolById, updatePool } from "../../api/endpoints/pool";
-import { IoMdCloseCircleOutline } from "react-icons/io";
+import { useTranslation } from 'react-i18next';
 
 export default function UpdatePoolModal({ poolId, onClose, onUpdated }) {
     const [initialValues, setInitialValues] = useState(null);
+    const { t } = useTranslation("pool");
 
     useEffect(() => {
         const fetchData = async () => {
@@ -27,8 +28,8 @@ export default function UpdatePoolModal({ poolId, onClose, onUpdated }) {
                     hourly_rate: pool.hourly_rate,
                 });
             } catch (err) {
-                console.error("فشل تحميل بيانات المسبح:", err);
-                toast.error("فشل تحميل بيانات المسبح");
+                console.error(t('update.failedload'), err);
+                toast.error(t('update.failedload'));
             }
         };
 
@@ -74,30 +75,92 @@ export default function UpdatePoolModal({ poolId, onClose, onUpdated }) {
     return (
         <div className="fixed inset-0 z-50 bg-black bg-opacity-60 flex items-center justify-center p-4">
             <div className="bg-admin-color rounded-2xl w-full max-w-3xl p-6 shadow-xl overflow-y-auto max-h-[90vh] relative border border-sec-color-100">
-                <button onClick={onClose} className="absolute top-2 left-3 text-2x text-red-500"><IoMdCloseCircleOutline size={35}/></button>
-                <h2 className="text-2xl font-bold text-white mb-6 text-center">Updating Pool</h2>
+                <h2 className="text-2xl font-bold text-white mb-6 text-center">{t('update.update')}</h2>
 
                 <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={handleSubmit} enableReinitialize>
                     {({ isSubmitting }) => (
                         <Form className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
-                            <Field name="name_ar" placeholder="Name in Arabic" className="p-2 border rounded border-sec-color-100 bg-gray-700" />
-                            <Field name="name_en" placeholder="Name in English" className="p-2 border rounded border-sec-color-100 bg-gray-700" />
-                            <Field name="description_ar" as="textarea" placeholder=" Description in Arabic" className="p-2 border rounded h-32 resize-y border-sec-color-100 bg-gray-700" />
-                            <Field name="description_en" as="textarea" placeholder="Description in English" className="p-2 border rounded h-32 resize-y border-sec-color-100 bg-gray-700" />
-                            <Field name="size" placeholder="Size (m x m)" className="p-2 border rounded  border-sec-color-100 bg-gray-700" />
-                            <Field name="depth" placeholder="Depth (m - m)" className="p-2 border rounded border-sec-color-100 bg-gray-700" />
-                            <Field name="opening_hours" placeholder="Working hours  (AM - PM)" className="p-2 border rounded  border-sec-color-100 bg-gray-700" />
-                            <Field name="max_capacity" type="number" placeholder="Maximum capacity" className="p-2 border rounded  border-sec-color-100 bg-gray-700" />
-                            <Field name="pool_type" as="select" className="p-2 border rounded  border-sec-color-100 bg-gray-700">
-                                <option value="" disabled>Choose the type of pool</option>
-                                <option value="indoor">Internal</option>
-                                <option value="outdoor">External</option>
-                            </Field>
-                            <Field name="hourly_rate" type="number" placeholder="السعر لكل ساعة" className="p-2 border rounded  border-sec-color-100 bg-gray-700" />
+                            <div>
+                                <label htmlFor="name_ar" className="text-white">{t('update.name_ar')}</label>
+                                <Field id="name_ar" name="name_ar" className="p-2 border rounded border-sec-color-100 bg-gray-700 w-full"
+                                />
+                            </div>
 
-                            <button type="submit" disabled={isSubmitting} className="md:col-span-2 mt-6 px-6 py-2 rounded-xl w-full text-white bg-sec-color-100 max-w-52 hover:bg-opacity-90">
-                                {isSubmitting ? " Updating..." : " Update Pool"}
-                            </button>
+                            <div>
+                                <label htmlFor="name_en" className="text-white">{t('update.name_en')}</label>
+                                <Field id="name_en" name="name_en" className="p-2 border rounded border-sec-color-100 bg-gray-700 w-full"
+                                />
+                            </div>
+
+                            <div>
+                                <label htmlFor="description_ar" className="text-white">{t('update.desc_ar')}</label>
+                                <Field id="description_ar" name="description_ar" as="textarea" className="p-2 border rounded h-32 resize-y border-sec-color-100 bg-gray-700 w-full"
+                                />
+                            </div>
+
+                            <div>
+                                <label htmlFor="description_en" className="text-white">{t('update.desc_en')}</label>
+                                <Field id="description_en" name="description_en" as="textarea" className="p-2 border rounded h-32 resize-y border-sec-color-100 bg-gray-700 w-full"
+                                />
+                            </div>
+
+                            <div>
+                                <label htmlFor="size" className="text-white">{t('update.size')}</label>
+                                <Field id="size" name="size" className="p-2 border rounded border-sec-color-100 bg-gray-700 w-full"
+                                />
+                            </div>
+
+                            <div>
+                                <label htmlFor="depth" className="text-white">{t('update.depth')}</label>
+                                <Field id="depth" name="depth" className="p-2 border rounded border-sec-color-100 bg-gray-700 w-full"
+                                />
+                            </div>
+
+                            <div>
+                                <label htmlFor="opening_hours" className="text-white">{t('update.opening_hours')}</label>
+                                <Field id="opening_hours" name="opening_hours" className="p-2 border rounded border-sec-color-100 bg-gray-700 w-full"
+                                />
+                            </div>
+
+                            <div>
+                                <label htmlFor="max_capacity" className="text-white">{t('update.max_capacity')}</label>
+                                <Field id="max_capacity" name="max_capacity" type="number" className="p-2 border rounded border-sec-color-100 bg-gray-700 w-full"
+                                />
+                            </div>
+
+                            <div>
+                                <label htmlFor="pool_type" className="text-white">{t('update.pool_type')}</label>
+                                <Field id="pool_type" name="pool_type" as="select" className="p-2 border rounded border-sec-color-100 bg-gray-700 w-full" >
+                                    <option value="" disabled>Choose the type of pool</option>
+                                    <option value="indoor">Internal</option>
+                                    <option value="outdoor">External</option>
+                                </Field>
+                            </div>
+
+                            <div>
+                                <label htmlFor="hourly_rate" className="text-white">{t('update.hourly_rate')}</label>
+                                <Field id="hourly_rate" name="hourly_rate" type="number" className="p-2 border rounded border-sec-color-100 bg-gray-700 w-full"
+                                />
+                            </div>
+
+
+                            <div className="flex justify-end gap-3 mt-6">
+                                 <button
+                                    type="submit"
+                                    disabled={isSubmitting}
+                                    className="px-6 py-2 rounded-xl w-full max-w-52 text-white bg-sec-color-100 hover:bg-opacity-90"
+                                >
+                                    {isSubmitting ? t('update.Updating') :t('update.Update')}
+                                </button>
+                                <button
+                                    type="button"
+                                    onClick={onClose}
+                                    className="px-6 py-2 rounded-xl w-full max-w-52 text-white bg-gray-500 hover:bg-opacity-90"
+                                >
+                                  {t('update.close')}
+                                </button>
+                            </div>
+
                         </Form>
                     )}
                 </Formik>

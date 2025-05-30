@@ -16,11 +16,11 @@ const AddServiceModal = ({ isOpen, onClose, serviceId, onServiceAdded }) => {
         image: ""
     });
     const [loading, setLoading] = useState(false);
-     const { t, i18n } = useTranslation();
-    
-      const changeLanguage = (lng) => {
+    const { t, i18n } = useTranslation();
+
+    const changeLanguage = (lng) => {
         i18n.changeLanguage(lng);
-      };
+    };
 
     useEffect(() => {
         if (serviceId) {
@@ -72,8 +72,7 @@ const AddServiceModal = ({ isOpen, onClose, serviceId, onServiceAdded }) => {
         <div className="fixed inset-0 flex items-center justify-center bg-admin-color bg-opacity-50 z-50 text-black">
             <div className="bg-admin-color p-6 rounded shadow-lg max-w-lg w-full border border-sec-color-100">
                 <div className="flex justify-between items-center">
-                <h2 className="text-xl font-bold">{t(`roomService.${serviceId ? 'update' : 'add'}`)} </h2>                    
-                <button onClick={onClose} className="text-red-500 font-bold text-xl"><IoMdCloseCircleOutline size={35} /></button>
+                    <h2 className="text-xl font-bold text-white">{t(`roomService.${serviceId ? 'update' : 'add'}`)} </h2>
                 </div>
                 <form onSubmit={formik.handleSubmit} className="mt-4">
                     <div className="mb-4">
@@ -130,13 +129,29 @@ const AddServiceModal = ({ isOpen, onClose, serviceId, onServiceAdded }) => {
                         />
                     </div>
 
-                    <button
-                        type="submit"
-                        className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 flex items-center gap-2"
-                        disabled={loading}
-                    >
-                        {loading ? (serviceId ? "Updating..." : "Adding...") : (serviceId ? "Update Service" : "Add Service")}
-                    </button>
+                    <div className="flex justify-end gap-2 mt-4">
+                        <button
+                            type="button"
+                            onClick={onClose}
+                            className="bg-gray-500 text-white py-2 px-4 rounded hover:bg-gray-600"
+                        >
+                             {t('close')}
+                        </button>
+                        <button
+                            type="submit"
+                            className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 flex items-center gap-2"
+                            disabled={loading}
+                        >
+                            {loading
+                                ? serviceId
+                                    ? t('updating')
+                                    : t('adding')
+                                : serviceId
+                                    ? t('updating')
+                                    : t('add')}
+                        </button>
+                    </div>
+
                 </form>
             </div>
         </div>

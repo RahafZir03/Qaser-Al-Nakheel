@@ -11,7 +11,7 @@ import HallImage from "../../components/molecule/Hallimage";
 import UpdateHallModal from "../../components/molecule/Updatehall";
 import { CiCircleRemove } from "react-icons/ci";
 import { PlusIcon } from "lucide-react";
-
+import { useTranslation } from 'react-i18next';
 
 export default function HallsTable() {
   const [halls, setHalls] = useState([]);
@@ -23,9 +23,8 @@ export default function HallsTable() {
   const [showFacilityModal, setShowFacilityModal] = useState(false);
   const [showImageModal, setShowImageModal] = useState(false);
   const [showUpdateHallModal, setShowUpdateHallModal] = useState(false);
-
-
-
+  const { t } = useTranslation("halls");
+  
 
 
   useEffect(() => {
@@ -44,7 +43,7 @@ export default function HallsTable() {
       console.log(res.data);
       setHalls(res.data.halls);
     } catch {
-      toast.error("فشل في تحميل القاعات");
+      toast.error(t('halls.failed'));
       setHalls([]);
     } finally {
       setLoading(false);
@@ -61,21 +60,21 @@ export default function HallsTable() {
           hall.id === id ? { ...hall, availability_status: newStatus } : hall
         )
       );
-      toast.success("تم تغيير الحالة");
+      toast.success(t('halls.change'));
     } catch {
-      toast.error("فشل تغيير الحالة");
+      toast.error(t('halls.nochage'));
     }
   };
   const handleDeleteHall = async (hallId) => {
-    if (!window.confirm("هل أنت متأكد من حذف هذه القاعة؟")) return;
+    if (!window.confirm(t('halls.deleteconfirm'))) return;
 
     try {
       await deleteHall(hallId);
       setHalls((prev) => prev.filter((hall) => hall.id !== hallId));
-      toast.success("تم حذف القاعة بنجاح");
+      toast.success(t('halls.deletesuccess'));
     } catch (error) {
       console.error("Error deleting hall:", error);
-      toast.error("فشل في حذف القاعة");
+      toast.error(t('halls.deletefail'));
     }
   };
 
@@ -86,7 +85,7 @@ export default function HallsTable() {
   return (
     <div className="p-4 md:p-8 bg-admin-color">
       <div className="flex justify-between items-center mb-4">
-        <h1 className="text-2xl font-semibold text-white">List of halls</h1>
+        <h1 className="text-2xl font-semibold text-white">{t('halls.list')}</h1>
 
         <button
           onClick={() => {
@@ -95,18 +94,18 @@ export default function HallsTable() {
           }}
           className="text-white bg-sec-color-100 flex hover:bg-sec-color-200 focus:outline-none focus:ring-2 focus:ring-sec-color-200 focus:ring-opacity-50 rounded-lg px-4 py-2 transition duration-150"
         >
-          <PlusIcon /> Add Hall
+          <PlusIcon /> {t('halls.add')}
         </button>
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {loading ? (
           <div className="col-span-full text-center text-white">
-            Loading...
+            {t("halls.load")}...
           </div>
         ) : halls.length === 0 ? (
           <div className="col-span-full text-center text-white">
-            There are no halls
+            {t("halls.nohalls")}
           </div>
         ) : (
           halls.map((hall) => (
@@ -155,7 +154,7 @@ export default function HallsTable() {
                           }}
                           className="flex items-center w-full px-4 py-2 hover:bg-sec-color-100 transition duration-150"
                         >
-                          <FaEye className="mr-2" /> Details
+                          <FaEye className="mr-2" /> {t('halls.details')}
                         </button>
                         <button
                           onClick={() => {
@@ -166,11 +165,11 @@ export default function HallsTable() {
                         >
                           {hall.availability_status === "available" ? (
                             <>
-                              <FaToggleOff className="mr-2" /> Deactivate
+                              <FaToggleOff className="mr-2" /> {t('halls.deactive')}
                             </>
                           ) : (
                             <>
-                              <FaToggleOn className="mr-2" /> Activate
+                              <FaToggleOn className="mr-2" /> {t('halls.active')}
                             </>
                           )}
                         </button>
@@ -183,7 +182,7 @@ export default function HallsTable() {
                           }}
                           className="flex items-center w-full px-4 py-2 hover:bg-sec-color-100 transition duration-150"
                         >
-                          ➕ Add Facility
+                          ➕ {t('halls.addfacility')}
                         </button>
                         <button
                           onClick={() => {
@@ -193,7 +192,7 @@ export default function HallsTable() {
                           }}
                           className="flex items-center w-full px-4 py-2 hover:bg-sec-color-100 transition duration-150"
                         >
-                          🖼️ Hall Image
+                          🖼️ {t('halls.hallimage')}
                         </button>
                         <button
                           onClick={() => {
@@ -203,7 +202,7 @@ export default function HallsTable() {
                           }}
                           className="flex items-center w-full px-4 py-2 hover:bg-sec-color-100 transition duration-150"
                         >
-                          ✏️ Edit Hall
+                          ✏️{t('halls.edithall')}
                         </button>
                         <button
                           onClick={() => {
@@ -212,7 +211,7 @@ export default function HallsTable() {
                           }}
                           className="flex items-center w-full px-4 py-2 hover:bg-red-500 transition duration-150 text-red-200"
                         >
-                          🗑 Delete
+                          🗑 {t('halls.delete')}
                         </button>
 
                       </div>
@@ -220,10 +219,10 @@ export default function HallsTable() {
                   </div>
                 </div>
                 <p className="text-lg mb-2">
-                   💰<strong>Price/hour:</strong> {hall.price_per_hour}ILS
+                   <strong>{t('halls.pricehour')}:</strong> {hall.price_per_hour}ILS
                 </p>
                 <p className="text-lg mb-2">
-                  🟢<strong>Status :</strong>{" "}
+                  <strong>{t('halls.status')} :</strong>{" "}
                   <span
                     className={`inline-block px-2 py-0.5 rounded text-xs font-semibold ${hall.availability_status === "available"
                       ? "bg-green-100 text-green-700"
@@ -231,18 +230,18 @@ export default function HallsTable() {
                       }`}
                   >
                     {hall.availability_status === "available"
-                      ? "Available"
-                      : "Not available "}
+                      ? t('halls.avilable')
+                      : t('halls.notavilable')}
                   </span>
                 </p>
                 <p className="text-lg mb-2">
-                 🏷️ <strong>Type :</strong> {hall.type}
+                  <strong>{t('halls.type')}:</strong> {hall.type}
                 </p>
                 <p className="text-lg mb-2">
-                  📏 <strong>Dimensions :</strong> {hall.length}م × {hall.width}م
+                  <strong>{t('halls.dimensions')}:</strong> {hall.length}م × {hall.width}م
                 </p>
                 <p className="text-lg mb-2">
-                  ⭐<strong>Evaluation:</strong> ⭐ {hall.rating}
+                  <strong>{t('halls.evaluation')}:</strong> ⭐ {hall.rating}
                 </p>
 
 
@@ -281,27 +280,27 @@ export default function HallsTable() {
               {/* معلومات عامة */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
                 <p>
-                  <strong className="text-sec-color-100">Status:</strong>{" "}
+                  <strong className="text-sec-color-100">{t('halls.dstatus')}:</strong>{" "}
                   {selectedHall.availability_status === "available"
-                    ? "متاحة"
-                    : "غير متاحة"}
+                    ? t('halls.davilable')
+                    : t('halls.dnotavilable')}
                 </p>
                 <p>
-                  <strong className="text-sec-color-100">Type:</strong> {selectedHall.type}
+                  <strong className="text-sec-color-100">{t('halls.dtype')}:</strong> {selectedHall.type}
                 </p>
                 <p >
-                  <strong className="text-sec-color-100">Price/hour:</strong> {selectedHall.price_per_hour} ILS
+                  <strong className="text-sec-color-100">{t('halls.dpricehour')}:</strong> {selectedHall.price_per_hour} ILS
                 </p>
                 <p>
-                  <strong className="text-sec-color-100">Dimensions:</strong> {selectedHall.length}م ×{" "}
+                  <strong className="text-sec-color-100">{t('halls.ddimensions')}:</strong> {selectedHall.length}م ×{" "}
                   {selectedHall.width}م
                 </p>
                 <p>
-                  <strong className="text-sec-color-100">Appropriate use :</strong>{" "}
+                  <strong className="text-sec-color-100">{t('halls.appropriateuse')}:</strong>{" "}
                   {selectedHall.suitable_for.ar}
                 </p>
                 <p>
-                  <strong className="text-sec-color-100">Evaluation:</strong> ⭐ {selectedHall.averageRating} (
+                  <strong className="text-sec-color-100">{t('halls.devaluation')}:</strong> ⭐ {selectedHall.averageRating} (
                   {selectedHall.ratingCount} evaluation)
                 </p>
               </div>
@@ -309,7 +308,7 @@ export default function HallsTable() {
               {/* الوصف */}
               <div className="mb-4">
                 <h4 className="text-lg font-semibold text-sec-color-100">
-                  Description:
+                 {t('halls.description')}:
                 </h4>
                 <p className="text-gray-200 whitespace-pre-line">
                   {selectedHall.description.ar}
@@ -319,7 +318,7 @@ export default function HallsTable() {
               {/* السعة */}
               <div className="mb-4">
                 <h4 className="text-lg font-semibold text-sec-color-100">
-                  Capacity patterns:
+                  {t('halls.capacitypatterns')}:
                 </h4>
                 <ul className="list-disc ps-5">
                   {(Array.isArray(selectedHall.capacity)
@@ -345,7 +344,7 @@ export default function HallsTable() {
               {/* المرافق */}
               <div className="mb-4">
                 <h4 className="text-lg font-semibold text-sec-color-100 mb-2">
-                  Facilities:
+                  {t('halls.facilities')}:
                 </h4>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                   {selectedHall.facilities.map((facility) => (
@@ -373,17 +372,17 @@ export default function HallsTable() {
                       {/* زر الحذف */}
                       <button
                         onClick={async () => {
-                          if (window.confirm("هل تريد حذف هذا المرفق؟")) {
+                          if (window.confirm(t('halls.ddelete'))) {
                             try {
                               await deleteFacilityFromHall(facility.id);
                               setSelectedHall((prev) => ({
                                 ...prev,
                                 facilities: prev.facilities.filter((f) => f.id !== facility.id),
                               }));
-                              toast.success("تم حذف المرفق بنجاح");
+                              toast.success(t('halls.ddeletesuccess'));
                             } catch (err) {
                               console.error(err);
-                              toast.error("فشل في حذف المرفق");
+                              toast.error(t('halls.ddeletefail'));
                             }
                           }
                         }}
@@ -400,7 +399,7 @@ export default function HallsTable() {
               {/* صور إضافية */}
               <div className="mb-4">
                 <h4 className="text-lg font-semibold text-sec-color-100 mb-2">
-                  Additional Images:
+                  {t('halls.additionalimages')}:
                 </h4>
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
                   {selectedHall.images.map((img) => (

@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import { useState } from "react";
-import { FaEdit, FaEye } from "react-icons/fa";
+import { FaEdit, FaEye, FaStar } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import { GiPriceTag } from "react-icons/gi";
 import { Link } from "react-router-dom";
@@ -24,16 +24,16 @@ export default function AdminRoomCard({
   return (
     <div className="relative overflow-hidden rounded-2xl shadow-lg bg-gray-800 border border-sec-color-100 p-4 transition-transform hover:scale-[1.01] duration-300 min-w-[200px]">
       <div className="flex flex-col xl:flex-row  gap-4">
-       
+
         <div className="w-full xl:w-[250px] flex-shrink-0">
           <img
             src={room.RoomImages?.[0]?.image_name_url}
             alt="Room"
-            className="w-full h-[180px] object-cover rounded-xl"
+            className="w-full h-[250px] object-cover rounded-xl"
           />
         </div>
 
-       
+
         <div className="flex flex-col justify-between w-full overflow-auto">
           <div className="text-white space-y-2 min-w-[200px]">
             <h2 className="text-xl font-bold tracking-tight break-words">
@@ -49,6 +49,25 @@ export default function AdminRoomCard({
                 <span className="font-semibold whitespace-nowrap">{t('all_rooms.type')}:</span>
                 <span className="break-words">{room.RoomType?.name?.[i18n.language] || t('all_rooms.not_available')}</span>
               </div>
+              <div className="flex items-center gap-2 flex-wrap">
+                <span className="font-semibold whitespace-nowrap">{t('all_rooms.rating')}:</span>
+                <span className="break-words text-md flex items-center gap-2">{room?.averageRating} <FaStar className="text-amber-400 text-lg" /></span>
+              </div>
+             {room?.RoomPricings?.length > 0 && (
+  <div className="mt-2">
+    <div className="grid grid-cols-3 gap-2 text-white text-xs">
+      {room.RoomPricings.map((pricing) => (
+        <div
+          key={pricing.id}
+          className="bg-sec-color-100 px-2 py-1 rounded-lg text-center"
+          title={pricing.day_of_week} // Tooltip يظهر عند الوقوف على العنصر
+        >
+          {pricing.price} NIS
+        </div>
+      ))}
+    </div>
+  </div>
+)}
             </div>
           </div>
 
@@ -56,11 +75,10 @@ export default function AdminRoomCard({
           <div className="flex flex-wrap items-center justify-between mt-4 gap-3 text-sm">
             <button
               onClick={() => handleRoomActive(room.id)}
-              className={`px-4 py-1 rounded font-medium transition duration-200 whitespace-nowrap ${
-                room.isActive
+              className={`px-4 py-1 rounded font-medium transition duration-200 whitespace-nowrap ${room.isActive
                   ? "bg-green-100 text-green-600 hover:bg-green-200"
                   : "bg-red-100 text-red-600 hover:bg-red-200"
-              }`}
+                }`}
             >
               {room.isActive ? t('all_rooms.active') : t('all_rooms.inactive')}
             </button>

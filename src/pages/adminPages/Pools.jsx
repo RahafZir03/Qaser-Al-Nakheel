@@ -9,9 +9,9 @@ import AddFacilityModal from "../../components/molecule/AddFacilitypool";
 import PoolImage from "../../components/molecule/Poolimage";
 import UpdatePoolModal from "../../components/molecule/UpdatePool";
 import { CiCircleRemove } from "react-icons/ci";
-
-
 import { PlusIcon } from "lucide-react";
+
+import { useTranslation } from 'react-i18next';
 
 
 export default function PoolsTable() {
@@ -24,7 +24,7 @@ export default function PoolsTable() {
     const [showFacilityModal, setShowFacilityModal] = useState(false);
     const [showImageModal, setShowImageModal] = useState(false);
     const [showUpdatePoolModal, setShowUpdatePoolModal] = useState(false);
-
+    const { t } = useTranslation("pool");
 
     useEffect(() => {
         const handleClickOutside = (e) => {
@@ -42,7 +42,7 @@ export default function PoolsTable() {
             console.log(res.data.pools);
             setPools(res.data.pools);
         } catch {
-            toast.error("فشل في تحميل القاعات");
+            toast.error(t('pool.failed'));
             setPools([]);
         } finally {
             setLoading(false);
@@ -51,15 +51,15 @@ export default function PoolsTable() {
 
 
     const handleDeletePool = async (poolId) => {
-        if (!window.confirm("هل أنت متأكد من حذف هذه القاعة؟")) return;
+        if (!window.confirm(t("pool.deleteconiform"))) return;
 
         try {
             await deletePool(poolId);
             setPools((prev) => prev.filter((pool) => pool.id !== poolId));
-            toast.success("تم حذف القاعة بنجاح");
+            toast.success(t('pool.deletesuccess'));
         } catch (error) {
             console.error("Error deleting pool:", error);
-            toast.error("فشل في حذف القاعة");
+            toast.error(t('pool.deleteerror'));
         }
     };
 
@@ -70,7 +70,7 @@ export default function PoolsTable() {
     return (
         <div className="p-4 md:p-8 bg-admin-color">
             <div className="flex justify-between items-center mb-4">
-                <h1 className="text-2xl font-semibold text-white">List of Pools</h1>
+                <h1 className="text-2xl font-semibold text-white">{t('pool.list')}</h1>
 
                 <button
                     onClick={() => {
@@ -79,16 +79,16 @@ export default function PoolsTable() {
                     }}
                     className="text-white bg-sec-color-100 flex hover:bg-sec-color-200 focus:outline-none focus:ring-2 focus:ring-sec-color-200 focus:ring-opacity-50 rounded-lg px-4 py-2 transition duration-150"
                 >
-                    <PlusIcon /> Add Pool
+                    <PlusIcon />{t('pool.add')}
                 </button>
             </div>
 
 
             <div className={`grid justify-center sm:grid-cols-2 lg:grid-cols-3 gap-8 transition-all duration-500 `}>
                 {loading ? (
-                    <div className="col-span-full text-center text-white">Loading...</div>
+                    <div className="col-span-full text-center text-white">{t('pool.loading')}</div>
                 ) : pools.length === 0 ? (
-                    <div className="col-span-full text-center text-white">There are no pools</div>
+                    <div className="col-span-full text-center text-white">{t('pool.nopool')}</div>
                 ) : (
                     pools.map((pool) => (
                         <div
@@ -121,16 +121,16 @@ export default function PoolsTable() {
                                 </div>
 
                                 <p className="text-white mb-2  text-lg">
-                                    💵 <strong>Entry Price:</strong> {pool.hourly_rate} ILS
+                                     <strong>{t('pool.entry')}:</strong> {pool.hourly_rate} ILS
                                 </p>
                                 <p className="text-white mb-2 text-lg">
-                                    📏 <strong>Size:</strong> {pool.size}
+                                     <strong>{t('pool.size')}:</strong> {pool.size}
                                 </p>
                                 <p className="text-white mb-2 text-lg">
-                                    ⭐ <strong>Rating:</strong> {pool.averageRating}
+                                     <strong>{t('pool.rating')}:</strong> {pool.averageRating}
                                 </p>
                                 <p className="text-white mb-2 text-lg">
-                                    🟢 <strong>Status:</strong> {pool.status === "available" ? "Available" : "Not available"}
+                                     <strong>{t('pool.status')}:</strong> {pool.status === "available" ? t('pool.available') : t('pool.unavailable')}
                                 </p>
 
                                 <div className="mt-4">
@@ -142,7 +142,7 @@ export default function PoolsTable() {
                                         }}
                                         className="mt-2 inline-block px-6 py-2 bg-sec-color-100 hover:bg-sec-color-200 text-white rounded-full transition shadow-lg"
                                     >
-                                        🔍 View Details
+                                        🔍 {t('pool.view')}
                                     </button>
                                 </div>
                             </div>
@@ -155,24 +155,24 @@ export default function PoolsTable() {
                                         setShowFacilityModal(true);
                                         setOpenDropdownId(null);
                                     }} className="w-full text-left hover:bg-sec-color-100 px-3 py-2 rounded-lg">
-                                        ➕ Add Facility
+                                        ➕{t('pool.addfacility')}
                                     </button>
                                     <button onClick={() => {
                                         setSelectedPool(pool);
                                         setShowImageModal(true);
                                         setOpenDropdownId(null);
                                     }} className="w-full text-left hover:bg-sec-color-100 px-3 py-2 rounded-lg">
-                                        🖼️ Pool Images
+                                        🖼️{t('pool.poolimage')}
                                     </button>
                                     <button onClick={() => {
                                         setSelectedPool(pool);
                                         setShowUpdatePoolModal(true);
                                         setOpenDropdownId(null);
                                     }} className="w-full text-left hover:bg-sec-color-100 px-3 py-2 rounded-lg">
-                                        ✏️ Edit
+                                        ✏️ {t('pool.edit')}
                                     </button>
                                     <button onClick={() => handleDeletePool(pool.id)} className="w-full text-left text-red-300 hover:bg-red-500/10 px-3 py-2 rounded-lg">
-                                        🗑️ Delete
+                                        🗑️{t('pool.delete')}
                                     </button>
                                 </div>
                             )}
@@ -211,25 +211,25 @@ export default function PoolsTable() {
                                     {selectedPool.name.ar} / {selectedPool.name.en}
                                 </h3>
                                 <p >
-                                    <strong className="text-sec-color-100">Status:</strong>{" "}
+                                    <strong className="text-sec-color-100">{t('pool.status')}:</strong>{" "}
                                     {selectedPool.status === "available"
-                                        ? "متاحة"
-                                        : "غير متاحة"}
+                                        ? t('pool.available')
+                                        : t('pool.unavailable')}
                                 </p>
                                 <p>
-                                    <strong className="text-sec-color-100">Type:</strong> {selectedPool.pool_type}
+                                    <strong className="text-sec-color-100">{t('pool.type')}:</strong> {selectedPool.pool_type}
                                 </p>
                                 <p>
-                                    <strong className="text-sec-color-100">Capacity:</strong> {selectedPool.max_capacity}
+                                    <strong className="text-sec-color-100">{t('pool.capacity')}:</strong> {selectedPool.max_capacity}
                                 </p>
                                 <p>
-                                    <strong className="text-sec-color-100">Entry price:</strong> {selectedPool.hourly_rate} ILS
+                                    <strong className="text-sec-color-100">{t('pool.entry')}:</strong> {selectedPool.hourly_rate} ILS
                                 </p>
                                 <p>
-                                    <strong className="text-sec-color-100">Dimensions:</strong> {selectedPool.size}
+                                    <strong className="text-sec-color-100">{t('pool.dimensions')}:</strong> {selectedPool.size}
                                 </p>
                                 <p>
-                                    <strong className="text-sec-color-100">Rating:</strong> ⭐ {selectedPool.averageRating} (
+                                    <strong className="text-sec-color-100">{t('pool.rating')}:</strong> ⭐ {selectedPool.averageRating} (
                                     {selectedPool.ratingCount} rating)
                                 </p>
                             </div>
@@ -237,7 +237,7 @@ export default function PoolsTable() {
                             {/* الوصف */}
                             <div className="mb-4">
                                 <h4 className="text-lg font-semibold text-sec-color-100">
-                                    Description:
+                                   {t('pool.description')}:
                                 </h4>
                                 <p className="text-gray-200 whitespace-pre-line">
                                     {selectedPool.description.ar}
@@ -248,7 +248,7 @@ export default function PoolsTable() {
                             {/* المرافق */}
                             <div className="mb-4">
                                 <h4 className="text-lg font-semibold text-sec-color-100 mb-2">
-                                    Facilities:
+                                   {t('pool.facilities')}:
                                 </h4>
                                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                                     {selectedPool.facilities.map((facility) => (
@@ -283,10 +283,10 @@ export default function PoolsTable() {
                                                                 ...prev,
                                                                 facilities: prev.facilities.filter((f) => f.id !== facility.id),
                                                             }));
-                                                            toast.success("تم حذف المرفق بنجاح");
+                                                            toast.success(t('pool.pdelete'));
                                                         } catch (err) {
                                                             console.error(err);
-                                                            toast.error("فشل في حذف المرفق");
+                                                            toast.error(t('pool.pfailed'));
                                                         }
                                                     }
                                                 }}
@@ -303,7 +303,7 @@ export default function PoolsTable() {
                             {/* صور إضافية */}
                             <div className="mb-4">
                                 <h4 className="text-lg font-semibold text-sec-color-100 mb-2 ">
-                                    Additional Images:
+                                   {t('pool.additionalimages')}:
                                 </h4>
                                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
                                     {selectedPool.images.map((img) => (

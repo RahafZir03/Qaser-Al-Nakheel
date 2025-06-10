@@ -22,7 +22,6 @@ export const getRoomTypeById = (typeId) => {
 
 // service endpoints
 export const serviceData = (filters) => {
-  console.log(filters)
   return axiosInstance.get(`/services?search=${filters.search}&page=${filters.page}&limit=${filters.limit}`);
 }
 export const serviceDataById = (serviceId) => {

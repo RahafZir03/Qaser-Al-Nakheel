@@ -18,6 +18,7 @@ export default {
         pool: "Pools",
         restaurant: "Restaurant",
         customer: "Customers",
+        invoices:"Invoices"
     },
     navbar: {
         home: "Home",

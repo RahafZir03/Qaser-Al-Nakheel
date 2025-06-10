@@ -33,7 +33,7 @@ const AddEmployeeModal = ({ isOpen, onClose, onAdd }) => {
             email: "",
             password: "",
             address: "",
-            jop_description: "",
+            job_description: "",
             salary: "",
             shift: "",
             status: "Active",
@@ -54,7 +54,6 @@ const AddEmployeeModal = ({ isOpen, onClose, onAdd }) => {
                 setMobileInputs([""]);
                 setTimeout(onClose, 1000);
             } catch (error) {
-                console.error(error);
                 toast.error(error.response?.data?.message || t('messages.addFailed'));
             }
             setLoading(false);
@@ -252,7 +251,7 @@ const AddEmployeeModal = ({ isOpen, onClose, onAdd }) => {
                             className="bg-yellow-500 hover:bg-yellow-600 px-4 py-2 rounded text-white"
                             disabled={loading}
                         >
-                            {loading ? t('general.saving') : t('addEmployee')}
+                            {loading ? t('saving') : t('addEmployee')}
                         </button>
                     </div>
                 </form>

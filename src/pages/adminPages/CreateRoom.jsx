@@ -32,7 +32,7 @@ const AddRoom = () => {
   }, []);
 
   const fetchServiceData = async () => {
-    const response = await serviceData();
+    const response = await serviceData({ search: "", page: 1, limit: 100 });
     if (response.data.rows) {
       setServices(response.data.rows);
     } else {
@@ -55,13 +55,14 @@ const AddRoom = () => {
     bed_type_ar: '',
     bed_type_en: '',
     pricing: [
-      { day: "monday", price: 100 },
-      { day: "tuesday", price: 100 },
-      { day: "wednesday", price: 100 },
-      { day: "thursday", price: 110 },
-      { day: "friday", price: 120 },
-      { day: "saturday", price: 130 },
-      { day: "sunday", price: 120 }
+      { day: "saturday", price: "" },
+      { day: "sunday", price: "" },
+      { day: "monday", price: "" },
+      { day: "tuesday", price: "" },
+      { day: "wednesday", price: "" },
+      { day: "thursday", price: "" },
+      { day: "friday", price: "" },
+
     ],
     services: []
   };
@@ -136,12 +137,15 @@ const AddRoom = () => {
   };
 
   const handleAdditionalImagesChange = (e) => {
-    const files = Array.from(e.target.files);
-    if (files.length > 0 && files.length <= 10) {
-      formik.setFieldValue('additionalImages', files);
-    } else {
-      toast.warning(t('createroom.validation.max_images'));
+    const newFiles = Array.from(e.target.files);
+    const currentFiles = formik.values.additionalImages || [];
+
+    if (currentFiles.length + newFiles.length > 10) {
+      toast.warning("يمكن رفع 10 صور كحد أقصى");
+      return;
     }
+
+    formik.setFieldValue("additionalImages", [...currentFiles, ...newFiles]);
   };
 
   const handlePriceChange = (index, value) => {
@@ -482,6 +486,22 @@ const AddRoom = () => {
                     )}
                   </div>
                 </label>
+                {formik.values.additionalImages.length > 0 && (
+                  <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mt-4">
+                    {formik.values.additionalImages.map((file, index) => {
+                      const imageUrl = URL.createObjectURL(file);
+                      return (
+                        <div key={index} className="relative">
+                          <img
+                            src={imageUrl}
+                            alt={`preview-${index}`}
+                            className="w-full h-32 object-cover rounded-lg border"
+                          />
+                        </div>
+                      );
+                    })}
+                  </div>
+                )}
               </div>
             </div>
 

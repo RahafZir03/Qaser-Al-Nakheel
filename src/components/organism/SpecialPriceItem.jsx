@@ -8,7 +8,7 @@ import { updateSpecialPrice } from "../../api/endpoints/room";
 import { toast } from "react-toastify";
 
 const SpecialPriceItem = ({ price }) => {
-    const {i18n,t} = useTranslation("specialprice");
+    const { i18n, t } = useTranslation("specialprice");
     const lang = i18n.language || "en";
     const [editing, setEditing] = useState(false);
 
@@ -37,18 +37,36 @@ const SpecialPriceItem = ({ price }) => {
         validationSchema,
         onSubmit: async (values) => {
             try {
+                const original = {
+                    name_ar: price.name.ar,
+                    name_en: price.name.en,
+                    description_ar: price.description.ar,
+                    description_en: price.description.en,
+                    start_date: price.start_date?.slice(0, 10),
+                    end_date: price.end_date?.slice(0, 10),
+                    price: price.price,
+                };
+
+                const isChanged = JSON.stringify(original) !== JSON.stringify(values);
+
+                if (!isChanged) {
+                    toast.info(t("specialprice.noChanges"));
+                    return;
+                }
+
                 const response = await updateSpecialPrice(price.id, values);
-                console.log(values)
                 toast.success(response.data.message);
                 setEditing(false);
             } catch (err) {
                 console.error("Error updating special price:", err);
+                toast.error(err.response?.data?.message || t("specialprice.updateError"));
             }
-        },
+        }
+
     });
 
     const inputClass =
-        "border border-sec-color-100 bg-gray-700 text-white  rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all w-full";
+        "border border-sec-color-100 bg-gray-700 text-white rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all w-full";
 
     return (
         <motion.li
@@ -82,14 +100,15 @@ const SpecialPriceItem = ({ price }) => {
                         initial={{ opacity: 0, y: -10 }}
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: 10 }}
-                        className="space-y-3 "
+                        className="space-y-3"
                     >
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 ">
-                            <div >
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                            <div>
                                 <input
                                     name="name_ar"
                                     value={formik.values.name_ar}
                                     onChange={formik.handleChange}
+                                    onBlur={formik.handleBlur}
                                     placeholder={t("specialprice.nameAr")}
                                     className={inputClass}
                                 />
@@ -103,6 +122,7 @@ const SpecialPriceItem = ({ price }) => {
                                     name="name_en"
                                     value={formik.values.name_en}
                                     onChange={formik.handleChange}
+                                    onBlur={formik.handleBlur}
                                     placeholder={t("specialprice.nameEn")}
                                     className={inputClass}
                                 />
@@ -116,6 +136,7 @@ const SpecialPriceItem = ({ price }) => {
                                     name="description_ar"
                                     value={formik.values.description_ar}
                                     onChange={formik.handleChange}
+                                    onBlur={formik.handleBlur}
                                     placeholder={t("specialprice.descriptionAr")}
                                     className={inputClass}
                                 />
@@ -129,6 +150,7 @@ const SpecialPriceItem = ({ price }) => {
                                     name="description_en"
                                     value={formik.values.description_en}
                                     onChange={formik.handleChange}
+                                    onBlur={formik.handleBlur}
                                     placeholder={t("specialprice.descriptionEn")}
                                     className={inputClass}
                                 />
@@ -143,6 +165,7 @@ const SpecialPriceItem = ({ price }) => {
                                     name="start_date"
                                     value={formik.values.start_date}
                                     onChange={formik.handleChange}
+                                    onBlur={formik.handleBlur}
                                     className={inputClass}
                                 />
                                 {formik.touched.start_date && formik.errors.start_date && (
@@ -156,6 +179,7 @@ const SpecialPriceItem = ({ price }) => {
                                     name="end_date"
                                     value={formik.values.end_date}
                                     onChange={formik.handleChange}
+                                    onBlur={formik.handleBlur}
                                     className={inputClass}
                                 />
                                 {formik.touched.end_date && formik.errors.end_date && (
@@ -168,7 +192,13 @@ const SpecialPriceItem = ({ price }) => {
                                     type="number"
                                     name="price"
                                     value={formik.values.price}
-                                    onChange={formik.handleChange}
+                                    onChange={(e) =>
+                                        formik.setFieldValue(
+                                            "price",
+                                            e.target.value === "" ? "" : parseFloat(e.target.value)
+                                        )
+                                    }
+                                    onBlur={formik.handleBlur}
                                     placeholder={t("specialprice.price")}
                                     className={inputClass}
                                 />

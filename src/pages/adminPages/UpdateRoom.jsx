@@ -20,19 +20,25 @@ const UpdateRoom = () => {
     const [secondaryImages2, setImagesecondry] = useState([]);
     const [services, setServices] = useState([]);
 
-    useEffect(() => {
-        const fetchServices = async () => {
-            try {
-                const response = await serviceData();
-                setServices(response.data.rows);
-            } catch (error) {
-                console.error('Error fetching services:', error);
-            }
+   useEffect(() => {
+    const fetchServices = async () => {
+        try {
+            const filters = {
+                search: '',
+                page: 1,
+                limit: 100, // أو أي رقم يغطي كل الخدمات المتاحة
+            };
 
-        };
+            const response = await serviceData(filters);
+            console.log("Services fetched:", response.data.rows);
+            setServices(response.data.rows);
+        } catch (error) {
+            console.error('Error fetching services:', error);
+        }
+    };
 
-        fetchServices();
-    }, []);
+    fetchServices();
+}, []);
 
     const formik = useFormik({
         initialValues: {

@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { useTranslation } from "react-i18next";
 import { changeEmployeeJob, getAllworkPlaces } from "../../api/endpoints/employee";
-import { IoMdCloseCircleOutline } from "react-icons/io";
 const ROLES = ["admin", "employee", "reception"];
 
 export default function EditJobModal({ isOpen, onClose, employee, onSave }) {
@@ -75,7 +74,6 @@ export default function EditJobModal({ isOpen, onClose, employee, onSave }) {
       <div className="bg-admin-color rounded-xl shadow-lg p-6 w-full max-w-lg animate-fade-in border-2 border-sec-color-100">
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-xl font-semibold text-white">{t("editJobTitle")}</h2>
-          <button onClick={onClose} className="text-red-500">< IoMdCloseCircleOutline size={35}/> </button>
         </div>
 
         <div className="space-y-4">

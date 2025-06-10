@@ -104,7 +104,7 @@ const sidebarItems = [
       },
     ],
 
-  }, 
+  },
   {
     linkType: "link",
     Icon: FaMoneyCheckDollar,
@@ -158,11 +158,11 @@ const sidebarItems = [
   },
   {
     linkType: "link",
-    Icon:  FaFileInvoiceDollar,
-    data:{
+    Icon: FaFileInvoiceDollar,
+    data: {
       to: "/admin/invoices",
       icon: FaFileInvoiceDollar,
-      label: "Invoices",
+      label: "sidebar.invoices",
       iconColor: "text-yellow-700",
     }
   }

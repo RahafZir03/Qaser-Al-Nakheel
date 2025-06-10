@@ -24,8 +24,8 @@ export default function AddFacilityModal({ hallId, onClose, onFacilityAdded }) {
   const validationSchema = Yup.object().shape({
     name_ar: Yup.string().required("مطلوب"),
     name_en: Yup.string().required("Required"),
-    desc_ar: Yup.string().required("مطلوب"),
-    desc_en: Yup.string().required("Required"),
+    description_ar: Yup.string().required("مطلوب"),
+    description_en: Yup.string().required("Required"),
     image: Yup.mixed().required("الصورة مطلوبة"),
   });
 
@@ -34,14 +34,15 @@ export default function AddFacilityModal({ hallId, onClose, onFacilityAdded }) {
       const formData = new FormData();
       formData.append("name_ar", values.name_ar);
       formData.append("name_en", values.name_en);
-      formData.append("description_ar", values.desc_ar);
-      formData.append("description_en", values.desc_en);
+      formData.append("description_ar", values.description_ar);
+      formData.append("description_en", values.description_en);
       if (values.image) {
         formData.append("image", values.image);
       }
 
       const res = await addFacilityToHall(hallId, formData);
       const newFacility = res.data.facility;
+      console.log("📦 API response: ", res.data);
 
       toast.success("تمت إضافة المرفق بنجاح");
       setFacilities((prev) => [...prev, newFacility]);

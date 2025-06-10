@@ -9,7 +9,7 @@ import { useTranslation } from 'react-i18next';
 
 export default function AddPoolModal({ onClose, onAdded }) {
     const [featuredImagePreview, setFeaturedImagePreview] = useState(null);
-        const { t } = useTranslation("pool");
+    const { t } = useTranslation("pool");
 
 
     const initialValues = {
@@ -181,27 +181,30 @@ export default function AddPoolModal({ onClose, onAdded }) {
                                     hidden
                                     id="additionalImagesInput"
                                     onChange={(e) => {
-                                        const files = Array.from(e.target.files);
-                                        if (files.length > 10) {
+                                        const newFiles = Array.from(e.target.files);
+                                        const currentFiles = values.additionalImages || [];
+                                        const allFiles = [...currentFiles, ...newFiles];
+
+                                        if (allFiles.length > 10) {
                                             toast.warning("يمكن رفع 10 صور كحد أقصى");
                                         } else {
-                                            setFieldValue("additionalImages", files);
+                                            setFieldValue("additionalImages", allFiles);
                                         }
                                     }}
                                 />
-                                <label htmlFor="additionalImagesInput" className="block text-center  text-sec-color-100 cursor-pointer border-2 border-dashed border-sec-color-100 rounded-lg p-4 bg-gray-700">
+                                <label htmlFor="additionalImagesInput" className="block text-center text-sec-color-100 cursor-pointer border border-dashed border-sec-color-100 rounded-lg p-4 hover:bg-gray-700">
                                     {values.additionalImages.length > 0
                                         ? `${values.additionalImages.length} صورة محددة`
                                         : t('add.addclick')}
                                 </label>
                             </div>
                             <div className="flex justify-end gap-3 mt-6">
-                                 <button
+                                <button
                                     type="submit"
                                     disabled={isSubmitting}
                                     className="px-6 py-2 rounded-xl w-full max-w-52 text-white bg-sec-color-100 hover:bg-opacity-90"
                                 >
-                                    {isSubmitting ? t('add.sending') :t('add.add')}
+                                    {isSubmitting ? t('add.sending') : t('add.add')}
                                 </button>
                                 <button
                                     type="button"
@@ -211,7 +214,7 @@ export default function AddPoolModal({ onClose, onAdded }) {
                                     {t('add.close')}
                                 </button>
 
-                               
+
 
                             </div>
 

@@ -120,7 +120,7 @@ export default function HallBookings() {
             <option value="">{t("hall_booking.all_statuses")}</option>
             <option value="pending">{t("hall_booking.pending")}</option>
             <option value="confirmed">{t("hall_booking.confirmed")}</option>
-            <option value="canceled">{t("hall_booking.cancelled")}</option>
+            <option value="cancelled">{t("hall_booking.cancelled")}</option>
           </select>
         </div>
 

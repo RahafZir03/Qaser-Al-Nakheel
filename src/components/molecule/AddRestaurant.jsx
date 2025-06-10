@@ -10,6 +10,7 @@ import { useTranslation } from 'react-i18next';
 export default function AddRestaurantModal({ onClose, onAdded }) {
     const [featuredImagePreview, setFeaturedImagePreview] = useState(null);
     const { t } = useTranslation("restaurants");
+    
 
     const initialValues = {
         name_ar: "",
@@ -38,9 +39,12 @@ export default function AddRestaurantModal({ onClose, onAdded }) {
 
     const handleSubmit = async (values, { setSubmitting, resetForm }) => {
         try {
-            const formData = new FormData();
+            if (!values.mainImage) {
+                toast.error("الصورة الرئيسية مطلوبة");
+                return;
+            }
 
-            // إرسال الحقول بالشكل الذي يتوقعه الـ backend
+            const formData = new FormData();
             formData.append("name_ar", values.name_ar);
             formData.append("name_en", values.name_en);
             formData.append("description_ar", values.description_ar);
@@ -51,27 +55,33 @@ export default function AddRestaurantModal({ onClose, onAdded }) {
             formData.append("capacity", values.capacity);
             formData.append("mainImage", values.mainImage);
 
-            // رفع الصور الإضافية
             values.additionalImages.forEach((file) => {
                 formData.append("additionalImages", file);
             });
 
-            // إرسال البيانات إلى السيرفر
-            const { data } = await addRestaurant(formData);
-            toast.success(t("add.success"));
+            // Debug: اطبع محتويات FormData
+            for (let [key, value] of formData.entries()) {
+                console.log(key, value);
+            }
 
-            // التحديثات بعد النجاح
+            const { data } = await addRestaurant(formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            });
+
+            toast.success(t("add.success"));
             onAdded(data.restaurant);
             onClose();
             resetForm();
         } catch (err) {
-            console.error(err);
-            toast.error(t("add.failed"));
+            console.error("Full Error:", err);
+            const errorMsg = err.response?.data?.message || t("add.failed");
+            toast.error(errorMsg);
         } finally {
             setSubmitting(false);
         }
     };
-
     return (
         <div className="fixed inset-0 z-[130] bg-black bg-opacity-60 flex items-center justify-center p-4">
             <div className="bg-admin-color rounded-2xl w-full max-w-3xl p-6 border border-sec-color-100 shadow-xl overflow-y-auto max-h-[90vh] relative">
@@ -92,7 +102,7 @@ export default function AddRestaurantModal({ onClose, onAdded }) {
 
                             <div>
                                 <label htmlFor="description_ar" className="text-white">{t("add.desc_ar")}</label>
-                                <Field id="description_ar" name="description_ar " className="p-2 mt-2 border rounded border-sec-color-100 bg-gray-700 w-full" />
+                                <Field id="description_ar" name="description_ar" className="p-2 mt-2 border rounded border-sec-color-100 bg-gray-700 w-full" />
                             </div>
 
                             <div >
@@ -167,6 +177,7 @@ export default function AddRestaurantModal({ onClose, onAdded }) {
                                         )}
                                         <p className="text-xs text-gray-500">{values.mainImage?.name}</p>
                                     </label>
+                                    
                                 </div>
                                 {touched.mainImage && errors.mainImage && (
                                     <div className="text-red-400 text-sm mt-2">{errors.mainImage}</div>
@@ -183,35 +194,39 @@ export default function AddRestaurantModal({ onClose, onAdded }) {
                                     hidden
                                     id="additionalImagesInput"
                                     onChange={(e) => {
-                                        const files = Array.from(e.target.files);
-                                        if (files.length > 10) {
+                                        const newFiles = Array.from(e.target.files);
+                                        const currentFiles = values.additionalImages || [];
+                                        const allFiles = [...currentFiles, ...newFiles];
+
+                                        if (allFiles.length > 10) {
                                             toast.warning("يمكن رفع 10 صور كحد أقصى");
                                         } else {
-                                            setFieldValue("additionalImages", files);
+                                            setFieldValue("additionalImages", allFiles);
                                         }
                                     }}
                                 />
-                                <label htmlFor="additionalImagesInput" className="block text-center  text-sec-color-100 cursor-pointer border-2 border-dashed border-gray-600 rounded-lg p-4 hover:bg-gray-700">
+                                <label htmlFor="additionalImagesInput" className="block text-center text-sec-color-100 cursor-pointer border border-dashed border-sec-color-100 rounded-lg p-4 hover:bg-gray-700">
                                     {values.additionalImages.length > 0
                                         ? `${values.additionalImages.length} صورة محددة`
                                         : t('add.addclick')}
                                 </label>
+                                
                             </div>
 
                             <div className="flex justify-end gap-3 mt-6">
-                                 <button
+                                <button
                                     type="submit"
                                     disabled={isSubmitting}
                                     className="px-6 py-2 rounded-xl w-full max-w-52 text-white bg-sec-color-100 hover:bg-opacity-90"
                                 >
-                                    {isSubmitting ?t('add.sending') :t('add.add')}
+                                    {isSubmitting ? t('add.sending') : t('add.add')}
                                 </button>
                                 <button
                                     type="button"
                                     onClick={onClose}
                                     className="px-6 py-2 rounded-xl w-full max-w-52 text-white bg-gray-500 hover:bg-opacity-90"
                                 >
-                                   {t('add.close')}
+                                    {t('add.close')}
                                 </button>
                             </div>
 

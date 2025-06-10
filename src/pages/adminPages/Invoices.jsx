@@ -1,11 +1,15 @@
+/* eslint-disable no-unused-vars */
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import i18n from "../../constants/i18n";
 import { filterInvoices } from "../../api/endpoints/payment";
 import { RiMapPinUserLine } from "react-icons/ri";
 import PaginationRounded from "../../components/molecule/PaginationRounded";
+import InvoiceDetailsModal from "../../components/molecule/InvoiceDetails";
+import { LiaFileInvoiceSolid } from "react-icons/lia";
 
-const ConfirmPaymentPage = () => {
+
+const InovicePage = () => {
     const [status, setStatus] = useState("false");
     const [invoiceType, setInvoiceType] = useState("All");
     const [loading, setLoading] = useState(false);
@@ -14,15 +18,17 @@ const ConfirmPaymentPage = () => {
     const [totalPages, setTotalPages] = useState(1);
     const isArabic = i18n.language === "ar";
     const limit = 10;
+    const [selectedInvoice, setSelectedInvoice] = useState(null);
+
 
     const fetchInvoices = async () => {
         setLoading(true);
         try {
             const res = await filterInvoices(status, invoiceType, page, limit);
+
             console.log(res.data);
-            setInvoices(res?.data?.unpaidInvoices || []);
-            const totalCount = res?.data?.count || 0;
-            setTotalPages(Math.ceil(totalCount / limit));
+            setInvoices(res?.data?.invoices || []);
+            setTotalPages(Math.ceil(res?.data?.totalPages));
         } catch (err) {
             console.error(err);
             setInvoices([]);
@@ -84,10 +90,10 @@ const ConfirmPaymentPage = () => {
 
     return (
         <div className="p-6 space-y-6 bg-admin-color">
-            <h2 className="text-xl font-bold text-white">تأكيد دفع الفواتير</h2>
+            <h2 className="text-xl font-bold text-white"> INVOICES </h2>
 
             <div className="flex items-center gap-4">
-                <span className="text-lg font-semibold text-white">حالة الفواتير:</span>
+                <span className="text-lg font-semibold text-white"> Invoices status:</span>
                 <select
                     value={status}
                     onChange={(e) => {
@@ -96,11 +102,11 @@ const ConfirmPaymentPage = () => {
                     }}
                     className="border border-gray-300 rounded-md p-2 text-sm w-40"
                 >
-                    <option value="false">غير مدفوع</option>
-                    <option value="true">مدفوع</option>
+                    <option value="false">unpaid </option>
+                    <option value="true">paid</option>
                 </select>
 
-                <span className="text-lg font-semibold text-white">نوع الفاتورة:</span>
+                <span className="text-xl font-semibold text-white">Invoice type :</span>
                 <select
                     value={invoiceType}
                     onChange={(e) => {
@@ -109,45 +115,40 @@ const ConfirmPaymentPage = () => {
                     }}
                     className="border border-gray-300 rounded-md p-2 text-sm w-40"
                 >
-                    <option value="All">الكل</option>
-                    <option value="Booking">الغرف</option>
-                    <option value="Hall">القاعات</option>
-                    <option value="Pool">المسابح</option>
-                    <option value="Restaurant">المطاعم</option>
+                    <option value="All">ALL</option>
+                    <option value="Booking">Rooms</option>
+                    <option value="Hall">Halls</option>
+                    <option value="Pool">Pools</option>
+                    <option value="Restaurant">Restaurant</option>
                 </select>
             </div>
 
             {loading ? (
-                <div className="text-center text-gray-500 py-10">جاري تحميل البيانات...</div>
+                <div className="text-center text-gray-500 py-10">Loading data  ...</div>
             ) : invoices.length === 0 ? (
-                <div className="text-center text-gray-500 py-10">لا توجد فواتير حاليًا</div>
+                <div className="text-center text-gray-500 py-10">There are no invoices currently </div>
             ) : (
                 <>
                     <div className="overflow-x-auto bg-white/5 rounded-xl shadow">
                         <table className="min-w-full text-white text-sm">
                             <thead>
                                 <tr className={`text-sm bg-white/10 ${isArabic ? "text-right" : "text-left"}`}>
-                                    <th className="p-2">نوع الفاتورة</th>
-                                    <th className="p-2">المبلغ</th>
-                                    <th className="p-2">عدد الضيوف</th>
-                                    <th className="p-2">تاريخ الدخول</th>
-                                    <th className="p-2">تاريخ الخروج/الانتهاء</th>
-                                    <th className="p-2">الحالة</th>
-                                    <th className="p-2">اسم الموقع</th>
-                                    <th className="p-2">العمليات</th>
+                                    <th className="px-2 text-xl py-1">Invoice type</th>
+                                    <th className="px-2 text-xl py-1">Status</th>
+                                    <th className="px-2 text-xl py-1">CheckIn</th>
+                                    <th className="px-2 text-xl py-1">CheckOut</th>
+                                    <th className="px-2 text-xl py-1">Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {invoices.map((invoice) => (
                                     <tr key={invoice.invoice_id} className="border-b border-gray-700 hover:bg-gray-800">
-                                        <td className="p-2">{invoice.invoice_type}</td>
-                                        <td className="p-2">{invoice.amount}</td>
-                                        <td className="p-2">{renderGuests(invoice.details)}</td>
-                                        <td className="p-2">{renderStartDate(invoice.details, invoice.invoice_type)}</td>
-                                        <td className="p-2">{renderEndDate(invoice.details, invoice.invoice_type)}</td>
-                                        <td className="p-2">{invoice.details.status}</td>
-                                        <td className="p-2">{renderLocation(invoice.details, invoice.invoice_type)}</td>
-                                        <td className="p-2">
+                                        <td className="px-2 py-1 text-lg font-medium">{invoice.invoice_type}</td>
+                                        <td className="px-2 py-1 text-lg font-medium">{invoice.details.status}</td>
+                                        <td className="px-2 py-1 text-lg font-medium">{renderStartDate(invoice.details, invoice.invoice_type)}</td>
+                                        <td className="px-2 py-1 text-lg font-medium">{renderEndDate(invoice.details, invoice.invoice_type)}</td>
+
+                                        <td className="p-2 flex items-center gap-2">
                                             {invoice.customerId ? (
                                                 <Link
                                                     to={`/admin/allUserData/${invoice.customerId}`}
@@ -157,9 +158,12 @@ const ConfirmPaymentPage = () => {
                                                 </Link>
                                             ) : (
                                                 <span className="bg-gray-500 text-white px-3 py-1 rounded text-xs cursor-not-allowed">
-                                                    غير متوفر
+                                                    unavailable
                                                 </span>
                                             )}
+                                            <button onClick={() => setSelectedInvoice(invoice)}
+                                                className="text-blue-400 underline"><LiaFileInvoiceSolid size={35} /></button>
+
                                         </td>
                                     </tr>
                                 ))}
@@ -177,10 +181,13 @@ const ConfirmPaymentPage = () => {
                             />
                         </div>
                     )}
+                    {selectedInvoice && (
+                        <InvoiceDetailsModal invoice={selectedInvoice} onClose={() => setSelectedInvoice(null)} />
+                    )}
                 </>
             )}
         </div>
     );
 };
 
-export default ConfirmPaymentPage;
+export default InovicePage;

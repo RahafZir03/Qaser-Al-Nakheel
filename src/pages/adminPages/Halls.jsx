@@ -24,7 +24,7 @@ export default function HallsTable() {
   const [showImageModal, setShowImageModal] = useState(false);
   const [showUpdateHallModal, setShowUpdateHallModal] = useState(false);
   const { t } = useTranslation("halls");
-  
+
 
 
   useEffect(() => {
@@ -219,7 +219,7 @@ export default function HallsTable() {
                   </div>
                 </div>
                 <p className="text-lg mb-2">
-                   <strong>{t('halls.pricehour')}:</strong> {hall.price_per_hour}ILS
+                  <strong>{t('halls.pricehour')}:</strong> {hall.price_per_hour}ILS
                 </p>
                 <p className="text-lg mb-2">
                   <strong>{t('halls.status')} :</strong>{" "}
@@ -238,7 +238,7 @@ export default function HallsTable() {
                   <strong>{t('halls.type')}:</strong> {hall.type}
                 </p>
                 <p className="text-lg mb-2">
-                  <strong>{t('halls.dimensions')}:</strong> {hall.length}م × {hall.width}م
+                  <strong>{t('halls.dimensions')}:</strong> {hall.length}m × {hall.width}m
                 </p>
                 <p className="text-lg mb-2">
                   <strong>{t('halls.evaluation')}:</strong> ⭐ {hall.rating}
@@ -292,8 +292,8 @@ export default function HallsTable() {
                   <strong className="text-sec-color-100">{t('halls.dpricehour')}:</strong> {selectedHall.price_per_hour} ILS
                 </p>
                 <p>
-                  <strong className="text-sec-color-100">{t('halls.ddimensions')}:</strong> {selectedHall.length}م ×{" "}
-                  {selectedHall.width}م
+                  <strong className="text-sec-color-100">{t('halls.ddimensions')}:</strong> {selectedHall.length}m ×{" "}
+                  {selectedHall.width}m
                 </p>
                 <p>
                   <strong className="text-sec-color-100">{t('halls.appropriateuse')}:</strong>{" "}
@@ -308,7 +308,7 @@ export default function HallsTable() {
               {/* الوصف */}
               <div className="mb-4">
                 <h4 className="text-lg font-semibold text-sec-color-100">
-                 {t('halls.description')}:
+                  {t('halls.description')}:
                 </h4>
                 <p className="text-gray-200 whitespace-pre-line">
                   {selectedHall.description.ar}

@@ -97,34 +97,34 @@ const InvoicesTablePage = () => {
     return (
         <div className="p-6 space-y-6 bg-admin-color">
             <div className="flex items-center gap-4 ">
-                <span className="text-lg font-semibold ">حالة الفواتير:</span>
+                <span className="text-lg font-semibold text-white">Invoice Status:</span>
                 <select
                     value={status}
                     onChange={(e) => setStatus(e.target.value)}
                     className="border border-gray-300 rounded-md p-2 text-sm w-40"
                 >
-                    <option value="false">غير مدفوع</option>
-                    <option value="true">مدفوع</option>
+                    <option value="false">Unpaid</option>
+                    <option value="true">paid</option>
                 </select>
             </div>
 
             {loading ? (
-                <div className="text-center text-gray-500 py-10">جاري تحميل البيانات...</div>
+                <div className="text-center text-gray-500 py-10">Loading data...</div>
             ) : invoices.length === 0 ? (
-                <div className="text-center text-gray-500 py-10">لا توجد فواتير حاليًا</div>
+                <div className="text-center text-gray-500 py-10">There are no invoices currently </div>
             ) : (
                 <div className="overflow-x-auto bg-white/5 rounded-xl shadow">
                     <table className="min-w-full text-white text-sm">
                         <thead>
                             <tr className={`text-sm bg-white/10 ${isArabic ? "text-right" : "text-left"}`}>
-                                {status === "false" && <th className="p-2">تحديد</th>}
-                                <th className="p-2">نوع الفاتورة</th>
-                                <th className="p-2">المبلغ</th>
-                                <th className="p-2">عدد الضيوف</th>
-                                <th className="p-2">تاريخ الدخول</th>
-                                <th className="p-2">تاريخ الخروج/الانتهاء</th>
-                                <th className="p-2">الحالة</th>
-                                <th className="p-2">اسم الموقع</th>
+                                {status === "false" && <th className="p-2">to set</th>}
+                                <th className="p-2">Invoice type </th>
+                                <th className="p-2">Amount</th>
+                                <th className="p-2">Number of guests </th>
+                                <th className="p-2">Check In </th>
+                                <th className="p-2">Check out</th>
+                                <th className="p-2">Status</th>
+                                <th className="p-2">Site name </th>
                             </tr>
                         </thead>
                         <tbody>

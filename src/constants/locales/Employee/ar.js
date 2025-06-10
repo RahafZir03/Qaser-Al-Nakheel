@@ -9,6 +9,8 @@ export default {
         delete: "حذف",
         edit: "تعديل",
         editJob: "تعديل الوظيفة",
+        applyFilters: "تطبيق الفلاتر",
+        resetFilters: "إعادة التصفية"
     },
     table: {
         name: "الاسم",
@@ -45,6 +47,15 @@ export default {
     },
     roles: {
         admin: "مدير",
-        employee: "موظف"
-    }
+        employee: "موظف",
+        reception:"استقبال"
+    },
+    filters: {
+        address: "العنوان",
+        jop: "المسمى الوظيفي",
+        salary: "الراتب الأدنى",
+        role: "الدور",
+        selectStatus: "الحالة",
+        selectShift: "الدوام"
+    },
 }

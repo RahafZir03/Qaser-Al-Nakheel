@@ -228,12 +228,14 @@ export default function RoomBookings() {
                   </td>
                   <td className="p-3">{booking.total_price} NIS</td>
                   <td className="p-3 text-center flex gap-2">
-                    <button
-                      onClick={() => handleCancelBooking(booking.id)}
-                      className="bg-yellow-600 hover:bg-yellow-700 text-white px-3 py-1 rounded text-sm"
-                    >
-                      {t("room_booking.cancel")}
-                    </button>
+                    {booking.status === "canceled" && (
+                      <button
+                        onClick={() => handleCancelBooking(booking.id)}
+                        className="bg-yellow-600 hover:bg-yellow-700 text-white px-3 py-1 rounded text-sm"
+                      >
+                        {t("room_booking.cancel")}
+                      </button>
+                    )}
                     <button
                       onClick={() => handleDeleteBooking(booking.id)}
                       className="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded text-sm"

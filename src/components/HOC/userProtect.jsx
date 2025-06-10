@@ -4,7 +4,6 @@ import { useSelector } from "react-redux";
 
 export default function UserProtect({ element }) {
   const authData = useSelector((state) => state.authData);
-  console.log(authData);
   const userId = authData?.userId;
   const userRole = authData?.userRole;
 

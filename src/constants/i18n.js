@@ -70,7 +70,7 @@ const resources = {
     updateemployee: updateemployee_en,
     EditJobModal: EditJobModal_en,
     halls: halls_en,
-    pool:pool_en,
+    pool: pool_en,
     restaurants: restaurants_en,
     translation: {
       "companyHallMainTexts": {
@@ -234,7 +234,7 @@ const resources = {
       "ServiceDescriptionEnglish": "Description (English)",
       "ServiceDescriptionArabic": "Description (Arabic)",
       "ServiceImage": "Service Image",
-       "hdashboard": "Dashboard",
+      "hdashboard": "Dashboard",
 
       "all_rooms": {
         "title": "All Rooms",
@@ -259,6 +259,10 @@ const resources = {
         "clear_search": "Clear search",
         "all_types": "All Types",
         "rating": "Rating",
+        "yes_delete": "Delete",
+        "confirm_delete": "Confirm deletion",
+        "cancel": "Cancel",
+        "no_results_for":"No Results for"
 
       },
 
@@ -267,13 +271,16 @@ const resources = {
         "title": "Create Room",
         "edit_title": "Edit Room",
         "select_default": "Select...",
+        "selectDay": "Select Day",
+        "add": "Add",
         "sections": {
           "basic_info": "Basic Information",
           "category_info": "Category Information",
           "pricing": "Room Pricing",
           "amenities": "Amenities",
           "featured_image": "Featured Image",
-          "additional_images": "Additional Images"
+          "additional_images": "Additional Images",
+
         },
         "fields": {
           "room_number": "Room Number",
@@ -401,7 +408,7 @@ const resources = {
     updateemployee: updateemployee_ar,
     EditJobModal: EditJobModal_ar,
     halls: halls_ar,
-    pool:pool_ar,
+    pool: pool_ar,
     restaurants: restaurants_ar,
     translation: {
       "companyHallMainTexts": {
@@ -487,19 +494,27 @@ const resources = {
         "search_placeholder": "ابحث عن غرفة...",
         "clear_search": "مسح البحث",
         "all_types": "جميع الأنواع",
-        "rating": "التقييم"
+        "rating": "التقييم",
+        "yes_delete": "حذف",
+        "confirm_delete": "تأكيد الحذف",
+        "canel": "إلغاء",
+        "no_results_for":"لا توجد نتائج"
+
       },
       "createroom": {
         "title": "إنشاء غرفة",
         "edit_title": "تعديل الغرفة",
         "select_default": "اختر...",
+        "selectDay": "حدد اليوم",
+        "add": "إضافة",
         "sections": {
           "basic_info": "المعلومات الأساسية",
           "category_info": "معلومات الفئة",
           "pricing": "تسعير الغرفة",
           "amenities": "المرافق",
           "featured_image": "الصورة الرئيسية",
-          "additional_images": "صور إضافية"
+          "additional_images": "صور إضافية",
+
         },
         "fields": {
           "room_number": "رقم الغرفة",

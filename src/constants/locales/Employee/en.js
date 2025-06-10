@@ -9,6 +9,8 @@ export default {
         delete: "Delete",
         edit: "Edit",
         editJob: "Edit Job",
+        applyFilters: "Apply Filters",
+        resetFilters: "Reset Filters"
     },
     table: {
         name: "Name",
@@ -46,6 +48,17 @@ export default {
     roles: {
         admin: "Admin",
         employee: "Employee",
-        
-    }
+        reception:"Reception"
+
+    },
+    filters: {
+        address: "Address",
+        jop: "Job Title",
+        salary: "Minimum Salary",
+        role: "Role",
+        selectStatus: "Select Status",
+        selectShift: "Select Shift"
+    },
+   
+
 }

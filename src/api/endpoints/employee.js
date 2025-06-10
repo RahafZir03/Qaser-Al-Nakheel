@@ -1,9 +1,11 @@
 import axiosInstance from "../axios";
 
 // employee endpoints
-export const employeeData = (page, limit) => {
-  return axiosInstance.get(`/employee/filters/${page}/${limit}`);
-}
+export const employeeData = (page, limit, filters = {}) => {
+  return axiosInstance.get(`/employee/filters/${page}/${limit}`, {
+    params: filters
+  });
+};
 //add employee
 export const addEmployee = (data) => {
   console.log(data)

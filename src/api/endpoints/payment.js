@@ -1,31 +1,31 @@
 import axiosInstance from "../axios";
 
-export const getInvoices = (id,status) =>{
+export const getInvoices = (id, status) => {
     return axiosInstance.get(`/payment/getUnpaidOrPaidInvoices/${id}?payed=${status}`)
 };
 
-export const PayInvoices = (payload) =>{
-    return axiosInstance.post(`/payment/payInvoices`,payload)
+export const PayInvoices = (payload) => {
+    return axiosInstance.post(`/payment/payInvoices`, payload)
 };
 
-export const  getInvoicesForAll = (status) =>{
+export const getInvoicesForAll = (status) => {
     console.log(status)
     return axiosInstance.get(`/payment?payed=${status}`)
 };
 
-export const  getHallsInvoices = (status) =>{
+export const getHallsInvoices = (status) => {
     return axiosInstance.get(`/payment/hallsInvoices?payed=${status}`)
 };
 
-export const  getPoolsInvoices = (status) =>{
+export const getPoolsInvoices = (status) => {
     return axiosInstance.get(`/payment/poolsInvoices?payed=${status}`)
 };
 
-export const  getBookingsInvoices = (status) =>{
+export const getBookingsInvoices = (status) => {
     return axiosInstance.get(`/payment/bookingsInvoices?payed=${status}`)
 };
 
-export const  getRestaurantsInvoices = (status) =>{
+export const getRestaurantsInvoices = (status) => {
     return axiosInstance.get(`/payment/restaurantsInvoices?payed=${status}`)
 };
 

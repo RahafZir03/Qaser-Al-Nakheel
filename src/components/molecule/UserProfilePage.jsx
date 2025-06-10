@@ -26,7 +26,7 @@ export default function UserProfilePage() {
 
 
   if (!user)
-    return <div className="text-white p-10">جاري تحميل البيانات...</div>;
+    return <div className="text-white p-10">Loading data  ...</div>;
 
   const Section = ({ title, children }) => (
     <div className="mb-10">
@@ -120,28 +120,28 @@ export default function UserProfilePage() {
         <Link
           to={`/admin/payment/${id}`} // تأكد من أن هذا المسار يتماشى مع إعدادات Route لديك
           className="bg-white  text-sec-color-100 border border-sec-color-100 px-6 py-4 rounded-md shadow hover:bg-admin-color hover:text-sec-color-100 transition-all duration-300">
-          عرض الفواتير
+           View Details
         </Link>
 
 
       </div>
 
       {/* الجداول */}
-      <Section title="رسائل التواصل">
+      <Section title=" Communication messages">
         <Table
           data={user.Contacts}
           columns={["subject", "message", "status", "date"]}
         />
       </Section>
 
-      <Section title="تقييمات المستخدم">
+      <Section title="User reviews ">
         <Table
           data={user.Ratings}
           columns={["rating", "comment", "createdAt", "type"]}
         />
       </Section>
 
-      <Section title="حجوزات الغرف">
+      <Section title=" Room Bookings">
         <Table
           data={user.Bookings}
           columns={[
@@ -154,14 +154,14 @@ export default function UserProfilePage() {
         />
       </Section>
 
-      <Section title="حجوزات المسبح">
+      <Section title=" Pool Bookings">
         <Table
           data={user.CustomerPools}
           columns={["start_time", "end_time", "num_guests", "status", "payed"]}
         />
       </Section>
 
-      <Section title="حجوزات القاعات">
+      <Section title="Halls Bookings">
         <Table
           data={user.HallReservations}
           columns={[
@@ -175,7 +175,7 @@ export default function UserProfilePage() {
         />
       </Section>
 
-      <Section title="حجوزات المطعم">
+      <Section title="Restaurant Bookings ">
         <Table
           data={user.CustomerRestaurants}
           columns={["reservation_date", "number_of_guests", "status", "payed"]}

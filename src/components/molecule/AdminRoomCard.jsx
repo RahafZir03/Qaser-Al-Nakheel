@@ -119,8 +119,8 @@ export default function AdminRoomCard({
 
       {showConfirm && (
         <div className="absolute inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-          <div className="bg-white p-6 rounded-lg shadow-xl w-[90%] max-w-sm text-center">
-            <p className="mb-4">{t('all_rooms.confirm_delete')}</p>
+          <div className="bg-gray-700 border border-sec-color-100 p-6 rounded-lg shadow-xl w-[90%] max-w-sm text-center">
+            <p className="mb-4 text-white">{t('all_rooms.confirm_delete')}</p>
             <div className="flex justify-around">
               <button
                 onClick={handleConfirmDelete}
@@ -130,7 +130,7 @@ export default function AdminRoomCard({
               </button>
               <button
                 onClick={() => setShowConfirm(false)}
-                className="px-4 py-2 bg-gray-300 rounded-full hover:bg-gray-400 transition"
+                className="px-4 py-2 bg-white rounded-full hover:bg-gray-400 transition"
               >
                 {t('all_rooms.cancel')}
               </button>

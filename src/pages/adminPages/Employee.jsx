@@ -24,10 +24,10 @@ export default function Employee() {
   const { t, i18n } = useTranslation("Employee");
 
   const isArabic = i18n.language === "ar";
-  const fetchEmployees = async () => {
+  const fetchEmployees = async (currentPage = page, currentFilters = filters) => {
     try {
-      const limit =10;
-      const response = await employeeData(page, limit);
+      const limit = 10;
+      const response = await employeeData(currentPage, limit, currentFilters);
       if (response?.data?.employees && Array.isArray(response.data.employees)) {
         setEmployees(response.data.employees);
         setTotalPages(response.data.totalPages);
@@ -42,6 +42,7 @@ export default function Employee() {
       setLoading(false);
     }
   };
+
 
   const handleStatusChange = async (id, currentStatus) => {
     try {
@@ -90,6 +91,40 @@ export default function Employee() {
 
   const truncateText = (text, length = 20) =>
     text?.length > length ? `${text.slice(0, length)}...` : text;
+  const [filters, setFilters] = useState({
+    address: '',
+    jop: '',
+    salary: '',
+    shift: '',
+    status: '',
+    role: '',
+  });
+
+  const handleFilterChange = (e) => {
+    const { name, value } = e.target;
+    setFilters(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleApplyFilters = () => {
+    setPage(1);
+    fetchEmployees(1, filters);
+  };
+
+  const handleResetFilters = () => {
+    const cleared = {
+      address: '',
+      jop: '',
+      hire_date: '',
+      salary: '',
+      shift: '',
+      status: '',
+      role: '',
+    };
+    setFilters(cleared);
+    setPage(1);
+    fetchEmployees(1, cleared);
+  };
+
 
   return (
     <div className="p-4 md:p-8 bg-admin-color ">
@@ -101,6 +136,74 @@ export default function Employee() {
         >
           {t('buttons.addEmployee')}
         </button>
+      </div>
+      <div className="bg-white/10 p-4 rounded-lg mb-4 grid grid-cols-1 md:grid-cols-3 gap-4 text-white">
+        <input
+          name="address"
+          value={filters.address}
+          onChange={handleFilterChange}
+          placeholder={t('filters.address')}
+          className="bg-gray-800 p-2 rounded"
+        />
+        <input
+          name="jop"
+          value={filters.jop}
+          onChange={handleFilterChange}
+          placeholder={t('filters.jop')}
+          className="bg-gray-800 p-2 rounded"
+        />
+
+        <input
+          type="number"
+          name="salary"
+          value={filters.salary}
+          onChange={handleFilterChange}
+          placeholder={t('filters.salary')}
+          className="bg-gray-800 p-2 rounded"
+        />
+        <select
+          name="shift"
+          value={filters.shift}
+          onChange={handleFilterChange}
+          className="bg-gray-800 p-2 rounded"
+        >
+          <option value="">{t('filters.selectShift')}</option>
+          <option value="Morning">{t('shiftOptions.morning')}</option>
+          <option value="Evening">{t('shiftOptions.evening')}</option>
+          <option value="Rotational">{t('shiftOptions.rotational')}</option>
+        </select>
+        <select
+          name="status"
+          value={filters.status}
+          onChange={handleFilterChange}
+          className="bg-gray-800 p-2 rounded"
+        >
+          <option value="">{t('filters.selectStatus')}</option>
+          <option value="Active">{t('status.active')}</option>
+          <option value="Inactive">{t('status.inactive')}</option>
+        </select>
+        <input
+          name="role"
+          value={filters.role}
+          onChange={handleFilterChange}
+          placeholder={t('filters.role')}
+          className="bg-gray-800 p-2 rounded"
+        />
+
+        <div className="flex gap-2 mt-2 col-span-full">
+          <button
+            onClick={handleApplyFilters}
+            className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded"
+          >
+            {t('buttons.applyFilters')}
+          </button>
+          <button
+            onClick={handleResetFilters}
+            className="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded"
+          >
+            {t('buttons.resetFilters')}
+          </button>
+        </div>
       </div>
 
       <div className="overflow-x-auto bg-white/5 rounded-xl shadow">

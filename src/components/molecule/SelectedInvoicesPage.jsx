@@ -46,18 +46,18 @@ const SelectedInvoicesPage = () => {
 
   return (
     <div className="p-6 space-y-6 bg-admin-color">
-      <h2 className="text-lg font-semibold">الفواتير المحددة</h2>
+      <h2 className="text-lg font-semibold"> Specific Invoices</h2>
 
       {invoices.length === 0 ? (
-        <div className="text-center text-gray-500">لا توجد فواتير محددة</div>
+        <div className="text-center text-gray-500">No Specific Invoices</div>
       ) : (
         <div className="overflow-x-auto bg-white/5 rounded-xl shadow">
           <table className="min-w-full text-white text-sm">
             <thead>
               <tr className={`text-sm bg-white/10 ${isArabic ? "text-right" : "text-left"}`}>
-                <th className="p-2">نوع الفاتورة</th>
-                <th className="p-2">المبلغ</th>
-                <th className="p-2">الحالة</th>
+                <th className="p-2">Invoice type </th>
+                <th className="p-2">Amount</th>
+                <th className="p-2">Status</th>
               </tr>
             </thead>
             <tbody>
@@ -74,7 +74,7 @@ const SelectedInvoicesPage = () => {
       )}
 
       <div className="text-white text-lg font-bold">
-        المجموع الكلي: {totalAmount} ₪
+         Total: {totalAmount} ₪
       </div>
 
       <button
@@ -82,7 +82,7 @@ const SelectedInvoicesPage = () => {
         onClick={handlePayment}
         className="bg-blue-700 text-white px-5 py-2 rounded-md hover:bg-black transition-colors duration-200 disabled:opacity-50"
       >
-        {loading ? "جاري الدفع..." : "ادفع الآن"}
+        {loading ? " Payment is in progress..." : "Pay Now "}
       </button>
     </div>
   );

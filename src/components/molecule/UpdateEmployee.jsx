@@ -5,7 +5,6 @@ import { toast } from "react-toastify";
 import * as Yup from "yup";
 import { useTranslation } from "react-i18next";
 import { updateEmployee } from "../../api/endpoints/employee";
-import { IoMdCloseCircleOutline } from "react-icons/io";
 
 
 const EditEmployeeModal = ({ isOpen, onClose, employee, onUpdate }) => {
@@ -99,13 +98,7 @@ const EditEmployeeModal = ({ isOpen, onClose, employee, onUpdate }) => {
             <div className="bg-admin-color p-6 rounded shadow-lg max-w-xl w-full border-2 border-sec-color-100">
                 <div className="flex justify-between items-center mb-4">
                     <h2 className="text-xl font-bold text-white">{t("edit_employee")}</h2>
-                    <button
-                        onClick={onClose}
-                        className="text-red-500 font-bold text-xl hover:text-red-400"
-                        disabled={loading}
-                    >
-                        <IoMdCloseCircleOutline size={35} />
-                    </button>
+                
                 </div>
 
                 <form onSubmit={formik.handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-4">

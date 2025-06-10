@@ -18,16 +18,16 @@ export default function AddFacilityModal({ poolId, onClose, onFacilityAdded }) {
     const initialValues = {
         name_ar: "",
         name_en: "",
-        desc_ar: "",
-        desc_en: "",
+        description_ar: "",
+        description_en: "",
         image: null,
     };
 
     const validationSchema = Yup.object().shape({
         name_ar: Yup.string().required("مطلوب"),
         name_en: Yup.string().required("Required"),
-        desc_ar: Yup.string().required("مطلوب"),
-        desc_en: Yup.string().required("Required"),
+        description_ar: Yup.string().required("مطلوب"),
+        description_en: Yup.string().required("Required"),
         image: Yup.mixed().required("الصورة مطلوبة"),
     });
 
@@ -36,8 +36,8 @@ export default function AddFacilityModal({ poolId, onClose, onFacilityAdded }) {
             const formData = new FormData();
             formData.append("name_ar", values.name_ar);
             formData.append("name_en", values.name_en);
-            formData.append("description_ar", values.desc_ar);
-            formData.append("description_en", values.desc_en);
+            formData.append("description_ar", values.description_ar);
+            formData.append("description_en", values.description_en);
             if (values.image) {
                 formData.append("image", values.image);
             }
@@ -126,20 +126,20 @@ export default function AddFacilityModal({ poolId, onClose, onFacilityAdded }) {
                             </div>
 
                             <div className="flex justify-end gap-3 mt-4">
-                                 <button
+                                <button
                                     type="submit"
                                     disabled={isSubmitting}
                                     className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
                                 >
                                     {isSubmitting ? t('facility.sending') : t('facility.add')}
                                 </button>
-                                
+
                                 <button
                                     type="button"
                                     onClick={onClose}
                                     className="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600"
                                 >
-                                     {t('facility.close')}
+                                    {t('facility.close')}
                                 </button>
 
                             </div>

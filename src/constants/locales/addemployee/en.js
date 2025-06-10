@@ -22,10 +22,11 @@ export default {
     mobilePlaceholder: "Mobile #{{index}}",
     admin: "Admin",
     employee: "Employee",
-    reception: "Reception",
+    Reception: "Reception",
     morning: "Morning",
     evening: "Evening",
     rotational: "Rotational",
     active: "Active",
     inactive: "Inactive",
+    
 }

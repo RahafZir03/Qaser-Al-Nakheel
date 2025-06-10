@@ -87,19 +87,19 @@ export default function AdminCustomersPage() {
       <div className="grid grid-cols-1 2md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
         <input
           name="search"
-          placeholder="بحث بالاسم أو الإيميل"
+          placeholder="Search by name or email"
           className="p-4 rounded-md bg-gray-800 text-white placeholder:text-gray-200 outline-none"
           onChange={handleFilterChange}
         />
         <input
           name="country"
-          placeholder="الدولة"
+          placeholder="Country"
           className="p-4 rounded-md bg-gray-800 text-white placeholder:text-gray-200 outline-none"
           onChange={handleFilterChange}
         />
         <input
           name="city"
-          placeholder="المدينة"
+          placeholder="City"
           className="p-4 rounded-md bg-gray-800 text-white placeholder:text-gray-200 outline-none"
           onChange={handleFilterChange}
         />
@@ -108,9 +108,9 @@ export default function AdminCustomersPage() {
           className="p-4 rounded-md bg-gray-800 text-white outline-none"
           onChange={handleFilterChange}
         >
-          <option value="">التحقق</option>
-          <option value="true">موثق</option>
-          <option value="false">غير موثق</option>
+          <option value="">Verification</option>
+          <option value="true">Authenticated</option>
+          <option value="false">UnAuthenticated </option>
         </select>
       </div>
 
@@ -140,34 +140,34 @@ export default function AdminCustomersPage() {
               </div>
             </div>
             <p className="text-sm mb-1">
-              <strong>الدولة:</strong> {cust.country}
+              <strong>Country:</strong> {cust.country}
             </p>
             <p className="text-sm mb-1">
-              <strong>المدينة:</strong> {cust.city}
+              <strong>City:</strong> {cust.city}
             </p>
             <p className="text-sm mb-1">
-              <strong>الرمز البريدي:</strong>{" "}
-              {cust.postal_code ? cust.postal_code : "لا يوجد"}
+              <strong>zip code :</strong>{" "}
+              {cust.postal_code ? cust.postal_code : "nothing"}
             </p>
             <p className="text-sm mb-1">
-              <strong>رقم الجوال:</strong>{" "}
-              {cust.CustomerMobiles?.[0]?.mobile_no || "غير متوفر"}
+              <strong>Mobile number :</strong>{" "}
+              {cust.CustomerMobiles?.[0]?.mobile_no || "unavailable "}
             </p>
             <p className="text-sm">
-              <strong>التحقق:</strong>{" "}
+              <strong>Verification:</strong>{" "}
               <span
                 className={cust.is_verified ? "text-green-400" : "text-red-400"}
               >
-                {cust.is_verified ? "موثق" : "غير موثق"}
+                {cust.is_verified ? "Authenticated" : "UnAuthenticated "}
               </span>
             </p>
             {cust.banned ? (
               <p className="text-sm">
-                <strong>حالة الحساب:</strong>{" "}
+                <strong>Account status :</strong>{" "}
                 <span
                   className={!cust.banned ? "text-green-400" : "text-red-400"}
                 >
-                  {cust.banned ? "محظور" : "غير محظور"}
+                  {cust.banned ? "Forbidden" : "Not prohibited"}
                 </span>
               </p>
             ) : (
@@ -189,14 +189,14 @@ export default function AdminCustomersPage() {
                       className="flex items-center gap-2 px-4 py-2 hover:bg-sec-color-100 hover:text-black transition duration-150 rounded-t-xl"
                     >
                       <FaEye className="text-white " />
-                      عرض التفاصيل
+                      View details
                     </Link>
                     <Link
                       to={`/admin/payment/${cust.id}`} // تأكد من أن هذا المسار يتماشى مع إعدادات Route لديك
                       className="flex items-center gap-2 w-full text-left px-4 py-2 hover:bg-sec-color-100 hover:text-black transition duration-150">
                       <FaFileInvoiceDollar className="text-white " />
-                      عرض الفواتير
-                    </Link>
+                      View Invoice               
+                       </Link>
                     <button
                       type="button"
                       onClick={() => banUserOrUnban(cust.id)}
@@ -205,12 +205,12 @@ export default function AdminCustomersPage() {
                       {cust.banned ? (
                         <>
                           <FaUnlock className="text-white " />
-                          إلغاء الحظر
+                          Unblock
                         </>
                       ) : (
                         <>
                           <FaBan className="text-white " />
-                          حظر المستخدم
+                          Block the user
                         </>
                       )}
                     </button>
@@ -220,7 +220,7 @@ export default function AdminCustomersPage() {
                       className="flex items-center gap-2 w-full text-left px-4 py-2 text-red-400 hover:bg-red-500 hover:text-black transition duration-150 rounded-b-xl"
                     >
                       <FaTrashAlt />
-                      حذف
+                      Delete
                     </button>
                   </div>
                 </div>

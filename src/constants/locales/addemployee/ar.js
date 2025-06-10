@@ -22,11 +22,12 @@ export default {
     mobilePlaceholder: " رقم الجوال #{{index}}",
     admin: "مدير",
     employee: "موظف",
-    reception: "استقبال",
+    Reception: "استقبال",
     morning: "صباحي",
     evening: "مسائي",
     rotational: "متغير",
     active: "نشط",
     inactive: "غير نشط",
+   
 
 }

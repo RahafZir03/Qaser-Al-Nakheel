@@ -22,7 +22,7 @@ export default function ProtectedRoute({ element }) {
     return <Navigate to="/logIn" />;
   }
 
-  if (userRole !== "admin") {
+  if (userRole !== "admin" || userRole !== "reception") {
     toast.warn("You do not have permission to access this link.");
     return <Navigate to="/" />;
   }
